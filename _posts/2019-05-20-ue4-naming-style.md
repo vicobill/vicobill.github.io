@@ -1,0 +1,106 @@
+---
+layout: post
+title: Ue4 Naming Style
+date: 2019-05-20 01:38:05 +0800
+---
+
+# 通用名称规则
+
+- 所有都为英文
+- 所有资产依赖都应该在同一目录下（除了共享资产）
+- 资源名称各式：`<Prefix_>AssetName<_Number><_Suffix>`
+- 资产类型决定前缀。例如Blueprint：`BP_assetname_01`
+- 具体类型（例如纹理）使用后缀以指定子类型
+  - **T**_Grass_01\_**N** ：用于法线贴图
+- 使用下划线以分割标识符和数值:`SM_DoorHandle_01`
+- 使用2位的数值:`SM_Pipe_01`
+
+## 前缀
+
+| 资源类型 | 资产类型                      | 前缀    | 例如                      | 解释                                       |
+| -------- | ----------------------------- | ------- | ------------------------- | ------------------------------------------ |
+| 蓝图     | Blueprint                     | BP_     | BP_WallLight_01           | 除了从常规类继承的：HUD/GameMode/Character |
+|          | Blueprint Interface           | BPI_    | BPI_InventoryItem_01      |                                            |
+|          | Material                      | M_      | M_Grass_01                |                                            |
+|          | Material Instance             | MI_     | MI_Grass_01               |                                            |
+|          | Material Function             | MF_     | MF_CheapConstrast         | 无数字                                     |
+|          | Material Parameter Collection | MPC_    | MPC_EnviromentSettings_01 |                                            |
+|          | Static Mesh                   | SM_     | SM_Wall_01                |                                            |
+| 骨骼Mesh | Skeletal Mesh                 | SK_     | SK_Character_01           |                                            |
+|          | Texture                       | T_      | T_Grass_01_D              | 有后缀以表明纹理用途。@see后缀表           |
+|          | Particle System               | P_      | P_Fire_01                 |                                            |
+|          | Physics Material              | PM_     | PM_Dirt                   | 无数字                                     |
+|          |                               |         |                           |                                            |
+|          | 枚举                          | E       | EWeaponType               | 无数字，如同代码约定                       |
+|          | Render Target                 | RT_     | RT_CameraCapturePoint_01  |                                            |
+|          | Vector、Float、ColorCurve     | Curve_  | Curve_Recoil_AK47         |                                            |
+|          | UserWidget                    | Widget_ | Widget_EnergyBar          |                                            |
+|          | Font                          | Font_   | Font_Roboto48             | 字体大小包含在名字里                       |
+
+## 后缀：
+
+### 纹理
+
+| 纹理类型          | 后缀 |
+| ----------------- | ---- |
+| Diffuse/Color Map | _D   |
+| Normal Map        | _N   |
+| Emissive Map      | _E   |
+| Mask Map          | _M   |
+| Roughness Map     | _R   |
+| Metallic Map      | _MT  |
+| Specular          | _S   |
+| Displacement      | _DP  |
+| Ambient Occlusion | _AO  |
+| Height Map        | _H   |
+| Flow Map          | _F   |
+| Light Map         | _L   |
+
+
+
+### 纹理掩码：
+
+角色：R=Metallic：金属性；G=Roughness：粗糙度；B=Subsurface Opacity：次表面透明度。
+
+角色头发：R=Hair Alpha：发质透明；G=Specular/Roughness Map：粗糙贴图；B=Anisotropic Direction Map：异向贴图
+
+环境：R=Mettallic：金属性； G=Roughness：粗糙度；B=Ambient Occlusion：环境遮光
+
+# 资源目录
+
+- Content
+  - Maps: 地图
+    - TestMaps
+  - Base：基本材质、材质函数和其他
+  - Characters：角色
+    - NPC
+    - Player
+  - Dev：开发资源，如物体图标、特殊mesh和纹理等
+  - Effects：共享特效
+  - Environment：环境资源
+    - Background：背景
+    - Buildings：建筑
+    - Foliage：植被
+    - Props：道具
+    - Sky：天空
+    - Landscape：地形资源
+    - Water：水体mesh和材质
+  - Gameplay：游戏性用途的资源
+  - PostProcess：后期处理及其资源
+  - Sound：音频和语音
+  - UI：
+  - Vehicles：带效果的载具
+  - Weapons：带效果的武器
+
+## 目录归类：
+
+- Blueprints：蓝图
+- Meshes：静态和骨骼mesh，物理资源
+- Material：材质和实例
+- Textures：纹理
+- Animations：动画
+- Particles：粒子系统
+- LensFlares：光晕
+- Sounds：音频
+- Morphs：变体
+- FaceFX：表情资源
