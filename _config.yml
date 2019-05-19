@@ -1,0 +1,51 @@
+# Basic
+title: Vico Bill
+subtitle: < 刘 利 波 > 的个人网站
+welcome_message: <a href="https://github.com/vicobill" target="_blank">访问主页</a>
+description: 记录关于学习、工作中的技术点滴
+creator: <a href="http://github.com/vicobill">@vicobill</a>
+
+url: "http://github.com/vicobill"
+
+permalink: /:year/:month/:title/
+
+# Format
+highlighter: rouge
+
+# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
+cover_color: 
+
+# The blog button should not be removed.
+blog_button:
+    title: Blogs
+    description: 访问日志文章
+
+# Navigation buttons in the front page.
+nav:
+    - {title: Projects, description: 项目主页, url: 'http://github.com/vicobill'}
+    # - {title: Another Button, description: A button, url: 'http://example.com'}
+
+# Pagination
+plugins: [jekyll-paginate]
+paginate: 10
+paginate_path: "page/:num/"
+
+# Comment
+comment:
+    disqus: vico bill
+    # duoshuo: 
+    
+# Social
+social:
+    # weibo: vicobill
+    github: vicobill
+    gitee: vicobill
+    twitter: vicobill
+    qq: 490144445
+    # gplus: 107108267983477358170
+    mail: vicobill@hotmail.com
+
+# Google Analytics
+ga:
+    # id: your_ga_id
+    # host: your_host
