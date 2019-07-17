@@ -1,6 +1,4 @@
-usage = <<<
-ruby mk-post.rb 文章标题 分类,分类,...
-<<<
+usage = "ruby mk-post.rb 文章标题 分类,分类,..."
 
 if ARGV[0] == nil then 
     p usage
@@ -24,3 +22,5 @@ mdfilename = "#{prf}#{date}-#{title}.md"
 File.open(mdfilename,'w') do |f|
     f.write header
 end
+
+system "code #{mdfilename}"
