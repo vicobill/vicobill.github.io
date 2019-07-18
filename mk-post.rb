@@ -5,7 +5,7 @@ if ARGV[0] == nil then
     return
 end
 title = ARGV[0]
-categories= ARGV[2] or "blog"
+categories= ARGV[1] or "blog,common"
 today = Time.now
 header = """---
 layout: post
