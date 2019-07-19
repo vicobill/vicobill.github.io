@@ -1,10 +1,13 @@
 ---
 layout: post
-title: 【Engine】Unity3D性能优化指南
+title: 【Engine】-Unity3D性能优化指南
 categories: unity3d, engine
 date: 2019-07-17 11:51:29 +0800
 ---
+# 总纲
+性能优化无外乎两个关键概念：时间和空间。
 
+时间，对应着速度、性能、流畅度等等。空间，对应着内存、显存等等，计算机是有限的资源，得合理利用。
 
 # 工具篇
 
