@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【DailyGfx】2Shader
+title: 【DailyGfx】2-Shader
 categories: render, shader
 date: 2019-07-17 19:51:22 +0800
 ---
