@@ -1,7 +1,7 @@
 ---
 layout: post
-title: [Game]转×Game Jams 开发建议
-categories: dev
+title: 【Game】Game Jams 开发建议-转
+categories: dev,game
 date: 2019-07-31 18:06:26 +0800
 ---
 

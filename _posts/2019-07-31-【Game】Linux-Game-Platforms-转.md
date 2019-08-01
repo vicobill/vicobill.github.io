@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Linux]Linux-Game-Platforms
+title:  【Game】Linux-Game-Platforms-转
 categories: linux,gaming
 date: 2019-07-31 17:09:33 +0800
 ---
