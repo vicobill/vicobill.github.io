@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 创建Ruby Jekyll个人日志环境
+title: 【ISSUES】创建Ruby Jekyll个人日志环境
 categories: ruby,jekyll
 date: 2019-05-29 11:57:10 +0800
 ---
