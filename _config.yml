@@ -1,9 +1,9 @@
 # Basic
 encoding: utf-8  
-title: Vico Bill
-subtitle: < 刘 利 波 > 的个人网站
+title: Vico Bill< 刘 利 波 > 的个人网站
+subtitle: 记录关于学习、工作中的技术点滴
 welcome_message: <a href="https://github.com/vicobill" target="_blank">访问主页</a>
-description: 记录关于学习、工作中的技术点滴
+description: C,C++,Rust,Ruby爱好者;热衷于游戏开发、任务自动化与跨平台;沉迷于游戏引擎与图形表现;深信'简单、多元'哲学的力量。
 creator: <a href="http://github.com/vicobill">@vicobill</a>
 
 url: "http://github.com/vicobill"
