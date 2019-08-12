@@ -16,7 +16,17 @@ Linux下存在很多既有工具，能有效提高开发效率。Linux的设计�
 Linux上，还有一个非常优秀的工具，man，man几乎能获取任何你在开发中所需API的说明文档，甚至内核文档。
 
 # gcc
-gcc是通用的C/C++编译器，几乎每个Linux发行版都自带gcc，一边与
+gcc是通用的C/C++编译器，几乎每个Linux发行版都自带gcc。与之对应的，存在clang编译器，是与gcc同等的编译器。
+gcc常用命令行参数：
+- c: 仅编译，不链接。
+- o：输出文件
+- @：从文件中读取命令行参数
+- I: 包含文件目录
+- L：依赖库文件目录
+- D：定义宏
+- U：取消定义宏
+- g: 生成调试信息
+- O：优化等级
 
 # makefile
 makefile是通过target,dependencies,rules定义。
@@ -32,4 +42,81 @@ graphic.a: graphic.c draw.c
     ar rcs graphic.a graphic.o draw.o
     ranlib graphic.a
 ```
-[未完待续]
+makefile可以定义变量，变量是大小写敏感的，但通常为大写。使用变量时，前缀`$`并用小括号包裹：`$(VAR)`。变量主要用途：
+- 存储文件名列表
+- 存储可执行文件名
+- 存储编译器标志
+这样可以简化大段代码编写，例如：
+``` mk
+OBJS = foo.o bar.o
+CC = clang
+CFLAGS = -Wall -O -g
+
+myprog: $(OBJS)
+    $(CC) $(OBJS) -o myprog
+
+foo.o: foo.c foo.h bar.h
+    $(CC) $(CFLAGS) -c foo.c -o foo.o
+
+bar.o: bar.c bar.h
+    $(CC) $(CFLAGS) -c bar.c -o bar.o
+```
+makefile中存在一些内部变量：
+- $@: 当前规则的目标文件名
+- $< : 依赖项中的第一个依赖文件
+- $^ : 整个依赖列表
+
+所以上述makefile可写为：
+``` mk
+OBJS = foo.o bar.o
+CC = clang
+CFLAGS = -Wall -O -g
+
+myprog: $(OBJS)
+    $(CC) $^ -o $@
+
+foo.o: foo.c foo.h bar.h
+    $(CC) $(CFLAGS) -c $< -o $@
+
+bar.o: bar.c bar.h
+    $(CC) $(CFLAGS) -c $< -o $@
+
+```
+makefile中的变量，可以通过`+=` 附加额外项。
+
+makefile还可调用函数，调用规则如：`$(函数名 参数)`
+
+makefile中存在流程控制：
+- ifneg..else..endif
+- ifeq..else..endif
+等。
+## gdb：调试器
+gdb可处理以下几个事情：
+- 启动程序，指定可以影响程序行为的命令
+- 程序在特定条件时停下
+- 检查发生了什么
+- 改变程序内容，可试验影响并清理bug。
+
+启动gdb：`gdb program [corefile/processid]`
+
+常见的gdb命令：
+- break ：在指定文件的指定函数上下断点
+- run ： 以指定参数执行程序
+- bt： backtrace，显示程序堆栈
+- print： 打印表达式的值
+- c ： 继续执行程序
+- next: 执行到程序下一行(step over)
+- edit：查看文件的指定函数行
+- list：列出文件指定函数行
+- step：执行下一程序行(step into)
+- quit: 退出GDB
+
+常见的命令行参数：
+- s: 从指定文件读取符号表
+- e: 使用文件作为可执行文件
+- c: 作为coredump的文件
+- d：添加查找源文件的目录
+- cd:使用指定目录作为GDB的工作目录
+
+## CMake/Scons/Rake/Premake/：自动生成makefile
+CMake是C++项目管理工具，可以生成不同平台下的工程文件：vcproj,makefile,xcodeproj等等。
