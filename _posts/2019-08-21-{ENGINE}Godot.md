@@ -70,8 +70,8 @@ openssl enc -aes-256-cbc -k secret -P -md sha1 > godot.gdkey
 安装godot-tools，将Godot 编辑器的外部设置勾选，选定为vscode，并exec flag设置：`{project} --goto {file}:{line}:{col}`
 
 # GDScript
-GDScript类似Boo或JS。
-
+GDScript类似Boo，Python。
+## 基本语法
 ```python
 # 一个文件即一个类
 
@@ -150,7 +150,13 @@ arr.pop_front()
 
 var a = 20
 if a in [10,20,30]:
-    print("Winner");
+    print("Winner")
+elif: 
+    print("Loser!")
+else:
+    print("do'nt know!")
+
+
 
 # 字典：无需考虑键值的数据类型，它们是以哈希表实现，非常高效，所以放心用吧。
 
@@ -180,13 +186,48 @@ range(b,n) # 对应为[b,n)
 range(b,n,s) # 对应为[b,n),每步进s
 ```
 ## 控制结构
+
 ``` python
+# 条件判断
+var paid = false
+var x = 9.9 if paid else 1.0
+
+if i > 10:
+elif:
+else:
+
+# 匹配
+match x:
+    1: 
+        print("1")
+        continue    # fallthrough
+    2: 
+        print("2")
+    "test":
+        print("test")
+    _:
+        print("other")
+    var v:
+        print("v is ", v)
+    [var start,_,"test"]:
+        print("匹配数组")
+    [42,..]:
+        print("匹配开放结尾数组")
+    {"name": "Dennis", "age": var age}:
+        print("匹配Dennis，取其年龄", age)
+    1,2,3:
+        print("多匹配")
+    
+
+
 for s in iterable:
 
 for i in range(10):     # 对应的是：for(int i =0; i < 10; ++i)
 for i in range(1,10):     # 对应的是：for(int i =1; i < 10; ++i)
 for i in range(1,10,3):     # 对应的是：for(int i =1; i < 10; i+=3)
 for i in range(10,0,-1):     # 对应的是：for(int i =10; i > 0; --i)
+for i in 3: # 类似 for i in range(3)
+for i in 2.2: # 类似 for i in range(ceil(2.2))
 
 while i < n:
     i+=1
@@ -254,7 +295,254 @@ func heal(amount: int) -> void:
 
 ```
 
+## 导出
+类成员可被导出，由编辑器编辑。语法：
+``` py
+# If the exported value assigns a constant or constant expression,
+# the type will be inferred and used in the editor.
 
+export var number = 5
+
+# Export can take a basic data type as an argument, which will be
+# used in the editor.
+
+export(int) var number
+
+# Export can also take a resource type to use as a hint.
+
+export(Texture) var character_face
+export(PackedScene) var scene_file
+# There are many resource types that can be used this way, try e.g.
+# the following to list them:
+export(Resource) var resource
+
+# Integers and strings hint enumerated values.
+
+# Editor will enumerate as 0, 1 and 2.
+export(int, "Warrior", "Magician", "Thief") var character_class
+# Editor will enumerate with string names.
+export(String, "Rebecca", "Mary", "Leah") var character_name
+
+# Named Enum Values
+
+# Editor will enumerate as THING_1, THING_2, ANOTHER_THING.
+enum NamedEnum {THING_1, THING_2, ANOTHER_THING = -1}
+export (NamedEnum) var x
+
+# Strings as Paths
+
+# String is a path to a file.
+export(String, FILE) var f
+# String is a path to a directory.
+export(String, DIR) var f
+# String is a path to a file, custom filter provided as hint.
+export(String, FILE, "*.txt") var f
+
+# Using paths in the global filesystem is also possible,
+# but only in tool scripts (see further below).
+
+# String is a path to a PNG file in the global filesystem.
+export(String, FILE, GLOBAL, "*.png") var tool_image
+# String is a path to a directory in the global filesystem.
+export(String, DIR, GLOBAL) var tool_dir
+
+# The MULTILINE setting tells the editor to show a large input
+# field for editing over multiple lines.
+export(String, MULTILINE) var text
+
+# Limiting editor input ranges
+
+# Allow integer values from 0 to 20.
+export(int, 20) var i
+# Allow integer values from -10 to 20.
+export(int, -10, 20) var j
+# Allow floats from -10 to 20, with a step of 0.2.
+export(float, -10, 20, 0.2) var k
+# Allow values y = exp(x) where y varies between 100 and 1000
+# while snapping to steps of 20. The editor will present a
+# slider for easily editing the value.
+export(float, EXP, 100, 1000, 20) var l
+
+# Floats with Easing Hint
+
+# Display a visual representation of the ease() function
+# when editing.
+export(float, EASE) var transition_speed
+
+# Colors
+
+# Color given as Red-Green-Blue value
+export(Color, RGB) var col # Color is RGB.
+# Color given as Red-Green-Blue-Alpha value
+export(Color, RGBA) var col # Color is RGBA.
+
+# Another node in the scene can be exported, too.
+export(NodePath) var node
+
+# Individually edit the bits of an integer.
+export(int, FLAGS) var spell_elements = ELEMENT_WIND | ELEMENT_WATER
+
+# Set any of the given flags from the editor.
+export(int, FLAGS, "Fire", "Water", "Earth", "Wind") var spell_elements = 0
+
+# Exported array, shared between all instances.
+# Default value must be a constant expression.
+
+export var a = [1, 2, 3]
+
+# Exported arrays can specify type (using the same hints as before).
+
+export(Array, int) var ints = [1,2,3]
+export(Array, int, "Red", "Green", "Blue") var enums = [2, 1, 0]
+export(Array, Array, float) var two_dimensional = [[1.0, 2.0], [3.0, 4.0]]
+
+# You can omit the default value, but then it would be null if not assigned.
+
+export(Array) var b
+export(Array, PackedScene) var scenes
+
+# Typed arrays also work, only initialized empty:
+
+export var vector3s = PoolVector3Array()
+export var strings = PoolStringArray()
+
+# Regular array, created local for every instance.
+# Default value can include run-time values, but can't
+# be exported.
+
+var c = [a, 2, 3]
+```
+
+## 信号
+信号是对象发出消息的工具，以让其他对象响应。信号是回调机制，也是观察者模式。例如：
+``` py
+# 在Game.gd中
+func _ready():
+   var character_node = get_node('Character')
+   var lifebar_node = get_node('UserInterface/Lifebar')
+
+   character_node.connect("health_changed", lifebar_node, "_on_Character_health_changed")
+ 
+# 在Role.gd中
+signal health_changed
+
+func take_damage(n):
+    var old_hp = hp;
+    hp -= n
+
+    emit_signal("health_changed", old_hp, hp)
+
+  
+# 在Lifebar.gd中
+func _on_Character_health_changed(old_value, new_value):
+    if old_value > new_value:
+        progress_bar.modulate = Color.red
+    else:
+        progress_bar.modulate = Color.green
+
+    # Imagine that `animate` is a user-defined function that animates the
+    # bar filling up or emptying itself
+    progress_bar.animate(old_value, new_value)
+
+```
+
+## yield：让权函数
+可将当前函数执行权让出。yield包含两个参数：(object, signal)。例如
+``` py
+func my_func():
+    yield(button_func(), "completed")
+    print("All buttons were pressed, hurray!")
+
+func button_func():
+    yield($Button0, "pressed")
+    yield($Button1, "pressed")
+```
+
+## 内置数据类型：
+- null, true,false
+- int,float
+- String
+- Vector2,Rect2,Vector3
+- Transform2D : 3x2矩阵
+- Plane: 平面，包含法线：normal和距离：d
+- Quat：四元组，表示3D旋转
+- AABB：包围盒
+- Basis：3x3矩阵
+- Transform: 3D变换，包含basis和origin
+- Color: 
+- NodePath:编译过的节点路径，主要用于场景系统中。本身是一个字串
+- RID: ResourceID
+- Object： 一切类的基类
+- Array： 任意类型数组集合
+- Pool[Byte|Int|Real|String|Vector2|Vector3|Color]Array: 同类型数组
+- Dictionary：
+
+
+
+### 附：关键字列表
+|关键字|作用|
+|---|---|
+| if,elif,else | 条件判断 |
+| match| 模式匹配 |
+| for,while| 循环|
+| break,continue| 跳转|
+| pass | 用于暂无实现代码的函数结构 |
+| return | 从函数返回值|
+| class | 定义类|
+| extends | 扩展类 |
+| is| 变量是否扩展自指定类或给定的内置类型|
+| in | 内容测试 | 
+| and ,not, or | 逻辑判断 | 
+| as | 尝试类型转换 | 
+| self | 当前类实例 | 
+| tool | 在编辑器中执行脚本 |
+| signal | 定义信号|
+| func | 定义函数|
+| static | 定义静态函数 | 
+| const| 定义常量|
+|enum| 定义枚举|
+| var | 定义变量|
+| onready | 当脚本附着到节点时，初始化一次 | 
+| export | 导出类成员，可被编辑器编辑。|
+| setget| 定义变量的setget函数|
+| breakpoint | 编辑器辅助的调试器断点|
+| preload | 预加载类或变量|
+| yield | 协程支持|
+| assert | 断言|
+| remote,master,puppet,remotesync,mastersync,puppetsync| 网络RPC相关|
+| PI,TAU,INF,NAN | 数学辅助常量|
+| null,true,false| 默认类型|
+### 附：字面量：
+- """ : 多行字串
+- @"Node/Label" : NodePath或StringName
+- $NodePath: get_node("NodePath")的缩写
+
+
+
+## GDScript代码结构
+- 代码入口点：
+
+内置函数都前缀下划线`_`
+``` python
+_ready : 这是由引擎调用的，当每个节点进入场景树时自动调用，也可自定义覆盖此函数
+_process(dt) ： 这由引擎调用，每帧调用
+
+_enter_tree: 进入场景树时调用
+_exit_tree: 退出场景树时调用
+_physics_process: 处理物理模拟
+
+_init: 类的构造函数
+```
+- 函数引用：在GD中，不是第一类对象，即函数不可存于变量、作为参数传递、由其他函数返回。这是为了性能考虑。在运行时引用函数名称（如存于变量、作为参数传递—），应使用call或funcref辅助：
+``` py
+# Call a function by name in one step.
+my_node.call("my_function", args)
+
+# Store a function reference.
+var my_func = funcref(my_node, "my_function")
+# Call stored function reference.
+my_func.call_func(args)
+```
 
 ## GDScript编码风格
 * 使用4个大小的tab
@@ -308,6 +596,39 @@ string.format拥有类似C#中的占位符：` "{0} waiting for {1}".format(["Am
 > /characters/npcs/suzanne/suzanne.png
 > /levels/riverdale/riverdale.scn
 
+
 # 最佳实践：
-[参见](https://docs.godotengine.org/zh_CN/latest/getting_started/workflow/best_practices/what_are_godot_classes.html)
-在Godot中，脚本和场景都对应OOP的类。最大的不同是：场景是描述型代码，而脚本包含命令型代码。
+<!-- [参见](https://docs.godotengine.org/zh_CN/latest/getting_started/workflow/best_practices/what_are_godot_classes.html) -->
+在Godot中，脚本和场景都对应OOP中的类。最大的不同是：场景是描述型代码，而脚本包含命令型代码。即：以文件存储的类，被当作资源。在其他类中访问它们，必须从磁盘载入。可使用`load`和`preload`函数。实例化加载的类资源，通过调用`new`函数实例化：
+``` py
+# 当调用load()时加载类资源
+var my_class = load("myclass.gd")
+# 在编译时只预加载类一次
+const MyClass  = preload("myclass.gd")
+
+func _init():
+    var a = MyClass.new()
+    a.some_func()
+```
+Godot提供内置类，从技术角度而言，用户创建的类型，并非类。取而代之的是，它们是资源，告知引擎执行对内置类的一系列初始化。
+
+Godot内部类注册至`ClassDB`。此数据库提供运行时访问类信息的功能。`ClassDB`包含类的信息：
+- 属性
+- 方法
+- 常量
+- 信号
+
+当执行访问属性或调用函数这样的操作时，会从`ClassDB`中检测这项纪录，以确保当前操作是否被支持。在引擎方面，每个类定义了静态的`_bind_methods`函数以描述注册哪些C++内容以及如何注册到数据库中。当使用引擎时，可通过附着脚本到节点，以扩展方法、属性、信号。
+
+对象先于数据库检测它们附着的脚本，这也是为什么脚本能覆盖内置函数。如果脚本定义了`_get_property_list()`方法，Godot将会附加此属性至从ClassDB中找到的对象属性列表中。这也适用于描述型代码。
+
+即使脚本不是继承自内置类型，如，脚本不以`extends`开头，隐式继承自`Reference`，则此脚本也可实例化，但不能附加到节点上。
+
+场景和脚本都是对象，最常用的情形是，脚本附着在场景的根节点，用于控制场景中的子节点。即可以这样理解，场景通常是脚本的描述型代码的扩展。场景的内容，用于辅助定义：
+- 哪些节点可供脚本使用
+- 它们被如何组织起来
+- 它们怎么被初始化
+- 每个节点都连接到哪些信号
+场景也通常是脚本附着于根节点的扩展。你可看到，场景包含的所有节点都作为单独类的一部分。所有的概念都基于此。
+
+
