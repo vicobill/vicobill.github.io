@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: {ISSUE}unity
 categories: 
@@ -84,13 +84,13 @@ C#以namespace管理功能包，以下列出最常用的功能包
 |---|---|---|
 | System | 命名空间包含用于定义常用值和引用数据类型、事件和事件处理程序、接口、特性以及处理异常的基础类和基类。| |
 | System.Buffers | 包含用于创建和管理内存缓冲区等的类型命名空间包含用于创建和管理内存缓冲区的类型 |Buffers.Text,Buffers.Binary |
-| System.Collections| 命名空间包含接口和类，这些接口和类定义各种对象（如列表、队列、位数组、哈希表和字典）的集合。 | Collections.Generic,Collections.Concurrency,Collections.Specialized| 
+| System.Collections| 命名空间包含接口和类，这些接口和类定义各种对象（如列表、队列、位数组、哈希表和字典）的集合。 | Collections.Generic,Collections.Concurrency,Collections.Specialized|
 | System.CodeDom | 命名空间包含可以用于表示源代码文档的元素和结构的类。 此命名空间中的类可用来建立源代码文档结构的模型，使用 命名空间提供的功能可以将源代码文档输出为所支持语言的源代码。| CodeDom.Compiler|
 | System.ComponentModel| 命名空间提供用于实现组件和控件的运行时和设计时行为的类。 此命名空间包括用于特性和类型转换器的实现、数据源绑定和组件授权的基类和接口。|
 | System.Configuration | 命名空间包含提供用于处理配置数据的编程模型的类型。| Configuration.Assemblies, Configuration.Internal, Configuration.Provider |
 | System.Data| 命名空间提供对表示 ADO.NET 结构的类的访问。 通过 ADO.NET，可以生成可有效管理多个数据源的数据的组件 | Data.Odbcc,Data.OleDb,Data.Sql,Data.SqlClient,Data.SqlTypes|
 | System.Diagnostics | 提供与系统进程、事件日志和性能计数器的交互的类| Diagnostics.CodeAnalysis,Diagnostics.Contracts,Diagnostics.SymbolStore,Diagnostics.Tracing|
-| System.Drawing | 提供方位GDI+基础图形函数的类。| Drawing.Configuration,Drawing.Design,Drawing.Drawing2D,Drawing.Imaging,Drawing.Priting,Drawing.Text | 
+| System.Drawing | 提供方位GDI+基础图形函数的类。| Drawing.Configuration,Drawing.Design,Drawing.Drawing2D,Drawing.Imaging,Drawing.Priting,Drawing.Text |
 | System.Dynamic | 提供类和接口，支持动态语言运行时(Dynamic Language Runtime) | |
 | System.Globalization | 提供类，定义文化相关信息，包括语言，国家，日历，日期格式，货币，数字，字符串排序规则。这些都是用于国际化相关的。提供国际化函数，包括文本元素处理和代理支持| |
 | System.IO | 提供读、写文件和数据流的类型，也提供基础函数、目录支持类型| IO.Compression, IO.Enumeration,IO.IsolatedStorage,IO.MemoryMappedFiles,IO.Packaging,IO.Pipes,IO.Ports|
@@ -102,12 +102,12 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | System.Security | 提供基本语言运行时安全系统，包括权限基类 | Security.AccessControl,Security.Authentication,Security.Claims,Security.Cryptography,Security.Permissions,Security.Policy,Security.Principal |
 | System.ServiceProcess | 允许实现、安装、控制Windows服务应用。| |
 | System.Text | 命名空间包含表示 ASCII 和 Unicode 字符编码的类；用于让字符块和字节块相互转换的抽象基类；以及无需创建 的中间实例即可操作并格式化 对象的帮助器类。| Text.RegularExpressions |
-| System.Threading | 提供多线程编程的类和接口 | Threading.Tasks | 
-| System.Timers| 以指定间隔时间触发事件 | | 
-| System.Transactions | 事务处理| | 
+| System.Threading | 提供多线程编程的类和接口 | Threading.Tasks |
+| System.Timers| 以指定间隔时间触发事件 | |
+| System.Transactions | 事务处理| |
 | System.Web | 浏览器和服务器通信的类和接口 | |
-| System.Xml | XML标准处理 | Xml.Linq,Xml.Resolvers,Xml.Schema,Xml.Serialization,Xml.XPath,Xml.Xsl | 
-  
+| System.Xml | XML标准处理 | Xml.Linq,Xml.Resolvers,Xml.Schema,Xml.Serialization,Xml.XPath,Xml.Xsl |
+
 针对许多常见的Unity Framework，很多只是重新实现了C#标准库中实现的功能，多此一举。当选择一个语言时，是选择的其生态环境，当选择了Unity，那么即选择了C#及其标准库。这和许多语言相同，如学习Scala，也得熟悉Java标准库；学习Elixir, 也得熟悉Erlang标准库；学习C++，也得熟悉stl、Boost一样。齐全的标准库，可让开发事半功倍。
 
 ### 附录，常见的标准库中的类：
@@ -115,44 +115,44 @@ C#以namespace管理功能包，以下列出最常用的功能包
 
 - System
 
-|类|作用| 
+|类|作用|
 |---|---|
 | AppContext |	提供用于设置和检索应用程序上下文相关数据的成员。 |
-| AppDomain | 表示应用程序域，它是一个应用程序在其中执行的独立环境。 此类不能被继承。 | 
+| AppDomain | 表示应用程序域，它是一个应用程序在其中执行的独立环境。 此类不能被继承。 |
 | ApplicationId,ApplicationIdentity | 唯一标识。不可被继承 |
-| Array| 提供一些方法，用于创建、处理、搜索数组并对数组进行排序，从而充当公共语言运行时中所有数组的基类。| 
+| Array| 提供一些方法，用于创建、处理、搜索数组并对数组进行排序，从而充当公共语言运行时中所有数组的基类。|
 | Attribute | 	表示自定义特性的基类。|
 | BitConverter | 基数据类型转换为一个字节数组以及将一个字节数组转换为基数据类型。|
-| Buffer | 操作基元类型的数组 | 
+| Buffer | 操作基元类型的数组 |
 | CharEnumerator | 循环访问字符串|
-| Console | 控制台| 
+| Console | 控制台|
 | Convert | 基本类型之间转换|
 | Delegate | 表示委托，委托是一种数据结构，它引用静态方法或引用类实例及该类的实例方法。|
 | Enum | 枚举|
 | Environment | 环境平台信息|
 | EventArgs | 事件数据基类|
-| Exception | 异常| 
+| Exception | 异常|
 | UriParser| 基于文件方案的可自定义分析器|
-| FlagsAttribute | 位域 | 
+| FlagsAttribute | 位域 |
 | GC | 垃圾回收|
-| Lazy<T> | 延迟初始化 | 
-| Math,MathF | 数学方法| 
-| MemoryExtensions| 内存相关的扩展方法| 
-| MulticastDelegate | 多播委托，即调用列表中可有多个元素的委托 | 
+| Lazy<T> | 延迟初始化 |
+| Math,MathF | 数学方法|
+| MemoryExtensions| 内存相关的扩展方法|
+| MulticastDelegate | 多播委托，即调用列表中可有多个元素的委托 |
 | Nullable| |
-| Object | 支持 .NET 类层次结构中的所有类，并为派生类提供低级别服务。 这是所有 .NET 类的最终基类；它是类型层次结构的根。| 
+| Object | 支持 .NET 类层次结构中的所有类，并为派生类提供低级别服务。 这是所有 .NET 类的最终基类；它是类型层次结构的根。|
 | OperatingSystem | 	表示有关操作系统的信息，如版本和平台标识符。 此类不能被继承|
 | Progress<T> | 进度回调|
-| Random | 伪随机数生成器 | 
-| String | UTF-16字符串 | 
-| StringComparer | 字符串比较 | 
+| Random | 伪随机数生成器 |
+| String | UTF-16字符串 |
+| StringComparer | 字符串比较 |
 | StringNormalizationExtensions| 字符串标准化|
 | TimeZone，TimeZoneInfo | 时区|
 | Tuple | 提供用于创建元组对象的静态方法。|
 | TupleExtensions| 扩展|
 | Type | 	表示类型声明：类类型、接口类型、数组类型、值类型、枚举类型、类型参数、泛型类型定义，以及开放或封闭构造的泛型类型 |
 | Uri,UriBuilder | 提供统一资源标识符 (URI) 的对象表示形式和对 URI 各部分的轻松访问。|
-| Version | 	表示程序集、操作系统或公共语言运行时的版本号。 此类不能被继承。| 
+| Version | 	表示程序集、操作系统或公共语言运行时的版本号。 此类不能被继承。|
 | WeakReference| 表示类型化弱引用，即在引用对象的同时仍然允许垃圾回收来回收该对象。|
 |**值类型**||
 | Boolean,Byte,SByte,Char,Single,Double,Decimal| |
@@ -163,29 +163,29 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | ModuleHandle | 模块的运行时句柄 |
 | Void | 无返回值|
 |**接口** | |
-| IAsyncResult| 异步操作的结果 | 
+| IAsyncResult| 异步操作的结果 |
 | ICloneable | 依据现有实例创建类的新实例|
 | IComparable | 可比较|
-| IDisposable | 释放非托管资源 | 
-| IEquatable<T> | 相等 | 
+| IDisposable | 释放非托管资源 |
+| IEquatable<T> | 相等 |
 | IFormatProvider | 控制格式化对象机制|
 | IFormattable | 值格式化为字符串 |
 | IObservable<T> | 可被观察对象 |
-| IObserver<T> | 观察者 | 
+| IObserver<T> | 观察者 |
 | IProgress<T> | 进度更新 |
 | IServiceProvider | 服务提供者|
-|**委托** | | 
+|**委托** | |
 | Action<T...> | 无返回值的方法 |
 | AsyncCallback | 异步完成时调用|
 | EventHandler<TEvenetArgs> | 处理事件的方法|
 | Func<T...,TResult> | 自定方法|
-| Predicate<T> | 返回bool类型的方法| 
-| Converter<TIn,TOut> | 类型转换的方法 | 
+| Predicate<T> | 返回bool类型的方法|
+| Converter<TIn,TOut> | 类型转换的方法 |
 
 - System.Buffers/ Buffers.Text
 |类|作用|
 |---|---|
-| ArrayPool<T> | 资源池 | 
+| ArrayPool<T> | 资源池 |
 | BuffersExtensions||
 |MemoryPool<T> | 内存池 |
 | Base64 |在二进制数据和以 base 64 表示的 UTF-8 编码的文本之间转换。|
@@ -197,14 +197,14 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | ArrayList| 动态数组 |
 | BitArray | 位值压缩数据 |
 | Hashtable | |
-| Dictionary<TKey,TValue> | 
+| Dictionary<TKey,TValue> |
 | HashSet<T> ||
 | LinkedList<T> |  双向链表 |
 | List<T> | |
 | Queue, Queue<T> | |
 | SortedList | 键值对集合，按键排序|
 | SortedSet<T> ||
-| Stack,Stack<T> | 栈 | 
+| Stack,Stack<T> | 栈 |
 | **接口** | |
 | ICollection ||
 | IComparer||
@@ -220,7 +220,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | BinaryReader,BinaryWriter | 二进制读写|
 | BufferedStream | 缓冲式流 |
 | Directory | 目录处理的静态方法 |
-| DriverInfo | 驱动器信息的访问 | 
+| DriverInfo | 驱动器信息的访问 |
 | File | 文件处理的静态方法|
 | FileStream | 文件流式读写 |
 | FileSystemWatcher | 侦听文件系统更改通知 |
@@ -244,7 +244,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | ZipPackage | ZIP文档包|
 | ZipPackagePart | 存储在ZipPackage中的部分 |
 | **管道**| 用于进程间通信 |
-| AnonymousPipeClientStream | 匿名管道流的客户端| 
+| AnonymousPipeClientStream | 匿名管道流的客户端|
 | AnonymousPipeServerStream | 匿名管道流的服务端|
 | NamedPipeClientStream | 命名管道流客户端|
 | NamedPipeServerStream | 命名管道流服务端 |
@@ -265,9 +265,9 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | EndPointPermission | |
 | FileWebRequest | WebRequest类的文件系统实现 |
 | FileWebResponse| WebResponse类的文件系统实现 |
-| FtpWebRequest,FtpWebResponse | | 
+| FtpWebRequest,FtpWebResponse | |
 | GlobalProxySelection | Http请求的全局代理实例 |
-| HttpListener,HttpListenerBasicIdentity,HttpListenerContext,HttpListenerPrefixCollection | |
+| HttpListener,<br />HttpListenerBasicIdentity,<br />HttpListenerContext,<br />HttpListenerPrefixCollection | |
 | HttpListenerRequest,HttpListenerResponse | |
 | HttpLstenerTimeoutManager | 超时管理器 |
 | HttpVersion | |
@@ -283,7 +283,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | WebHeaderCollection | 包含与请求或响应关联的协议标头。 |
 | WebPermission | 控制访问 HTTP Internet 资源的权限 |
 | WebProxy | WebRequest 的 http代理设置|
-| WebRequest 对URI发出请求 |
+| WebRequest 对URI发出请求 ||
 | WebResponse | 来自URI的响应 |
 | WebUtility | 提供编解码URL的方法 |
 |**缓存**||
@@ -362,16 +362,16 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | Matrix3x2， Matrix4x4 | 矩阵|
 | Plane | 三维空间平面|
 | Quaternion | 三维物理旋转的向量|
-| Vector<T>，Vector2,Vector3,Vector4 | 矢量 | 
+| Vector<T>，<br />Vector2,<br />Vector3,<br />Vector4 | 矢量 |
 
 - System.Reflection
 |类|说明|
 |---|---|
 | Assembly | 表示一个程序集，它是一个可重用、无版本冲突并且可自我描述的公共语言运行时应用程序构建基块。|
-| AssemblyAlgorithmId/Company/Configuration/Copyright/Culture/DefaultAlias/DelaySign/Description/FileVersions/Flags/InformationalVersion/KeyFile/KeyName/Metadata/Product/SignatureKey/Title/Trademark/VersionAttribute||
+| AssemblyAlgorithmId<br />/Company<br />/Configuration<br />/Copyright<br />/Culture<br />/DefaultAlias<br />/DelaySign<br />/Description<br />/FileVersions<br />/Flags<br />/InformationalVersion<br />/KeyFile/KeyName<br />/Metadata<br />/Product<br />/SignatureKey<br />/Title<br />/Trademark<br />/VersionAttribute ||
 | AssemblyExtensions | 扩展|
 | Binder | 	从候选者列表中选择一个成员，并执行实参类型到形参类型的类型转换。|
-| ConstructorInfo | 	发现类构造函数的属性并提供对构造函数元数据的访问权。| 
+| ConstructorInfo | 	发现类构造函数的属性并提供对构造函数元数据的访问权。|
 | DispatchProxy | 	提供实例化代理对象和处理其方法调度的机制。 |
 | EventInfo | 发现事件的属性并提供对事件元数据的访问权|
 | EventInfoExtensions | |
@@ -386,7 +386,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | Module | 	在模块上执行反射。|
 | ModuleExtensions | |
 | ParameterInfo | |
-| Pointer | 指针 | 
+| Pointer | 指针 |
 | PropertyInfo | 属性元数据 |
 | PropertyInfoExtensions | |
 | ReflectionContext | 	表示可提供反射对象的上下文。 |
@@ -401,7 +401,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 |---|---|
 | ResourceManager| 资源管理器，其可在运行时提供对于特定文化资源的便利访问|
 | ResourceReader/Writer | 资源读写|
-| ResourceSet| 资源集合| 
+| ResourceSet| 资源集合|
 
 - System.Runtime
 |类|说明|
@@ -453,7 +453,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 | ThreadPool | 提供一个线程池，该线程池可用于执行任务、发送工作项、处理异步 I/O、代表其他线程等待以及处理计时器|
 | Timeout | 包含指定无限期超时间隔的常数。 此类不能被继承|
 | Timer | 提供以指定的时间间隔对线程池线程执行方法的机制。 此类不能被继承|
-| Volatile | 包含用于执行可变内存操作的方法| 
+| Volatile | 包含用于执行可变内存操作的方法|
 | WaitHandle+Extensions| 封装等待对共享资源进行独占访问的操作系统特定的对象|
 | **Tasks**||
 | ConcurrentExclusiveSchedulerPair | 提供任务计划程序，其用于执行任务，同时确保并发任务可同时运行，而独占任务从不运行。|
@@ -478,7 +478,7 @@ C#以namespace管理功能包，以下列出最常用的功能包
 - System.Timer
 |类|说明|
 |---|---|
-|ElapsedEventArgs | 时间事件 | 
+|ElapsedEventArgs | 时间事件 |
 | Timer | 在设定的间隔之后生成事件，带有生成重复事件的选项 |
 | TimerDescriptionAttribute| |
 
@@ -543,7 +543,7 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | OffMeshLink | Link允许移动跳出平面化导航网格|
 
 - UnityEngine.AndroidJNI
-|类| 说明 | 
+|类| 说明 |
 |---|----|
 |AndroidJavaClass | 表示java.lang.Class的实例|
 |AndroidJavaObject | 表示java.lang.Object的通用实例|
@@ -594,15 +594,15 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | AssetBundleRequest | AssetBundle的异步加载请求|
 
 - UnityEngine.Audio
-|类|说明| 
+|类|说明|
 |---|---|
 | AudioClip | 音频数据容器|
 | AudioListener | 在3D空间中表示听众|
 | AudioMixer | 混响器|
 | AudioMixerGroup| 表示混音器的一组对象|
 | AudioMixerSnashot | 混音器中快照|
-| Audio
-| AudioChrusFilter | 采用音频剪辑并处理它创建合唱效果|
+| Audio | 音频资源 |
+| AudioChorusFilter | 采用音频剪辑并处理它创建合唱效果|
 | AudioDistortionFilter| 音频失真滤波器会扭曲来自AudioSource的声音或到达AudioListener的声音|
 | AudioEchoFilter|音频回声滤波器，在给定延迟后重复声音，根据衰减比率衰减回声|
 |AudioHighPassFilter | 音频高通滤波器，让AudioSource的高频通过，并截断频率低于截止频率的信号|
@@ -628,7 +628,7 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | AlwaysLinkAssemblyAttribute| 确保程序集始在托管代码剥离时始终得到处理 |
 | AndroidDevice | Android特定函数接口|
 | AnimationCurve | 关键帧集合，可依时间评估|
-| Application | 访问应用运行时数据 | 
+| Application | 访问应用运行时数据 |
 | AssemblyIsEditorAssembly | 汇集等级，任何以此属性标记的类都视为Editor类|
 | Assert | 包括断言方法 |
 | AsyncGPUReadback | 允许异步回读GPU资源|
@@ -730,7 +730,7 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | MaterialPropertyBlock | 应用材质值块|
 | MemoryProfiler | 内存剖析API容器类|
 | Mesh | 可从脚本创建或修改网格 |
-| MeshFilter | 访问Mesh的网格过滤器 | 
+| MeshFilter | 访问Mesh的网格过滤器 |
 | MeshRenderer | 渲染由MeshFilter或TextMesh的网格 |
 | MessageEventArgs | 传给注册至PlayerConnection的Action回调的参数 |
 | MetaData | 内存快照元数据|
@@ -738,18 +738,8 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | MonoBehaviour | 是每个Unity脚本派生于的基类|
 | MultilineAttribute | 多行文本编辑|
 | NativeArrayUnsafeUtility | |
-| NativeContainerAttribute | 允许创建自定义本机容器|
-| NativeContainerIsAtomicWriteOnlyAttribute
-NativeContainerIsReadOnlyAttribute
-NativeContainerSupportsDeallocateOnJobCompletionAttribute
-NativeContainerSupportsDeferredConvertListToArray 
-NativeContainerSuppoertsMinMaxWriteRestrictionAttribute
-NativeDisableContainerSafetyRestrictionAttribute
-NativeDisableParallelForRestrictionAttribute
-NativeDisableUnsafePtrRestrictionAttribute
-NativeFixedLengthAttribute
-NativeSetClassTypeToNullOnScheduleAttribute
-NativeSetThreadIndexAttribute | |
+| NativeContainerAttribute | 允许创建自定义本机容器 |
+| NativeContainerIsAtomicWriteOnlyAttribute <br/>NativeContainerIsReadOnlyAttribute<br/>NativeContainerSupportsDeallocateOnJobCompletionAttribute<br/>NativeContainerSupportsDeferredConvertListToArray <br/>NativeContainerSuppoertsMinMaxWriteRestrictionAttribute<br/>NativeDisableContainerSafetyRestrictionAttribute<br/>NativeDisableParallelForRestrictionAttribute<br/>NativeDisableUnsafePtrRestrictionAttribute<br/>NativeFixedLengthAttribute<br/>NativeSetClassTypeToNullOnScheduleAttribute<br/>NativeSetThreadIndexAttribute|本机代码相关属性 |
 |NativeLeadDetection | native泄漏侦测|
 | NativeSliceUnsafeUtility | |
 | Notification | 默认Playable通知实现 |
@@ -822,7 +812,7 @@ NativeSetThreadIndexAttribute | |
 | SplashScreen | Splash Screen 接口|
 | Sprite | 2D游戏中的Sprite对象|
 | SpriteAtlas | Unity内创建的资源，是内置sprite packing方案的一部分|
-| SpriteAtlasManager | 运行时管理SpriteAtlas | 
+| SpriteAtlasManager | 运行时管理SpriteAtlas |
 | SpriteDataAccessExtensions | 设计为读写Sprite内部数据|
 | SpriteRenderer | 渲染Sprite |
 | SpriteRendererDataAccessExtensions | 允许调用者覆盖SpriteRenderer渲染 |
@@ -838,7 +828,7 @@ NativeSetThreadIndexAttribute | |
 | Tile | 表示Windows开始屏幕中的Tile |
 | Time | 从Unity获取时间信息的接口|
 | Toast | 表示Windows Store App的toast通知 |
-| TooltipAttribute | 在Inspector中指定提示文本| 
+| TooltipAttribute | 在Inspector中指定提示文本|
 | TouchScreenKeyboard | 屏幕键盘接口。只在Native iphone,android,windows store app中支持|
 | TrialRenderer | 用于创建移动对象后的Trails |
 | Transform | 对象的位置、旋转和缩放 |
@@ -862,23 +852,23 @@ NativeSetThreadIndexAttribute | |
 |YieldInstruction | 所有yield指令的基类|
 
 - Unity.Director
-|类|说明| 
+|类|说明|
 |---|---|
 |PlayableDirector | 实例化PlayableAsset并控制Playable对象的播放|
 
 - Unity.GameCenter 
-|类|说明| 
+|类|说明|
 |---|---|
 | GameCenterPlatform | ios GameCenter 网络服务实现|
 | Social | 通用访问Social API |
 
 - Unity.ImageConversion
-|类|说明| 
+|类|说明|
 |---|---|
 | ImageConversion | 图片数据转换|
 
 - Unity.IMGUI
-|类|说明| 
+|类|说明|
 |---|---|
 | Event | UnityGUI事件|
 | GUI | 手动放置的GUI类|
@@ -894,7 +884,7 @@ NativeSetThreadIndexAttribute | |
 | GUIUtility | 创建新GUI控件的实用类|
 
 - UnityEngine.InputLegacy 
-|类|说明| 
+|类|说明|
 |---|---|
 |AndroidInput | 离屏触摸输入|
 | Compass | 指南针接口|
@@ -903,12 +893,12 @@ NativeSetThreadIndexAttribute | |
 | LocationService | 定位接口|
 
 - UnityEngine.JSONSerivialize
-|类|说明| 
+|类|说明|
 |---|---|
 |JsonUtility | JSON数据处理|
 
 - UnityEngine.ParticleSystem
-|类|说明| 
+|类|说明|
 |---|---|
 | ParticlePhysicsExtensions | 粒子系统的物理扩展 |
 | ParticleSystem | 粒子系统的脚本接口|
@@ -916,7 +906,7 @@ NativeSetThreadIndexAttribute | |
 | ParticleSystemRenderer | 渲染粒子到屏幕|
 
 - UnityEngine.Physics2D
-|类|说明| 
+|类|说明|
 |---|---|
 | AnchoredJoint2D | 有锚点的Joint基类 |
 | AreaEffector2D | 区域内施加力|
@@ -931,7 +921,7 @@ NativeSetThreadIndexAttribute | |
 | DistanceJoint2D | 保持两刚体固定的距离的Joint|
 | EdgeCollider2D | 由顶点定义的连接线的2D物理碰撞体|
 | Effctor2D | 所有2D影响器的基类|
-| FixedJoint2D | 连接两个刚体锚点，用于可配置的spring | 
+| FixedJoint2D | 连接两个刚体锚点，用于可配置的spring |
 | FrictionJoint2D | 应用力和力矩以减少线性和角性速度到0|
 | HingeJoint2D | 允许刚体绕点或其他对象点旋转的Joint |
 | Joint2D | 所有连接到刚体对象的Joint的基类|
@@ -977,6 +967,118 @@ NativeSetThreadIndexAttribute | |
 |ScreenCapture | 截屏方法|
 
 - UnityEngine.Terrain
+
+  | 类                  | 说明                                                         |
+  | ------------------- | ------------------------------------------------------------ |
+  | DetailPrototype     | Terrain GameObject使用的细节原型                             |
+  | PaintContext        | 涂绘操作上下文，可跨多个连接的Terrain                        |
+  | SplatPrototype      | 用于TerrainData的Splat（斑点）原型                           |
+  | Terrain             | 渲染地形的Terrain组件                                        |
+  | TerrainCallbacks    | 为触发Terrain数据改变时提供事件                              |
+  | TerrainData         | 存储高度图、细节mesh位置、树实例、地形纹理alpha图等          |
+  | TerrainExtensions   | 只在UpdateGIMaterials方法调用的扩展方法                      |
+  | TerrainLayer        | 描述地形的层                                                 |
+  | TerrainPaintUtility | 自定地形涂绘工具的实用方法                                   |
+  | TerrainUtility      | 提供用于地形工具的一系列实用方法                             |
+  | Tree                | 树创建器的Tree组件                                           |
+  | TreePrototype       | 简单的类，指向树原型                                         |
+  | *结构体*            |                                                              |
+  | BrushTransform      | 表示线性2D变换量，位于画刷UV空间和目标XY空间之间（典型的这是Terrain-local对象空间） |
+  | PatchExtents        | 最小和最大地形补丁高度值                                     |
+  | TreeInstance        | 包含关于放在Terrain GameObject中的树的信息                   |
+
+- UnityEngine.TerrainPhysics
+
+  | 类              | 说明               |
+  | --------------- | ------------------ |
+  | TerrainCollider | 基于高度图的碰撞器 |
+
+* UnityEngine.TextRendering
 |类|说明|
 |---|---|
+| Font | 字体资源的脚本接口|
+| TextGenerator | 用于生成文本以渲染的类|
+| TextMesh | 文本网格组件的脚本接口|
+| *结构体* | |
+| CharacterInfo | 指定如何从字体纹理渲染字符 |
+| TextGenerationSettings| |
+| UICharInfo | 指定关于可渲染字符的相关信息 |
+| UILineInfo | 生成的一行文本的信息|
+| UIVertex  | 由Canvas使用管理顶点的类|
+
+- UnityEngine.Tilemap
+|类 | 说明|
+|----|----|
+|CustomGridBrushAttribute | 启用Grid画刷窗口|
+| GridBrushBase | 可在grid创作数据的基类，如涂绘、擦除、挑拣、选择和填充等|
+| ITilemap | 从Tile查询所需的信息类|
+| Tile | Tilemap中默认的tile |
+| TileBase | Tilemap中tile的基类|
+| Tilemap | 保存由Grid组件标记的sprite布局的信息|
+| TilemapCollider2D | 2D物理表示形状 |
+| TilemapRenderer | 用于渲染Tilemap，由Tilemap组件和Grid组件标记出 |
+|*struct*||
+| TIleData | 渲染一个Tile所必需的数据|
+| TileAnimationData | 使Tile动起来的必需的数据|
+
+- UnityEngine.UI
+|类|说明|
+|----|----|
+|Canvas| 可用于屏幕渲染的元素|
+| CanvasGroup | 可用于修改子元素Alpha、Raycasting、Enabled状态的放置元素|
+| CanvasRenderer | 渲染到屏幕的组件，在所有渲染信息完成后，当附加到Canvas时。设计用于GUI应用|
+| RectTransformUtility | 包含辅助方法以与RectTransform工作的实用类|
+|*UIELements*| |
+|AttachToPanelEvent | 当元素添加到panel时发送的事件|
+| BaseField<T> | 控件基类|
+| BaseFieldTraits<T1,T2> | BaseField特性|
+| BaseSlider<T> | Slider区域基类|
+| BindableElement | 可绑定到属性的元素|
+| BlurEvent | 元素丢失焦点时立即发送此事件。此事件会慢慢发生，不会泡汤，也不会取消|
+| Box | 风格化可视元素，匹配IMGUI Box Style |
+| Button | 可点击按钮|
+| CallbackEventHandler | 回调接口|
+| ChangeEvent<T> | 域内数据改变时发送事件|
+| Clickable | 跟踪处理鼠标事件，当元素被点击时回调|
+| CommandEventBase<T> | 命令事件基类|
+| ContextClickEvent | 右击事件|
+| ContextualMenuManager | 显示上下文菜单|
+| ContextualMenuManipulator | 当右击或按下键盘menu按键时，显示上下文菜单 |
+| ContextualMenuPopulateEvent| 当上下文菜单必需menu item时发送此事件|
+| CustomStyleResolvedEvent | 在自定风格属性被解决之后发送|
+| DetachFromPanelEvent | 从其父元素剥离前发送此事件|
+| DragAndDropEventBase<T> | 拖拽事件基类|
+| DragEnterEvent | 拖事件发生于元素之内时发生，不可取消，不是慢慢发生，不会泡汤|
+| DragExitedEvent | 拖拽事件结束时发生|
+| DragLeveEvent | 当拖离开某元素时发生|
+| DragPerformEvent | 拖放到某元素时发生|
+| DragUpdatedEvent | 元素被拖进可能的放置目标上时发生|
+| DropdownMenu | |
+| DropdownMenuAction | |
+| DropdownMenuEventInfo | 触发下拉框显示所需信息 |
+| DropdownMenuItem | |
+| DropdownMenuSeparator | 分隔|
+| EventBase<T?> | 事件基类，实现时间轮训和自动注册到事件类型系统|
+| EventDispatcher | 递送事件到IPanel |
+| ExecuteCommandEvent | 执行命令时触发|
+| Focusable | 可获取焦点对象基类|
+| FocusChangeDirection | 在焦点ring中焦点移动方向 |
+| FocusController | 管理Panel内焦点 |
+| FocusEvent | 元素获取焦点时立即发生|
+| FocusEventBase<T> | 焦点相关事件基类|
+| FocusInEvent,FocusOutEvent| 焦点获取和丢失时立即发生|
+| FoldOut | 折叠选中的UI|
+| GeometryChangedEvent | 布局计算，位置或维度发生变化时发送|
+| IBindingExtensions | 提供添加IBindable函数的扩展类|
+| Image | 表示源纹理的可视元素|
+| IMGUIContainer | 绘制IMGUI内容的元素|
+| IMGUIEvent | 当无对等UIElements事件时，发送IMGUI事件 |
+| ImmediateModeElement | 可实现自定立即模式渲染的可视元素 |
+| INotifyValueChangeExtensions | 用于实现了INotifyValueChanged的元素的扩展类|
+| InputEvent | 从TextField改变时发送事件|
+| KeyboardEventBase<T> | 键盘事件|
+| KeyDownEvent,KeyUpEvent | 键盘事件|
+| Label | 文本元素|
+| ListView | 垂直可滚动区域，只能创建可视元素，允许绑定多个项。当用户滚动时，可视元素是循环并绑定到新数据项|
+
 
