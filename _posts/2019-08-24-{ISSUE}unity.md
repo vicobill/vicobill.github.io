@@ -1080,5 +1080,131 @@ UnityEngine内部以模块对功能进行划分，模块列表如下：
 | KeyDownEvent,KeyUpEvent | 键盘事件|
 | Label | 文本元素|
 | ListView | 垂直可滚动区域，只能创建可视元素，允许绑定多个项。当用户滚动时，可视元素是循环并绑定到新数据项|
+| Manipulator | 所有Manipulator实现的基类 |
+| MinMaxSlider | 最小最大范围的Slider |
+| MouseCaptureController | 管理捕获鼠标事件 |
+| MousseCaptureEvent| 开始捕获鼠标后发送的事件|
+| MouseCaptureEventBase<T> | 开始捕获鼠标时发送的事件 |
+| MouseCaptureOutEvent | 在开始捕获鼠标前发送的事件|
+| MouseDownEvent<br/>,MouseEnterEvent<br/>,MouseEnterWindowEvent<br/>,MouseLeaveEvent<br/>MouseLeaveWindowEvent<br/>,MouseMoveEvent<br/>MouseOutEvent<br/>MouseOverEvent<br/>MouseUpEvent<br/> | 鼠标的不同事件|
+| MouseManipulator | 激活过滤器的列表|
+| PanelChangedEventBase<T> | Panel改变时的事件基类|
+| PopupWindow | 弹出式IMGUI元素|
+| RepeatButton | 当按下时循环执行某行为的按钮|
+| Scroller | 垂直或水平滚动器|
+| ScrollView | 在可滚动框之内显示其内容|
+| Slider,SliderInt | 包含浮动点值的滑条|
+| StyleSheet | 应用于可视元素以控制布局并显示到用户界面的风格集 |
+| TemplateContainer | 模板容器 |
+| TextElement | 包含文本的可视元素的抽象基类 |
+| TextField | 可编辑字符串的矩形区域 |
+| TextInputBaseField<T> | 用于所有基于文本域的抽象基类 | 
+| Toggle | Toggle 域 |
+| TooltipEvent | 找到第一个元素显示提示时发送的事件|
+| TypedUxmlAttributeDescription<T> | 所有uxml指定属性的基类 |
+| UQuery，UQueryExtensions | UQuery时扩展方法集，以允许选择分离或汇集的可视元素于复杂层级内|
+| UxmlAttributeDescription | 描述XML属性的基类 |
+| UxmlChildElementDescription | 描述元组的允许的子元素 |
+| UxmlBool/Color/Double/Float/Int/Long/String/AttributeDescription| 不同XML值类型属性 | 
+| UxmlEnumAttributeDescription<T> | 以字符串表示enum的属性 |
+| UxmlEnumeration | 从一列值中选取属性 | 
+| UxmlFactory<T1,T2?> | 使用从UXML文件读取的数据实例化可视元素 |
+| UxmlRootElementFactory | 根UXML元素的工厂 |
+| UxmlRootElementTriats | 根UNXML元素的UxmlTraits | 
+| UxmlTraits | 解析UXML文件派生可视元素，并生成UMXL schema定义 |
+| UxmlTypeRestriction | 限制属性值的基类 |
+| UxmlValueBounds | 限制属性的值在指定包围之内 |
+| UxmlValueMatches | 限制属性的值匹配正则表达式 |
+| ValidateCommandEvent | 发送给接收命令的探针 |
+| VisualElement | UIElement可视树结构的部分对象的基类|
+| VisualElementExtensions | VisualElement扩展 |
+| VisualElementFocusChangeDirection | 为VisualElementFocusRing定义焦点改变方向 |
+| VisualElementFocusRing | 实现线性焦点环。元素通过焦点index存储|
+| VisualTreeAsset | 保持VisualElementAsset树形结构的实例。从UXML文件创建，每个VisualElementAsset表示一个UXML节点。VisualTreeAsset可克隆到yield VisualElement树|
+| WheelEvent | 鼠标滚轮事件|
 
+- UnityEngine.Analytics
+| 类 | 说明 |
+|----|----|
+|Analytics | Unity用户分析服务 |
+| AnalyticsSessionInfo | 为当前游戏实例提供访问分析会话信息 |
+| RemoteSettings | 提供访问远程设置 |
+
+- UnityEngine.UnityWebRequest
+|类| 说明|
+|---|---|
+| CertificateHandler | 响应拒绝或接受从http请求的证书 |
+| DownloadHandler | 管理和处理从远程服务接收的HTTP响应body数据 |
+| DownloadHandlerBuffer | 通用DownloadHandler实现，用于存储数据到native字节缓冲 |
+| DownloadHandlerFile | 下载处理器，用以存储下载的数据到文件 |
+| DownloadHandlerScript | 抽象类用于用户创建脚本驱动的DownloadHandler实现 |
+| MultipartFormDataSection | 辅助对象，用于包含通用、非文件数据的结构块 |
+| MultipartFormFileSection | 辅助对象，添加文件到多部份结构通过MultipartFormSectionAPI |
+| DownloadHandleTexture/AudioClip/AssetBundle | 下载AssetBundle的DownloadHandler子类|
+| UnityWebRequestTexture/AudioClip/AssetBundle | 使用UnityWebRequest下载asset bundle的辅助类 |
+| UnityWebRequest | 用于和Web服务器通信 |
+| UnityWebRequestAsyncOperation | 从UnityWebRequest.SendWebRequest()返回的异部操作对象，你可yield直到它继续，通过AsyncOperation.completed注册事件处理或手动检测是否结束（AsyncOperation.isDown)或进度(AsyncOperation.progress) |
+| UploadHandler | 辅助对象，在Http请求中管理缓冲和传输body数据 |
+| UploadHandleFile | 特里化UploadHandler，从给定文件读取数据，并以请求body发送原始字节到服务器 |
+| UploadHandleRaw | 通用UploadHandler子类，用于本机代码内存缓冲|
+| WWWForm | 辅助类，生成form数据并通过UnityWebRequest或WWW类，post给web 服务器|
+
+- UnityEngine.Vehicle
+  |类|说明|
+  |---|---|
+  |WheelCollider | 载具轮子的特殊碰撞器 |
+  | WheelHit | 由WheelCollider反馈的轮子的联系信息 |
+
+- UnityEngine.Video
+  |类|说明|
+  |---|---|
+  | VideoClip | 视频数据的容器 |
+  | VideoPlayer | 播放视频内容到目标 |
+  | VideoPlayerExtensions | 视频播放器扩展 | 
+
+-UnityEngine.VR/XR
+ | 类 | 说明 | 
+ |---|------|
+ | GestureRecognizer | 识别用户手势的API |
+ | HolographicRemoting | 允许应用连接至远程全息设备，以及应用与设备间的流式数据 |
+ | HolographicSettings | 影响全息平台的性能和表现 |
+ | InteractionManager | 可访问从手、控制器和系统语言命令的输入 |
+ | SurfaceObserver | 空间映射API |
+ | WorldAnchor | 允许Gameobject的位置锁定于物理空间 |
+ | WorldAnchorStore | 固有WorldAnchor的存储对象 |
+ | WorldAnchorTransferBatch | 可在app间导入、导出的WorldAnchor批次 |
+ | WorldManager | 真实世界跟踪系统的状态 |
+ | XRDevice | 包含所有相关于XR设备的信息 |
+ | XRSettings | 全局XR相关设置|
+ | XRStats | 从XR子系统时间和其他统计|
+ | CommonUsage | 用于从XR.InputDevice.TryGetFeatureValue检索输入特性 |
+ | InputDevice | 在XR输入子系统访问设备的接口 |
+ | InputTracking | 与XR跟踪系统交互 |
+ | IntegratedSubsystem | 集成式子系统 |
+ | IntegratedSubsystemDescriptor | |
+ | Subsystem | 从SubsystemDescriptor为给定的子系统初始化子系统，并提供与该给定子系统交互的接口，直到它被销毁。创建仔细通过后，可以启动或停止以打开和关闭功能。 |
+ | SubsystemDescriptor | 在创建子系统实例之前可以查询的子系统信息 |
+ | SubsystemManager | 允许访问通过插件提供附加功能的子系统 |
+ | XRCameraSubsystem+Descriptor | 摄像头访问 |
+ | XRDepthSubsystem+Descriptor | 物理环境的深度数据的访问，如点云 |
+ | XRDisplaySubsystem+Descriptor| 控制渲染到头部跟踪显示 |
+ | XRExperientceSubsystem+Descriptor | 允许查询特定于平台体验的信息的方法和属性 |
+ | XRGestureSubsystem+Descriptor | 对给定平台的手势提供支持 |
+ | XRInputSubsystem+Descriptor | 启用和禁用来自特定插件的输入 |
+ | XRMeshSubsystem +Descriptor | 允许外部系统为Unity提供动态网格 |
+ | XRPlaneSubsystem+Descriptor | 提供有关在环境中检测到的平面的信息 |
+ | XRRaycastSubsystem+Descriptor| 允许查询提供的指定光线附近的物理环境部分。这些可跟踪包括平面和深度数据。 |
+ | XRReferencePointSubsystem+Descriptor| 参考点，指示环境中感兴趣的区域，有助于确保对这些点的跟踪保持准确 |
+ | XRSessionSubsystem+Descriptor |  用于与XR绘画交互并配置XR绘画的方法和属性的集合 |
+
+
+- UnityEngine.WebGL
+  | 类 | 说明 |
+  |----| ---- |
+  | WebGLInput | 提供支持WebGL特定的功能 | 
+
+- UnityEngine.Wind
+  | 类 | 说明 |
+  | --- | --- |
+  | WindZone | 添加区域给船舰的树，使其树枝和树叶波动，如被风吹|
 
