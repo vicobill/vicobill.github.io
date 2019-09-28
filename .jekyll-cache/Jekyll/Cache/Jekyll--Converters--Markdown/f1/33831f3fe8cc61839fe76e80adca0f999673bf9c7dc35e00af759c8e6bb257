@@ -1,0 +1,13 @@
+I"�<h2 id="自定义vscode的extensions目录">自定义vscode的extensions目录：</h2>
+<blockquote>
+  <ul>
+    <li>可以通过快捷方式，添加命令行参数： vscode.exe –extensions-dir d:/vscode-extensions。</li>
+    <li>也可通过在.vscode/下，通过<code class="highlighter-rouge">mklink /J extensions d:/vscode-extensions/</code>创建extensions的硬连接方式。</li>
+  </ul>
+</blockquote>
+
+<h2 id="将vscode打造成portable">将vscode打造成Portable：</h2>
+<blockquote>
+  <p>在vscode目录下，新建data目录。将extensions复制于此data目录；并在新建tmp目录，用于存储用户临时数据。</p>
+</blockquote>
+:ET

@@ -1,0 +1,16 @@
+I"B<p>类型转换在编码中，时常会存在。把一个类型变量，赋给另外一个类型变量，会以内存进行适配，即大类型赋给小类型，则多余数据会被丢弃；小类型数据赋给大类型，则大类型多余的部分会是undefined。</p>
+
+<p>编程语言中，常见的赋值<code class="highlighter-rouge">=</code>运算，实质上是内存数据的COPY。指针或引用的赋值，并不会新分配内存空间，而是将指针的值（地址整数）赋给指针变量，即它们始终指向同一份内存空间。</p>
+
+<p>在高级语言中，如js,ruby等，字面量赋值形式，会自动新建内存空间。以变量形式赋值，通常它们引用同一份内存空间。</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># i有自己的内存地址A</span>
+<span class="nb">name</span> <span class="o">=</span> <span class="s2">"name"</span> <span class="c1"># name 有内存地址B</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">name</span> <span class="c1"># i现在拥有name的内存地址，B。i的原有内存地址会被标记为清理，进入回收队列</span>
+</code></pre></div></div>
+
+<p>类型转换通常不推荐，但有时不可避免。即基类型与子类型转换。通常以子类型转换成基类型居多，这样虽然会截断数据，但能确保转换是成功的。基类型转换成子类型，可能会成功（基类型转成子类型后，又转回基类型，此过程如果以引用或指针形式进行，则会成功），但通常会失败，因为多余数据会未定义，即滥竽。</p>
+
+<p>类型转换还有另外一种转换：不同类型之间转换。不同类型完全没有任何继承关系，那么它们之间的转换是可以的，但通常无意义并失败。不同类型之间转换过程依赖内存布局，也会发生截断与滥竽情况，此种转换只是单纯重新解释内存数据，并无实际意义。</p>
+
+:ET

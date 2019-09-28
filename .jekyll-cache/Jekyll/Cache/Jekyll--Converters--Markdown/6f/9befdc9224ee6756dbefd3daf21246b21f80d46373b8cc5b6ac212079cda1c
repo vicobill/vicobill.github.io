@@ -1,0 +1,8 @@
+I"�<h1 id="安装mariadbpostgresqlredis">安装Mariadb、Postgresql、Redis</h1>
+<ul>
+  <li>安装Mariadb：
+``` sh
+sudo pacman -S mariadb
+sudo mysql_install_db –user=mysql –basedir=/usr –datadir=/var/lib/mysql</li>
+</ul>
+:ET

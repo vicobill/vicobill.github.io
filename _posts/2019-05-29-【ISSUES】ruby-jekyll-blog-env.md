@@ -5,12 +5,11 @@ categories: ruby,jekyll
 date: 2019-05-29 11:57:10 +0800
 ---
 
+# 安装 ruby
 
-# 安装ruby
+- 安装 ruby 和 rvm
 
-- 安装ruby和rvm
-
-``` bash
+```bash
 sudo apt install build-essential # 出现gem install 失败时需要
 sudo apt install software-properties-common # 添加apt-add-repository时需要
 
@@ -23,29 +22,33 @@ rvm install ruby-2.6.3
 
 - 切换源：
 
-``` bash
+```bash
 gem update --system
 gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+
+gem install bundler rails
 ```
 
-# 安装Jekyll
+# 安装 Jekyll
 
-``` bash
+```bash
 gem instal bundler jekyll
+
+bundle install
 ```
 
-- 替换bundle镜像
+- 替换 bundle 镜像
 
-``` bash
+```bash
 bundle config mirror.https://rubygems.org https://gems.ruby-china.com
 ```
 
-# 使用Jekyll
+# 使用 Jekyll
 
-``` bash
+```bash
 jekyll new myblog
 cd myblog
 jekyll serve
 ```
-在浏览器输入localhost:4000即可预览。此时如果修改`_posts`里的文本，会实时显示更新。
 
+在浏览器输入 localhost:4000 即可预览。此时如果修改`_posts`里的文本，会实时显示更新。

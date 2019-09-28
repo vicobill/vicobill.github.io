@@ -1,0 +1,4 @@
+I"ß<ul>
+  <li>Call requires permission which may be rejected by userï¼š <code class="highlighter-rouge">if (mContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) </code></li>
+</ul>
+:ET

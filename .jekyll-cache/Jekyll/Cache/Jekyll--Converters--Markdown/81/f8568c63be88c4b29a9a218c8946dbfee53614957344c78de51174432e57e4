@@ -1,0 +1,13 @@
+I"<p>xml结构最基本的节点示例：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>完整节点：
+<span class="nt">&lt;tag-name</span> <span class="na">attr-a=</span><span class="s">"value-a"</span> <span class="na">attr-b=</span><span class="s">"value-b"</span><span class="nt">&gt;</span>
+    content-string
+<span class="nt">&lt;/tag-name&gt;</span>
+
+自结束节点：
+<span class="nt">&lt;tag-name</span> <span class="na">attr-a=</span><span class="s">"value-a"</span> <span class="na">attr-b=</span><span class="s">"value-b"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>XML以节点为模型，文档会包含一个根节点，根节点下，存在父子关系和兄弟关系两种。</p>
+
+<p>每个节点，包含两个元素：tag和string。tag由<code class="highlighter-rouge">name</code>和若干<code class="highlighter-rouge">attrib</code>组成。<code class="highlighter-rouge">string</code>，是节点可直接被显示的字面量。</p>
+:ET

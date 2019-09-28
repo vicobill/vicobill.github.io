@@ -1,0 +1,126 @@
+I"�<h1 id="linux与包管理">linux与包管理</h1>
+<p>linux是由全世界的geek创建，其设计理念就是为方便编程而生，所以如果想要学编程或为日常编程找个得力平台，Linux当之无愧为其中翘楚。</p>
+
+<p>Linux下的可视化图形环境，是以服务形式提供，称之为X，X之上，存在KDE，Gnome，Xfce等桌面环境。桌面环境可以随意替换，因此无论何种Linux发行版，并不会影响开发。</p>
+
+<p>不同Linux发行版，包含不同的包管理器。包管理器可以快速从网络中，获取所需的软件。安装的软件，通常放在/usr/目录下，包括/usr/bin,/usr/include,/usr/lib 三个目录，统一管理编程环境。这不同于Windows，Windows需要自行管理开发库的下载目录。现在Windows下的开发渐渐改善，存在conan,vcpkg等统一开发包管理工具。</p>
+
+<p>Linux下存在很多既有工具，能有效提高开发效率。Linux的设计哲学是多个小工具一起协作，达到目的。这样的零件式工具有个好处，即如果想要定制其中某一工具，完全是可以的，如果你会编码，甚至可以自行实现。</p>
+
+<p>Linux上，还有一个非常优秀的工具，man，man几乎能获取任何你在开发中所需API的说明文档，甚至内核文档。</p>
+
+<h1 id="gcc">gcc</h1>
+<p>gcc是通用的C/C++编译器，几乎每个Linux发行版都自带gcc。与之对应的，存在clang编译器，是与gcc同等的编译器。
+gcc常用命令行参数：</p>
+<ul>
+  <li>c: 仅编译，不链接。</li>
+  <li>o：输出文件</li>
+  <li>@：从文件中读取命令行参数</li>
+  <li>I: 包含文件目录</li>
+  <li>L：依赖库文件目录</li>
+  <li>D：定义宏</li>
+  <li>U：取消定义宏</li>
+  <li>g: 生成调试信息</li>
+  <li>O：优化等级</li>
+</ul>
+
+<h1 id="makefile">makefile</h1>
+<p>makefile是通过target,dependencies,rules定义。</p>
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">program</span><span class="o">:</span> <span class="nf">file1.c file2.c graphic.a  </span><span class="c">#</span><span class="nf"> 此行定义了目标:program</span><span class="p">,</span><span class="nf">其依赖file1.c</span><span class="p">,</span><span class="nf">file2.c</span><span class="p">,</span><span class="nf">graphic.a三项。当要生成program时，如果其依赖发生变化，则会同时重新编译依赖项。</span>
+    <span class="c"># 缩进项定义的是生成规则
+</span>    <span class="err">gcc</span> <span class="err">-c</span> <span class="err">file1.c</span> <span class="err">file2.c</span>
+    <span class="err">gcc</span> <span class="err">file1.o</span> <span class="err">file2.o</span> <span class="err">graphic.a</span> <span class="err">-lSDL</span> <span class="err">-o</span> <span class="err">program</span>
+
+<span class="c"># 下面定义了目标graphic.a，其依赖项以及生成规则
+</span><span class="nl">graphic.a</span><span class="o">:</span> <span class="nf">graphic.c draw.c</span>
+    <span class="err">gcc</span> <span class="err">-c</span> <span class="err">graphic.c</span> <span class="err">draw.c</span> 
+    <span class="err">ar</span> <span class="err">rcs</span> <span class="err">graphic.a</span> <span class="err">graphic.o</span> <span class="err">draw.o</span>
+    <span class="err">ranlib</span> <span class="err">graphic.a</span>
+</code></pre></div></div>
+<p>makefile可以定义变量，变量是大小写敏感的，但通常为大写。使用变量时，前缀<code class="highlighter-rouge">$</code>并用小括号包裹：<code class="highlighter-rouge">$(VAR)</code>。变量主要用途：</p>
+<ul>
+  <li>存储文件名列表</li>
+  <li>存储可执行文件名</li>
+  <li>存储编译器标志
+这样可以简化大段代码编写，例如：
+``` mk
+OBJS = foo.o bar.o
+CC = clang
+CFLAGS = -Wall -O -g</li>
+</ul>
+
+<p>myprog: $(OBJS)
+    $(CC) $(OBJS) -o myprog</p>
+
+<p>foo.o: foo.c foo.h bar.h
+    $(CC) $(CFLAGS) -c foo.c -o foo.o</p>
+
+<p>bar.o: bar.c bar.h
+    $(CC) $(CFLAGS) -c bar.c -o bar.o</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>makefile中存在一些内部变量：
+- $@: 当前规则的目标文件名
+- $&lt; : 依赖项中的第一个依赖文件
+- $^ : 整个依赖列表
+
+所以上述makefile可写为：
+``` mk
+OBJS = foo.o bar.o
+CC = clang
+CFLAGS = -Wall -O -g
+
+myprog: $(OBJS)
+    $(CC) $^ -o $@
+
+foo.o: foo.c foo.h bar.h
+    $(CC) $(CFLAGS) -c $&lt; -o $@
+
+bar.o: bar.c bar.h
+    $(CC) $(CFLAGS) -c $&lt; -o $@
+
+</code></pre></div></div>
+<p>makefile中的变量，可以通过<code class="highlighter-rouge">+=</code> 附加额外项。</p>
+
+<p>makefile还可调用函数，调用规则如：<code class="highlighter-rouge">$(函数名 参数)</code></p>
+
+<p>makefile中存在流程控制：</p>
+<ul>
+  <li>ifneg..else..endif</li>
+  <li>ifeq..else..endif
+等。
+    <h2 id="gdb调试器">gdb：调试器</h2>
+    <p>gdb可处理以下几个事情：</p>
+  </li>
+  <li>启动程序，指定可以影响程序行为的命令</li>
+  <li>程序在特定条件时停下</li>
+  <li>检查发生了什么</li>
+  <li>改变程序内容，可试验影响并清理bug。</li>
+</ul>
+
+<p>启动gdb：<code class="highlighter-rouge">gdb program [corefile/processid]</code></p>
+
+<p>常见的gdb命令：</p>
+<ul>
+  <li>break ：在指定文件的指定函数上下断点</li>
+  <li>run ： 以指定参数执行程序</li>
+  <li>bt： backtrace，显示程序堆栈</li>
+  <li>print： 打印表达式的值</li>
+  <li>c ： 继续执行程序</li>
+  <li>next: 执行到程序下一行(step over)</li>
+  <li>edit：查看文件的指定函数行</li>
+  <li>list：列出文件指定函数行</li>
+  <li>step：执行下一程序行(step into)</li>
+  <li>quit: 退出GDB</li>
+</ul>
+
+<p>常见的命令行参数：</p>
+<ul>
+  <li>s: 从指定文件读取符号表</li>
+  <li>e: 使用文件作为可执行文件</li>
+  <li>c: 作为coredump的文件</li>
+  <li>d：添加查找源文件的目录</li>
+  <li>cd:使用指定目录作为GDB的工作目录</li>
+</ul>
+
+<h2 id="cmakesconsrakepremake自动生成makefile">CMake/Scons/Rake/Premake/：自动生成makefile</h2>
+<p>CMake是C++项目管理工具，可以生成不同平台下的工程文件：vcproj,makefile,xcodeproj等等。</p>
+:ET

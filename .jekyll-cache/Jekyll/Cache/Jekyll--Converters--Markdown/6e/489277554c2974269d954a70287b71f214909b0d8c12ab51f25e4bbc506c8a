@@ -1,0 +1,205 @@
+I"�D<h1 id="基本规则">基本规则</h1>
+<ul>
+  <li>程序生命周期：初始化、更新、结束。对应计算机过程为：分配内存空间、更新内存空间值、释放内存空间。【数据必须在内存中才能被处理】</li>
+  <li>程序由数据结构和函数构成，两者缺一不可。对应计算机概念为：内存中数据结构与指令。</li>
+  <li>程序通过回调函数实现事件系统，自动调用。任何调用（函数或函数变量），都有调用点。</li>
+  <li>面向对象中，类实质上是变量集合，其成员函数实质为全局函数。对应计算机概念为：数据结构与指令。</li>
+  <li>接口，总有对应的实类及其对象。接口是函数变量集，如果接口没有对应实类，即函数变量集中的所有函数变量皆为NULL，不可被调用。【游戏引擎提供接口，肯定有方式提供此接口的实例化】</li>
+  <li>异步，在单核CPU中，是分时处理；在多核CPU中，是并行处理。</li>
+  <li>计算机中，不存在绝对同时，总有先后。如果出现同时，只能表明计时系统精度不够。</li>
+  <li>继承：是为了代码重用和扩展功能。重用已有数据和逻辑，扩展新的数据和逻辑。继承，在计算机中，为数据结构混合和函数集混合。</li>
+  <li>多态：是为了以统一接口，处理相似类型数据，而又保持这些相似类型数据的独立处理逻辑。多态，在计算机中，为函数变量集，更为具体一点为函数表指针(void**)。</li>
+  <li>类：是为了抽象出大量实体的共同之处，以期对大量实体按照相同数据和逻辑进行处理。类，在计算机中，为数据结构和函数集。【C++中，类只是数据和函数的组织方式】</li>
+  <li>接口：是为了以统一处理方式，管理接口相同的不同类型实体。在计算机中，接口限定了数据结构的处理方式。</li>
+  <li>计算机中一切都为数据。指令也是数据，不过有另外的解析方式。</li>
+</ul>
+
+<h1 id="软件运行步骤">软件运行步骤</h1>
+
+<p>整个软件在运行时都有生命周期。整个生命周期无外乎3个：</p>
+
+<ul>
+  <li>Initialize：初始化运行环境。即分配必要的变量内存空间，初始化变量值，确保在运行前所有的变量都有正确的初始值。当这一步完成，执行下一过程。</li>
+  <li>Update：逻辑运行。即更新变量值，并将运算结果及时输出。如果接收到关闭程序事件，进入下一过程。</li>
+  <li>Shutdown：释放本程序占用的内存空间资源。程序退出。</li>
+</ul>
+
+<p>在模块化软件设计中，对其有另外的解释：</p>
+
+<ul>
+  <li>Initialize：初始化各个子模块（及分配子模块运行所需内存空间），使其准备就绪，能开始工作。</li>
+  <li>Update：更新当前运行的子模块，及时输出结果。</li>
+  <li>Shutdown：关闭运行子模块（回收子模块分配的内存空间）。</li>
+</ul>
+
+<p>通常在游戏引擎中，采用模块化形式设计，在引擎初始化时，会初始化子系统，检测子系统是否准备就绪；在运行过程中，会更新每个子系统，并通过事件系统，使整个系统易于<em>定制</em>处理，在每个运行结果完成后，会及时输出结果；在运行过程中，如果产生了关闭事件，会执行关闭操作，回收内存。所以，可以这么说，事件系统是整个游戏引擎或大型软件中重要的部分。</p>
+
+<h1 id="事件系统">事件系统</h1>
+
+<p>事件系统的设计，使游戏引擎只需要关注自身逻辑，发出事件即可，引擎自身可以对此事件进行处理，也可以默认不进行处理。当默认进行处理时，可称为内置功能；当不提供默认处理时，这时将展现其强大的定制性，逻辑编写者可以注册此事件处理，当事件触发时，自行调用逻辑编写者的处理逻辑。这有如下好处：</p>
+
+<ul>
+  <li>解耦：游戏逻辑无需了解引擎逻辑，引擎如同黑盒，它自身可完整运行。游戏逻辑如同插件，可以任意实现自身的逻辑。</li>
+  <li>清晰：这是解耦带来的附加好处。引擎可自行更改自身逻辑，或其内部可以随意替换子模块，而与游戏无关。游戏逻辑也可任意替换，与引擎无关。</li>
+</ul>
+
+<p>在事件系统中，通常的实现方式是回调函数，即C语言中的函数指针，或其他OOP语言中的函数对象。</p>
+
+<p>无论以何种表现形式存在，它的运行过程是：引擎在运行过程中，无论是内部还是外部（通常是内部）因素触发事件，自动调用事件处理函数（对象）。</p>
+
+<p>事件系统需要概念：</p>
+
+<ul>
+  <li>Sender 事件发起者：发出事件的实体</li>
+  <li>Dispatcher 事件传递者：将事件传递给事件处理者。</li>
+  <li>Receiver/Handler/Listener 事件接收/处理者：当聆听到此事件后，作何反应。</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">IEventListener</span><span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">HandleEvent</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CObject</span><span class="p">{</span>
+    <span class="kt">void</span> <span class="n">AddEventListener</span><span class="p">(</span><span class="n">IEventListener</span><span class="o">*</span> <span class="n">l</span><span class="p">){</span>
+        <span class="n">listeners</span><span class="o">-&gt;</span><span class="n">Add</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">FireEvent</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">e</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">l</span> <span class="o">:</span><span class="n">listeners</span><span class="p">){</span>
+            <span class="n">l</span><span class="o">-&gt;</span><span class="n">HandleEvent</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CAnother</span> <span class="o">:</span> <span class="k">public</span> <span class="n">IEventListener</span><span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">HandleEvent</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="k">override</span><span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Handle the Event!"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">CObject</span> <span class="n">o</span><span class="p">;</span>
+    <span class="n">CAnother</span> <span class="n">ao</span><span class="p">;</span>
+    <span class="n">o</span><span class="p">.</span><span class="n">AddEventListener</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ao</span><span class="p">);</span>
+    <span class="n">o</span><span class="p">.</span><span class="n">FireEvent</span><span class="p">();</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">handleEvent_t</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">add_event_listener</span><span class="p">(</span><span class="n">handleEvent_t</span> <span class="n">l</span><span class="p">){</span>
+    <span class="n">list_add</span><span class="p">(</span><span class="n">listeners</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">fire_event</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">foreach</span><span class="p">(</span><span class="n">listeners</span><span class="p">,</span><span class="n">h</span><span class="p">){</span>
+    	<span class="n">h</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h1 id="模块化设计">模块化设计</h1>
+
+<p>模块化设计主要目的，是为了将复杂的内部，分化为简单的模块，这是典型的分而治之的策略。每个子模块以独立方式运行，通过接口相互协作。这样可以：每个子模块独立演化，只要保持接口不便，即可相互协作。</p>
+
+<p>接口是契约式编程的重要概念，也称为协议。只要满足此接口，即可达到承诺的结果。</p>
+
+<p>模块化设计的表现形式很多，主要有以下几种：</p>
+
+<ul>
+  <li>
+    <p>跨语言：dll共享库形式，即插件。dll提供公开接口，以供使用者使用。通常以C语言为通用语言。即，无论此dll由任何语言编写，都以C的ABI形式存在，这样，使用者无论为任何编程语言，只要能兼容C语言，即可进行协作。</p>
+  </li>
+  <li>
+    <p>同语言：库形式。</p>
+  </li>
+  <li>
+    <p>同语言：接口类形式。模块提供相同的接口，在使用者一方即可使用此模块，进行协作。</p>
+  </li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">IModule</span><span class="p">{};</span>
+<span class="k">class</span> <span class="nc">RenderModule</span> <span class="o">:</span> <span class="k">public</span> <span class="n">IModule</span><span class="p">{};</span>
+<span class="k">class</span> <span class="nc">Engine</span><span class="p">{</span>
+    <span class="kt">void</span> <span class="n">AddModule</span><span class="p">(</span><span class="n">IModule</span><span class="o">*</span><span class="p">);</span>
+    
+    <span class="kt">void</span> <span class="n">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">dt</span><span class="p">){</span>
+        <span class="n">modules</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Engine</span> <span class="n">e</span><span class="p">;</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">AddModule</span><span class="p">(</span><span class="k">new</span> <span class="n">RenderModule</span><span class="p">);</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">60</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="状态机">状态机</h1>
+
+<p>状态机通常应用在Animation和游戏逻辑中。状态机在最初时，如果满足进入条件，即进入此状态；进入状态后，一直循环执行此状态逻辑，当满足退出状态条件时，退出此状态。</p>
+
+<p>状态机整体会有如下几个概念：</p>
+
+<ul>
+  <li>状态：不同的运行逻辑。在所处状态中，状态会循环检测过渡条件，否则一直更新。</li>
+  <li>Entry ：无需任何条件，只要实体存在，即可过渡到初始状态。</li>
+  <li>过渡条件：从一个状态转换到另一状态，需要达到的条件。</li>
+</ul>
+
+<p>状态会伴随一个实体的整个生命周期，实体的生命周期也就是状态的生命周期。</p>
+
+<p>状态机是一种运行时态概念，主要管理状态之间的切换。状态与状态之间，只有一种关系：过渡。状态切换也只涉及到一个问题：能否过渡。</p>
+
+<p>状态机是一种简单的概念，易于实现，也能保持清晰。状态的实现相对其他逻辑而言，比较单纯，更新逻辑无需太复杂。</p>
+
+<h1 id="游戏引擎架构">游戏引擎架构</h1>
+<p>游戏引擎是游戏开发中最核心（基础）的部分，有了游戏引擎，程序员只需专注于游戏逻辑开发，而不用从头实现底层复杂的部分，提高开发效率。</p>
+
+<p>游戏引擎往往通过模块进行划分。模块相互协作，共同完成目标。</p>
+
+<p>游戏引擎模块架构：</p>
+<ul>
+  <li>图形模块，也称为渲染模块，是游戏引擎最先实现的部分，提供图像展示功能。不同的游戏引擎，其渲染模块不同。在3D游戏引擎中，不仅可以显示图片，还能对整个最终画面进行处理。</li>
+  <li>动画模块。常见的动画模块分为两种：序列帧和骨骼动画。序列帧动画常见于2D游戏引擎中，以多张图来构成动画。骨骼动画的实现原理与序列帧类似，都是通过关键帧来定义，骨骼动画的关键帧用来定义骨骼的位置，关键帧之间通过应用计算规则来将骨骼进行定位，过渡至下一帧，形成连贯动画。</li>
+  <li>输入模块。玩家与游戏世界交互必备的模块。常规交互手段包含键鼠、摇杆、触屏等，但也有很多不同的输入设备存在。</li>
+  <li>音频模块。音频播放与处理。</li>
+  <li>物理模块。物理通常有两部分：碰撞检测与力学模拟。碰撞检测相对而言较简单，即判断两物体是否发生碰撞。物理模拟则比较复杂，包括：刚体、柔体、流体等。游戏引擎中，往往会实现刚体力学，更高级一点的，包括绳索、布料、发丝等。</li>
+  <li>UI模块。在游戏中，提供交互的另一种手段，也是展示游戏当前进度和其他信息的部分。有些游戏引擎不会单独实现UI模块，但更多的引擎是直接内置UI模块。</li>
+  <li>网络模块。多人游戏所需。</li>
+  <li>AI模块。游戏引擎通常不会内置AI引擎，因为AI对于不同游戏而言，有不同的行为表现。但总体而言，AI描述的是非玩家角色的行为反应，使游戏趋向于真实。</li>
+  <li>脚本系统。提升游戏开发效率所用。C/C++对程序员素质要求较高，难以不出错，<code class="highlighter-rouge">编码-调试-应用</code>开发循环周期长，。因此，在快速游戏逻辑开发中，往往不会直接使用C/C++进行逻辑开发，而会选择简单、易学的脚本语言。通常是Lua和可视化脚本语言。但也有其他的如Python,Ruby,Lisp,C#等。</li>
+  <li>GameFramework：有些游戏引擎还会提供GameFramework模块，以提升快速开发某一游戏类型的效率。例如UE4里的GameFramework,CryEngine里的CryAction。游戏的整体循环，是<code class="highlighter-rouge">玩家输入-更新世界-应用游戏规则-绘制世界</code>的过程。</li>
+</ul>
+
+<h1 id="渲染系统">渲染系统</h1>
+
+<p>渲染系统是游戏引擎中最为核心的系统，管理数据的可视化绘制。渲染系统会调动计算机中的图形资源，绘制图像。对于硬件层或操作系统资源调用，通常已由图形API(OpenGL,DirectX,Vulkan等)提供，游戏引擎的渲染子系统通常涉及将原有表述数据，经过处理，交由图形API调用系统资源进行处理，处理之后，渲染子系统可对此结果进行再次完善或修改，将最终结果交给显示器绘制出来。</p>
+
+<p>渲染系统主要涉及的过程：</p>
+
+<ul>
+  <li>数据处理：将数据组织成图元</li>
+  <li>图元处理：图元进行定位、裁切及其他处理</li>
+  <li><em>光栅化：交给硬件执行光栅化</em></li>
+  <li>后期处理：对光栅化图像，执行再次处理（后处理）</li>
+  <li><em>处理后，交由显示元件显示</em></li>
+</ul>
+
+<p>对于<code class="highlighter-rouge">数据处理</code>，主要核心是数据与图元，涉及到的功能有：</p>
+
+<ul>
+  <li>资源加载与卸载（数据准备）</li>
+  <li>资源格式解析：将网格、纹理资源进行解析，成为图形系统能识别的数据。</li>
+</ul>
+
+<p>对于<code class="highlighter-rouge">图元处理</code>，主要核心是图元，涉及到的功能有：</p>
+
+<ul>
+  <li>纹理贴图：</li>
+  <li>地形/场景管理：对在视野之外的对象，进行裁切，优化渲染效率。</li>
+</ul>
+
+<p>对于<code class="highlighter-rouge">后期处理</code>，主要核心是图像，涉及到的功能有：</p>
+
+<ul>
+  <li>图像处理（Shader）：对2D图像进行处理，以提供更好的视觉效果。</li>
+</ul>
+
+:ET

@@ -1,0 +1,26 @@
+I".<h1 id="git-设置和取消代理">git 设置和取消代理</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 设置ss</span>
+
+git config <span class="nt">--global</span> http.proxy <span class="s1">'socks5://127.0.0.1:1080'</span>
+
+git config <span class="nt">--global</span> https.proxy <span class="s1">'socks5://127.0.0.1:1080'</span>
+
+<span class="c"># 设置代理</span>
+git config <span class="nt">--global</span> https.proxy http://127.0.0.1:1080
+
+git config <span class="nt">--global</span> https.proxy https://127.0.0.1:1080
+
+<span class="c"># 取消代理</span>
+git config <span class="nt">--global</span> <span class="nt">--unset</span> http.proxy
+
+git config <span class="nt">--global</span> <span class="nt">--unset</span> https.proxy
+
+<span class="c"># 子模块</span>
+git submodule add https://github.com/vicobill/FNut.git Assets/FNut
+git submodule init
+git submodule update
+
+git clone <span class="nt">-r</span> https://github.com/vicobill/project.git
+</code></pre></div></div>
+
+:ET

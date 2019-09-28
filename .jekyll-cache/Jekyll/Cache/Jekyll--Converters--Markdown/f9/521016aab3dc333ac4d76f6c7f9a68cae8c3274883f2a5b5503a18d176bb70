@@ -1,0 +1,49 @@
+I"K<p>虚幻4引擎中与场景相关的几个概念：</p>
+
+<ul>
+  <li>
+    <p>关卡（Level）：UE4中的游戏场景，最为常用的概念。</p>
+  </li>
+  <li>
+    <p>地图（Map）：地图是编辑好的场景，保存为.umap文件。一个工程可以有很多umap文件。在UE4中，一个Level可由多个umap组合而成。在UE4中，只有<code class="highlighter-rouge">UEngine::LoadMap</code>与之相关。</p>
+
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// 通过UMAP文件资源加载关卡</span>
+  
+<span class="n">UWorld</span><span class="o">*</span> <span class="n">PersistentWorld</span> <span class="o">=</span> <span class="n">GetWorld</span><span class="p">();</span>
+  
+<span class="c1">// 新建流式关卡</span>
+<span class="n">UClass</span><span class="o">*</span> <span class="n">StreamingClass</span> <span class="o">=</span> <span class="n">ULevelStreamingKismet</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span>
+<span class="n">ULevelStreaming</span><span class="o">*</span> <span class="n">StreamingLevel</span> <span class="o">=</span> <span class="n">Cast</span><span class="o">&lt;</span><span class="n">ULevelStreaming</span><span class="o">&gt;</span><span class="p">(</span><span class="n">StaticConstructObject</span><span class="p">(</span><span class="n">StreamingClass</span><span class="p">,</span> <span class="n">PersistentWorld</span><span class="p">,</span> <span class="n">NAME_None</span><span class="p">,</span> <span class="n">RF_Transient</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+   
+<span class="c1">// FName PackageName = TEXT("/Game/TempUmap/Level_01") 根据项目实际情况获取并设置PackageName</span>
+<span class="n">StreamingLevel</span><span class="o">-&gt;</span><span class="n">SetWorldAssetByPackageName</span><span class="p">(</span><span class="n">PackageName</span><span class="p">);</span>
+   
+<span class="n">StreamingLevel</span><span class="o">-&gt;</span><span class="n">bShouldBeLoaded</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="n">StreamingLevel</span><span class="o">-&gt;</span><span class="n">bShouldBeVisible</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// 加载后可见</span>
+<span class="n">StreamingLevel</span><span class="o">-&gt;</span><span class="n">bShouldBlockOnLoad</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+   
+<span class="n">StreamingLevel</span><span class="o">-&gt;</span><span class="n">PackageNameToLoad</span> <span class="o">=</span> <span class="n">PackageName</span><span class="p">;</span> <span class="c1">// !非常重要：加载的资源包名称</span>
+  
+<span class="n">PersistentWorld</span><span class="o">-&gt;</span><span class="n">StreamingLevels</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">StreamingLevel</span><span class="p">);</span> 
+  
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>世界（World）：可由多个子Level组成。</p>
+  </li>
+</ul>
+
+<p>基于此，虚幻4提供了以下击中加载场景方式：</p>
+
+<ul>
+  <li>LevelStreamingVolume：是可放置在关卡中的Actor，当Pawn进入此Volume时，即可加载对应关卡。可实现无缝地图加载。</li>
+  <li>使用蓝图加载：需要用到LoadStreamLevel或OpenLevel节点。
+    <ul>
+      <li>OpenLevel：会阻塞式加载，游戏会在加载时“卡死”。</li>
+      <li>LoadStreamLevel：会异步加载，此时可显示加载界面或播放过程动画等。</li>
+    </ul>
+  </li>
+  <li>使用代码加载：通过<code class="highlighter-rouge">UGameplayStatics::LoadStreamLevel</code>加载。</li>
+</ul>
+
+:ET

@@ -1,0 +1,23 @@
+I"y<ul>
+  <li>
+    <p>Call requires permission which may be rejected by user： <code class="highlighter-rouge">if (mContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) </code></p>
+  </li>
+  <li>
+    <p>Android Studio 与 Nox联调： <code class="highlighter-rouge">nox_adb.exe connect 127.0.0.1:62001</code></p>
+  </li>
+  <li>
+    <p>Android</p>
+  </li>
+</ul>
+
+<h1 id="unity-android">Unity Android</h1>
+
+<ul>
+  <li>Failed to register native method com.unity3d.player.UnityPlayer.nativeUnitySendMessage：
+    <blockquote>
+      <p>原因：Unity使用的java 依赖库版本不一致
+解决：将<code class="highlighter-rouge">%UNITY_HOME%/Data/PlaybackEngines/AndroidPlayer/Variations/[Mono|il2cpp]/**/Classes/classes.jar</code>替换项目中的<code class="highlighter-rouge">unity-classes.jar</code>。</p>
+    </blockquote>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,27 @@
+I"-<p>unity导出ios项目所需做的几个操作：</p>
+<ol>
+  <li>在unity的Player Settings中设置包名（Builde Identifier)</li>
+  <li>支持的脚本兼容特性为：.Net Standard 2.0</li>
+  <li>导入Google Admob:所含的Framework或者使用pod install
+<!-- 4. 在Build Settings的Linking - Other Linker Flags 中，添加`-ObjC`编译命令参数 --></li>
+</ol>
+
+<p>导入第三方Framework之后，无法引入头文件：原因是无法找到头文件目录。</p>
+<blockquote>
+  <p>选择build setting ，将Framework查找目录和头文件查找目录都加入（指向Frameworks）</p>
+  <ul>
+    <li>如果使用cocoapods管理，则添加<code class="highlighter-rouge">$PODS_ROOT</code>，选择<code class="highlighter-rouge">recursive</code> 即可。</li>
+    <li>如果自行管理，则需要下载 <a href="http://dl.google.com/googleadmobadssdk/googlemobileadssdkios.zip​​">GoogleMobileAdsSDKiOS.zip</a>，解压至项目Frameworks目录之后，添加<code class="highlighter-rouge">$(SRCROOT)</code>，选择<code class="highlighter-rouge">recursive</code>即可。</li>
+  </ul>
+</blockquote>
+
+<p>使用POD管理XCode的Framework：</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources <span class="nt">--remove</span> https://rubygems.org/
+gem sources <span class="nt">-a</span> http://gems.ruby-china.com/
+
+<span class="nb">sudo </span>gem <span class="nb">install </span>cocoapods
+
+<span class="nb">cd</span> ~/Projects/iOS/
+pod <span class="nb">install</span>
+</code></pre></div></div>
+:ET
