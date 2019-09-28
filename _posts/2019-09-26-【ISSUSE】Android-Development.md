@@ -9,3 +9,10 @@ date: 2019-09-26 11:46:49 +0800
 
 - Android Studio 与 Nox联调： `nox_adb.exe connect 127.0.0.1:62001`
 
+- Android
+
+# Unity Android
+
+- Failed to register native method com.unity3d.player.UnityPlayer.nativeUnitySendMessage：
+> 原因：Unity使用的java 依赖库版本不一致
+> 解决：将`%UNITY_HOME%/Data/PlaybackEngines/AndroidPlayer/Variations/[Mono|il2cpp]/**/Classes/classes.jar`替换项目中的`unity-classes.jar`。
