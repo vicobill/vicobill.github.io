@@ -16,7 +16,8 @@ body {
   font-size: 1em;
   color: $body-color;
   -webkit-font-smoothing: antialiased;
-  text-align: justify;
+  // text-align: justify;
+  text-align: left;
 }
 
 ::selection {

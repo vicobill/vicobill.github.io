@@ -1,8 +1,0 @@
-I"e<p>跨平台是个非常热门、而且会是长久争论的话题。如今，技术人员所面临的平台选择非常多样，不同的平台会形成不同的技术势力，也称之为不同的技术栈或技术债。跨平台，如今讨论的主要是以下几个平台：</p>
-<ul>
-  <li>PC端一脉：Windows，Linux，Mac OSX</li>
-  <li>Mobile端一脉：Android，IOS，Google Fuchsia, Huawei Harmony等</li>
-  <li>Console端一脉：Sony PSN, Microsoft XBOX;HTC Vive，Occlus Rift等
-其他嵌入式如树莓派、Arudino等等。还有其他的如WindowCore,UbuntuTouch、Sailfish等等。</li>
-</ul>
-:ET

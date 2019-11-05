@@ -29,6 +29,11 @@ gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
 gem install bundler rails
 ```
 
+注意，在UBUNTU上，需要先安装：
+```bash
+sudo apt install ruby ruby-dev 
+```
+
 # 安装 Jekyll
 
 ```bash
