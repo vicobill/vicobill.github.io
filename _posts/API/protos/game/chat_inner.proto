@@ -1,0 +1,77 @@
+syntax = "proto2";
+
+package msg;
+
+import "gogo/gogo.proto";
+
+import "msg_def_inner.proto";
+
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.gostring_all) = true;
+
+option (gogoproto.populate_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unsafe_marshaler_all) = false;
+option (gogoproto.unsafe_unmarshaler_all) = false;
+
+message SS_ChatWithSomebody {
+     RPC_ChatMessageData data = 1; // 详细聊天信息
+	 RPC_ChatUserData user_a = 2;	
+	 RPC_ChatUserData user_b = 3;
+     uint32 chat_type = 4;
+}
+
+message SS_NoticeData {
+     RPC_ChatMessageData data = 1; // 详细聊天信息
+     uint32 chat_type = 2;
+
+     uint64 repeated_count = 3;
+     uint64 interval = 4;
+}
+
+
+message SS_ReqOfflineMsg {
+     uint64 user_id = 1;
+     RPC_ChatUserData user_data = 2;	
+}
+
+message SS_ReqBaseUserData {
+     uint64 user_id = 1;
+}
+message SS_RspBaseUserData {
+     uint64 user_id = 1;
+     RPC_BaseUserData base_data = 2;
+}
+
+message SS_ChatWithAllUserData {
+     uint32 chat_type = 1; 		// 1是好友,2是准备的时候，3是team聊天，4是大厅聊天，8是主界面滚动提示
+	 RPC_ChatMessageData data = 2; // 详细聊天信息
+     RPC_ChatUserData user_a = 3;	
+}
+
+service ChatService {
+	rpc LoginService(RPC_LoginReq) returns (RPC_ReturnCode);
+
+    //用户登入
+    rpc UserLoginChatService(RPC_ChatUserData) returns (RPC_ReturnCode);
+    //用户登出
+    rpc UserLogoutChatService(RPC_ChatUserData) returns (RPC_ReturnCode);
+    //更新我的聊天信息
+    rpc UpdateChatUserData(RPC_ChatUserData) returns(RPC_ReturnCode);
+
+    // 聊天
+    rpc ChatWithAllUser(SS_ChatWithAllUserData) returns (RPC_ReturnCode);
+    rpc ChatWithSomebody(SS_ChatWithSomebody) returns (RPC_ChatUserData);
+
+    // 请求离线消息
+    rpc ReqOfflineMsg(SS_ReqOfflineMsg) returns (RPC_ReturnCode);
+
+    // 请求玩家基本数据
+    rpc ReqBaseUserData(SS_ReqBaseUserData) returns (SS_RspBaseUserData);
+
+    //发送公告
+    rpc SendNotice(SS_NoticeData) returns (RPC_ReturnCode);
+}

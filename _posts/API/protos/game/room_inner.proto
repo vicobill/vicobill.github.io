@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+package msg;
+
+import "gogo/gogo.proto";
+import "msg_def_inner.proto";
+
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.gostring_all) = true;
+
+option (gogoproto.populate_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unsafe_marshaler_all) = false;
+option (gogoproto.unsafe_unmarshaler_all) = false;
+
+//进入房间的玩家数据
+message RS_RoomUserData{
+     uint64 user_id = 1;
+     string user_name = 2;
+     uint64 hero_id = 3;
+     uint64 skin_id = 4;
+    repeated uint64 skin_ids  = 5; //游戏中角色已经获得的皮肤 
+     uint64 active_seal_page = 6;    
+}
+//请求准备游戏房间
+message RS_PrepareRoomReq{
+    repeated RS_RoomUserData team_a = 1;
+    repeated RS_RoomUserData team_b = 2;
+     uint64 room_kind = 3;
+     uint32 match_type = 4;
+}
+//请求准备游戏房间
+message RS_PrepareRoomRsp{
+     uint64 room_id = 1;
+}
+
+// 验证玩家的房间是否存在
+message RS_BeforeJoinRoom {
+     uint64 room_id = 1;
+	 uint64 user_id = 2;
+	 uint64 gate_id = 3;
+}
+
+message RS_ReponseBeforeJoinRoom {
+     RS_BeforeJoinRoom data = 1;
+     bool success = 2;		// 访问成功与否
+}
+
+message RS_StartRoomReq {
+     uint64 room_id = 1;
+	 bool start = 2;    //true 启动, false 取消房间
+}
+
+service RoomService {
+    rpc LoginService(RPC_LoginReq) returns (RPC_ReturnCode);
+
+    //请求准备游戏房间
+    rpc PrepareRoomReq(RS_PrepareRoomReq) returns (RS_PrepareRoomRsp);
+    //启动游戏房间
+    rpc StartRoomReq(RS_StartRoomReq) returns (RPC_ReturnCode);
+
+    rpc BeforeJoinRoom(RS_BeforeJoinRoom) returns (RS_ReponseBeforeJoinRoom);
+}
+

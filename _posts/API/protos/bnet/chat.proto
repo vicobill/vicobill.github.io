@@ -1,0 +1,110 @@
+
+syntax = "proto3";
+
+package flare.bnet;
+import "common.proto";
+
+
+message SChatInfo {
+    int64  from_id = 1;  // 聊天发送者ID
+    int64  to_id   = 2;  // 接收者id
+    int32  channel = 3;  // 聊天频道
+    int32  type    = 4;  // 聊天的类型，如实时，延迟等。延迟类的可存储，实时类不会
+    string content = 5;  // 聊天内容。可是普通内容，也可以是链接、游戏邀请等
+}
+
+/* ========================= 通用聊天消息发送 ======================= */
+
+// fn send_chat( userid, chat ) ; 发送聊天信息
+// fn set_filter_channel( channel ) ; 屏蔽频道的聊天信息
+
+
+message SendChatMsgReq {
+    SChatInfo chatmsg = 1;
+}
+
+/* ========================= 聊天室 ======================= */
+
+// fn open_chat_room( ) ; 开启聊天室
+// fn close_chat_room() ; 关闭聊天室
+// fn invite_to_chat_room( userid ) ; 邀请进入聊天室
+// fn kick_out_chat_room( userid ) ; 踢出聊天室
+// fn exit_chat_room( chatroomid ) ; 退出聊天室
+// fn never_enter_to_chat_room( userid, chatroomid ) ; 永远不许进入此聊天室
+// fn mute_user( userid ,time ) ; 禁言
+// fn unmute_user ( userid ) ; 解禁，可以重新发言
+// fn monopolize( userid ) ; 设置为主讲人，其他人禁止发言
+// fn unmonopolize(); 取消主讲状态
+
+// 开启聊天室
+message OpenChatRoomReq {
+    int64 user_id = 1;
+}
+message OpenChatRoomRsp {
+    flare.CommonRsp resp         = 1;
+    int64           chat_room_id = 2;
+}
+
+// 关闭聊天室
+message CloseChatRoomReq {
+    int64 user_id      = 1;
+    int64 chat_room_id = 2;
+}
+
+// 邀请进入聊天室
+message InviteJoinChatRoomReq {
+    int64  user_id        = 1;
+    int64  target_user_id = 2;
+    int64  room_id        = 3;
+    string invite_msg     = 4;
+}
+
+// 踢出用户
+message KickOutChatRoomReq   {
+    int64 user_id           = 1;
+    int64 target_user_id    = 2;
+    bool  never_enter_again = 3;  // 是否永不可再进
+}
+
+// 禁言
+message MuteUserInChatRoomReq  {
+    int64  user_id           = 1;
+    int64  target_user_id    = 2;
+    int32  mute_time_minutes = 3;
+    string reason            = 4;
+}
+// 解禁
+message UnmuteUserInChatRoomReq {
+    int64 user_id        = 1;
+    int64 target_user_id = 2;
+}
+
+
+
+/* ========================= 即时聊天 ======================= */
+
+// fn start_instant_chat( userid ,members )
+// fn invite_instant_chat( userid ,targetuserid )
+// fn quit_instant_chat( userid )
+// fn end_instant_chat( )
+// fn get_instant_ping( fromuserid, touserid )
+
+message StartInstantChatReq {
+    int64    user_id       = 1;
+    repeated int64 members = 2;
+}
+message EndInstantChatReq {
+    int64 user_id        = 1;
+    int64 instnt_chat_id = 2;
+}
+
+message QuitInstantChatReq {
+    int64 user_id         = 1;
+    int64 instant_chat_id = 2;
+}
+
+message InviteInstantChatReq {
+    int64 user_id         = 1;
+    int64 target_user_id  = 2;
+    int64 instant_chat_id = 3;
+}

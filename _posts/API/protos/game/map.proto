@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package msg;
+
+message BirthData{
+	 float map_x = 1;
+	 float map_y = 2;
+	 float map_z = 3;
+	 int32 flag = 4;//1-A或B，2-A，3-B
+}
+
+message MapData{
+	 string scene_name = 1;
+	repeated BirthData birthDatas = 2;
+	 bytes map = 3;
+	 float die_y = 4;
+	 int32 mapWidth = 5;
+	 int32 mapHeight = 6;
+}

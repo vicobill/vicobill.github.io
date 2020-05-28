@@ -1,0 +1,230 @@
+syntax = "proto3";
+
+package flare.game;
+
+
+//建筑基本信息
+message SBuildingData
+{
+	 uint32  id        		=  1; //编号 				
+	 uint32  tid       		=  2; //类型编号（用于查表）
+	 uint32  level 	  		=  3; //等级				
+	 uint32  posx	  		=  4; //坐标 x				
+	 uint32  posy	  		=  5; //坐标 y				
+	 uint64  buildtime		=  6;//建造&升级开始时间
+	 uint32  state			=  7; //状态 1正常 2在建 3在升级 4在移除
+	 uint32	 queue			=  8;//营房训练队列号
+	repeated GameConsume  storage 	=  9; //资源存量
+	 uint32  gather_time	= 10; //上次采集时间
+	 uint32  gather_num		= 11; //当天已采集次数
+	 uint32  rectid                 = 12; //地块id
+         uint32  minecolor               =  13; //当前产出的颜色
+         uint32  mineproduce             =  14; //当前产出
+         uint32  minetype                =  15; //当前产出类型 1金子，2道具，3装备
+         uint64  minetime                =  16; //本次开始产出时间 0矿点未开采
+         uint32  mine_num                =  17; // 如果当前产出类型是装备/道具,返回最终产出多少件
+         uint32  mine_itemid             =  18; //当前矿点产出的道具id
+}
+//建筑组
+message BuildingGroup
+{
+	repeated BuildingData group = 1;
+}
+
+//新建建筑	
+message MSG_BuildingCreate_CS
+{
+	 uint32  id	 		= 1;
+	 uint32	tid			= 2;
+	 uint32	posx		= 3;
+	 uint32	posy		= 4;
+	 uint32  type 		= 5; //新建花费类型(1:粮食和银子 2:金子)
+	 uint32  rectid         = 6; //地块id
+}
+//返回新建建筑,增加通知客户端是在哪块地新建的，并把id传回去
+message MSG_BuildingCreate_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 uint32  rectid         = 2; //地块id
+	 uint32  id             = 3;
+}
+
+//移动建筑	
+message MSG_BuildingMove_CS
+{
+	 uint32  id 		= 1;
+	 uint32	posx		= 2;
+	 uint32	posy		= 3;
+}
+//返回
+message MSG_BuildingMove_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//升级建筑
+message MSG_BuildingUpgrade_CS
+{
+	 uint32  id 		= 1;
+	 uint32  type 		= 2; //升级花费类型(1:粮食和银子 2:金子)
+}
+//返回
+message MSG_BuildingUpgrade_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//取消(升级，建造状态下)
+message MSG_BuildingCancel_CS
+{
+	 uint32  id 		= 1;
+}
+//返回
+message MSG_BuildingCancel_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//收集资源
+message MSG_BuildingCollect_CS
+{
+	 uint32  id 		= 1;
+}
+//返回
+message MSG_BuildingCollect_SC
+{
+	 uint32 result 		= 1; //0成功 1数据错误 2不在正常状态 3时间未到 4超过领取次数 
+	 uint32  id 		= 2; //建筑id
+	 BuildingData data	= 3; //失败后发送建筑信息
+}
+
+//立即完成(升级，建造状态下)
+message MSG_BuildingFinish_CS
+{
+	 uint32  id 		= 1;
+}
+//返回
+message MSG_BuildingFinish_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//请求一键完成升级
+message MSG_Immediately_Finish_CS
+{
+	 uint32 id	= 1;
+}
+//返回
+message MSG_Immediately_Finish_SC
+{
+	 uint32 result = 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//建筑操作错误
+message MSG_Building_ERROR_SC
+{
+	 uint32  err		= 1;
+}
+
+//客户端在线时，升级完成后向服务器发送升级成功的消息
+message MSG_BuildingFinishLevelUp_CS
+{
+	 uint32 buildingid	= 1; //建筑id
+}
+//返回
+message MSG_BuildingFinishLevelUp_SC
+{
+	 uint32 result = 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+
+//移除建筑
+message MSG_BuildingRemove_CS
+{
+	 uint32  id 		= 1;
+	 uint32  type 		= 2; //移除花费类型(1:粮食和银子 2:金子)
+}
+//返回移除建筑
+message MSG_BuildingRemove_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//请求立即删除建筑(已在移除过程中的建筑立即完成删除)
+message MSG_RemoveBuildingImmediately_CS
+{
+	 uint32 buildingid	= 1; //建筑id
+}
+message MSG_RemoveBuildingImmediately_SC
+{
+	 uint32 result = 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+//客户端通知建筑移除完成
+message MSG_BuildingRemoveFinish_CS
+{
+	 uint32 buildingid	= 1; //建筑id
+}
+//返回
+message MSG_BuildingRemoveFinsih_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+
+//取消移除建筑
+message MSG_CancelRemovingBuilding_CS
+{
+	 uint32 buildingid	= 1; //建筑id
+}
+//返回
+message MSG_CancelRemovingBuilding_SC
+{
+	 uint32 result 		= 1; //0成功 1失败
+	 BuildingData data	= 2; //失败后发送建筑信息
+}
+
+
+//设置矿点产出
+message MSG_SetMineBuilding_CS
+{
+         uint32 buildingid   = 1;   //建筑id
+         uint32 produceid    = 2;   //产出
+         uint32 type         = 3;   //产出类型 1金子，2道具，3装备
+}
+//返回矿点信息（返回设置矿点产出也是这条消息）
+message MSG_BuildingMining_SC
+{          
+         uint32 result = 1;         //0成功（在产） 1失败       
+         BuildingData data = 2;         //成功后返回矿点信息
+}
+//采集矿产
+message MSG_MineBuildingCollect_CS
+{
+        uint32 buildingid = 1;     //建筑id
+}
+//返回采集矿产结果
+message MSG_MineBuildingCollect_SC
+{
+       uint32 result      =  1;        //0成功 1数据错误(建筑不存在或者表格错误等),2建筑正在创建中,3建筑不是矿点,4建筑不在正常状,5建筑矿点未开始生产
+                                               //      6包裹满,7已经有该装备,只能拥有一次
+       uint32 minetype    =  2;        //本轮采收的类型，1金子，2道具，3装备
+       uint32 producenum  =  3;        //本轮成功采收到的数量(金币数量,道具数量以及装备数量)
+      repeated uint32 equips      =  4;        //获得的装备(产出表的装备字段)
+       uint32 itemid      =  5;        //获得的道具id
+       BuildingData data  =  6;        //矿点信息(采收成功返回采收成功后刷新的信息)   
+}
+//请求一键完成矿点开采过程
+message MSG_Immediately_Finish_Mine_CS
+{    
+      uint32 buildingid = 1;        //建筑id
+}

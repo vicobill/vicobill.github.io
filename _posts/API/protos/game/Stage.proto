@@ -1,0 +1,82 @@
+import "BaseType.proto";
+import "Building.proto";
+import "Player.proto";
+import "item.proto";
+
+package msg;
+
+message StageResult
+{
+	 uint32				stage_id			= 1;
+	 uint32				last_time			= 2;		//上次完成关卡时间
+	 uint32				day_count			= 3;		//今日完成次数
+	 uint32				all_count			= 4;		//总共完成次数	
+}
+
+//请求已过关卡结果
+message MSG_Stage_Overview_CS
+{
+}
+
+//返回已过关卡结果
+message MSG_Stage_Overview_SC
+{
+	 uint32			open_area	= 1;	//当前开启的区域
+	repeated StageResult	stagedata	= 2;	//完成的关卡
+}
+
+//请求一个关卡数据(建筑)
+message MSG_Enter_Stage_CS
+{
+	 uint32 stage_id    = 1;
+     bool   is_attack   = 2; //false: 侦查 true: 攻打
+}
+
+//请求一个关卡数据 建筑
+message MSG_Enter_Stage_SC
+{
+	 uint32		ret_code			= 1; //0-正常 1-失败,钱不够 2-失败,尚未开启
+	 uint32		stage_id			= 2;		
+	repeated BuildingData builddata			= 3; //建筑数据
+    repeated PlayeAttribute  player_att     = 4; //当前银两
+}
+
+//通知服务器战斗结果（临时方案）
+message MSG_Battle_Result_CS 
+{
+	 uint32 stage_id = 1;
+	 uint32 result 	 = 2; 	// 0: 成功 1：失败
+     uint32 cur_hp   = 3;   //玩家当前血
+}
+
+//显示道具
+message UiShow
+{
+	 uint32 tid	 = 1; //道具tid
+	 uint32 num	 = 2; //道具数量
+	 uint32 bind = 3; //道具数量
+	 uint32 itemquality = 4;	//道具品质
+}
+message MSG_Battle_Result_SC 
+{
+	 uint32 		result      	= 1; //0:成功 1:失败，关卡不存在 2.失败，超时
+    repeated PlayeAttribute player_attr 	= 2; //玩家当前血
+	 StageResult 	resultInfo  	= 3; //关卡相关
+	repeated GameConsume 	consume     	= 4; //资源奖励
+	repeated UiShow			show_items		= 5; //道具显示
+    repeated ItemBaseInfo 	drop_items 		= 6; //获得关卡掉落道具,加入仓库
+}
+
+//区域解锁
+message MSG_Battle_Unlock_Area_CS
+{
+	 uint32 area_id = 1; //区域编号
+}
+
+message MSG_Battle_Unlock_Area_SC
+{
+	 uint32 result = 1;  //0：成功  1：失败
+	 uint32 area_id = 2;
+	 uint32 consume = 3; //消耗金钱
+}
+			 

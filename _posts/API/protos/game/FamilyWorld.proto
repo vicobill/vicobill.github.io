@@ -1,0 +1,254 @@
+import "BaseType.proto";
+import "World.proto";
+package msg;
+
+//家族祠堂驻扎
+message MSG_ReqFamilyTempleStation_CS
+{
+}
+message MSG_RetFamilyTempleStation_SC
+{
+	 uint32 result          = 1; //0-成功 1-失败
+}
+//离开祠堂
+message MSG_ReqFamilyTempleUnStation_CS
+{
+}
+message MSG_RetFamilyTempleUnStation_SC
+{
+	 uint32 result          = 1; //0-成功 1-失败
+}
+
+//祠堂修理
+message MSG_ReqFamilyTempleRepair_CS
+{       
+	 uint32 complete        = 1; //0-修理 1-修理完成 2-立即完成
+}       
+message MSG_RetFamilyTempleRepair_SC      
+{
+	 uint32 complete        = 1; //0-修理 1-修理完成 2-立即完成
+	 uint32 result          = 2; //0-成功 1-失败
+}
+
+//查看家族成员信息
+message FamilyPlayerBaseInfo
+{
+	 uint32 charid		= 1;
+	 string name		= 2;
+	 uint32 hp		= 3;
+	 uint32 max_hp		= 4;
+}
+message MSG_ReqFamilyTempleInfo_CS
+{
+}
+message MSG_RetFamilyTempleInfo_SC
+{
+	 uint32 result		= 1; //0-成功 1-失败
+	 uint32 curhp		= 2; //curhp
+	repeated FamilyPlayerBaseInfo  members	= 3; //人物
+}
+
+//祠堂攻击
+message MSG_ReqFamilyTempleAttacked_CS
+{
+	 uint32 familyid	= 1;
+}
+message MSG_RetFamilyTempleAttacked_SC
+{
+	 uint32 familyid	= 1;
+	repeated GameConsume consume 	= 2; //资源奖励
+	 uint32 result		= 3; // 1 赢 2 输 3 错误
+	 EntityBasicInfo defender	= 4; //打死你的防御者
+}
+
+//驻扎营地
+message MSG_ReqFamilyCampStation_CS
+{
+}
+message MSG_RetFamilyCampStation_SC
+{
+	 uint32 result		= 1; //0-成功 1-失败
+}
+//离开营地
+message MSG_ReqFamilyCampUnStation_CS
+{
+}
+message MSG_RetFamilyCampUnStation_SC
+{
+	 uint32 result		= 1; //0-成功 1-失败
+}
+
+//修理从场景过来
+message MSG_ReqFamilyCampRepair_CS
+{
+	 uint32	complete	= 1; //0-修理 1-修理完成 2-立即完成
+}
+message MSG_RetFamilyCampRepair_SC
+{
+	 uint32	complete	= 1; //0-修理 1-修理完成 2-立即完成
+	 uint32	result		= 2; //0-成功 1-失败
+}
+
+// 拆除
+message MSG_ReqFamilyCampPullDown_CS
+{
+}
+message MSG_RetFamilyCampPullDown_SC
+{
+	 uint32 result          = 1; //0-成功 1-失败
+	repeated GameConsume consume	= 2; //回收资源
+}
+
+// 攻击
+message MSG_ReqFamilyCampAttacked_CS
+{
+	 uint32 campid		= 1; //营帐ID
+}
+message MSG_RetFamilyCampAttacked_SC
+{
+	 uint32 campid          = 1; //营帐ID
+	repeated GameConsume consume	= 2; //资源奖励
+	 uint32 result		= 3;
+	 EntityBasicInfo defender	= 4; //打死你的防御者
+}
+
+//营帐的详细信息
+message MSG_ReqFamilyCampInfo_CS
+{
+}
+message MSG_RetFamilyCampInfo_SC
+{
+	 uint32 result		= 1;
+	repeated FamilyPlayerBaseInfo members = 2;
+	repeated GameConsume consume	= 3; //资源
+}
+
+//营帐捐献
+message MSG_ReqFamilyCampContribute_CS
+{
+	repeated GameConsume consume    = 1; //玩家捐献的资源
+}
+message MSG_RetFamilyCampContribute_SC
+{
+	 uint32 result		= 1;
+}
+
+//营帐获取捐献列表
+message MSG_ReqFamilyCampContributeInfos_CS
+{
+}
+message FamilyPlayerContribute
+{
+	 uint32 charid		= 1;
+	 string name		= 2;
+	repeated GameConsume consume	= 3; 
+}
+message MSG_RetFamilyCampContributeInfos_SC
+{
+	 uint32 result          = 1;
+	repeated FamilyPlayerContribute contributes = 2;
+}
+
+//=====================马车=======
+//请求拉马车
+message MSG_ReqDragGroomFromCamp_CS
+{
+
+}
+//返回
+message MSG_RetDragGroomFromCamp_SC
+{
+	 uint32 	result 		= 1; //0成功 1失败
+	repeated GameConsume consume 	= 2; //马车上的钱币
+}
+
+//请求拾取马车物品
+message MSG_ReqPickupGroomEntity_CS
+{
+	 uint32	groomid		= 1; //物品对象ID，不是itemid
+}
+message MSG_RetPickupGroomEntity_SC
+{
+	 uint32 groomid		= 1; //拾取的物品对象ID
+	 uint32 result		= 2; //拾取成功是否
+	repeated GameConsume consume    = 3; //拾取到的物品
+}
+
+//请求将马车资源放回到家族祠堂
+message MSG_ReqPutGroomResourceToTemple_CS
+{
+}
+//返回
+message MSG_RetPutGroomResourceToTemple_SC
+{
+	 uint32 	result 		= 1; //0成功 1失败 服务器要校验距离
+}
+
+//请求马车资源数据
+message MSG_ReqPeekPlayerGroom_CS
+{
+	 uint32 charid		= 1;
+}
+
+message MSG_RetPeekPlayerGroom_SC
+{
+	 uint32 charid		= 1;
+	 uint32 result		= 2;
+	 uint32 food		= 3;
+	 uint32 silver		= 4;
+	 uint32 level		= 5;
+}
+
+//=============回血相关=================
+//请求给某人加血
+message MSG_ReqAddUserHpByDrug_CS
+{
+	 uint32 charid = 1; //给其加血的玩家角色id
+	// uint32 num	   = 2; //用药个数,暂时一次一个
+}
+//返回
+message MSG_RetAddUserHpByDrug_SC
+{
+	 uint32 result = 1; //0成功 1失败
+	 uint32 add_hp = 2; //实际加了多少血
+}
+
+
+
+//================修理相关================
+//请求营帐所有玩家装备列表
+message MSG_ReqGetUserEquipInfo_CS
+{
+}
+
+//玩家的装备列表
+message EquipDurabilityInfo
+{
+	 string uid			= 1; //装备uid
+	 uint32 type_id		= 2; //装备类型id
+	 uint32 durability	= 3; //装备耐久度
+}
+//营帐玩家的装备相关信息
+message CampUserEquipList
+{
+	 uint32 charid						= 1; //玩家角色id
+	repeated EquipDurabilityInfo equip_info 	= 2; //装备信息
+}
+//返回营帐所有玩家装备列表
+message MSG_RetGetUserEquipInfo_SC
+{
+	repeated CampUserEquipList user_list = 1; //所有玩家的装备信息
+}
+
+//请求修理某人的某件装备
+message MSG_ReqRepairUserEquip_CS
+{
+	 uint32 charid		= 1; //角色id
+	 string uid			= 2; //装备uid
+}
+//返回
+message MSG_RetRepairUserEquip_SC
+{
+	 uint32 result 		= 1; //0 成功 1失败
+	 uint32 durability  = 2; //修理完的耐久
+}

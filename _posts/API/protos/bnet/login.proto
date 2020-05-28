@@ -1,0 +1,160 @@
+/*
+快速登陆
+账号+密码/手机+验证码登录
+
+签到
+补签
+*/
+syntax = "proto3";
+
+package flare.bnet;
+
+import "common.proto";
+import "bnet/app.proto";
+import "bnet/user.proto";
+
+
+
+
+/* ========================= 登录 ======================= */
+
+// 快速登录
+message QloginReq{
+	SClientInfo client_info = 1;
+	string      account     = 2;  // 账号
+	string      session     = 3;  // session 字串，包含有标识信息
+}
+
+// fn is_valid_user_id ( id )   id是否合法
+// fn is_valid_user ( userid )  在数据库中是否存在
+// fn is_valid_session ( session )
+// fn get_user_id_from_session ( session )
+
+
+// 通过账号+密码登录
+message AuthorityReq {
+	SClientInfo client_info = 1;
+	int32       type        = 2;  // 手机号？账号？
+	string      account     = 3;
+	bytes       priv_code   = 4;  // 密码，验证码等
+}
+
+// 登录消息返回
+// 会返回玩家连续登录天数
+message LoginRsp{
+	flare.CommonRsp resp         = 1;
+	SUserProfile    user_profile = 2;
+	int32           clogin_days  = 3;  // 连续登录天数
+}
+
+/* ========================= 服务器列表 ======================= */
+//! 查询服务器列表
+message SyncServerListReq {
+	int32 app_id = 1;
+}
+
+message SServerInfo {
+	int32        id     = 1;  // 服务器号码
+	string       name   = 2;  // 服务器代号
+	flare.NetAdr netadr = 3;  // 网络
+	int32        state  = 4;  // 空闲，满载，不可连等
+	int32        flag   = 5;  // 附加的标识位
+}
+message SyncServerListRsp {
+	int32    app_id              = 1;
+	repeated SServerInfo servers = 2;
+}
+
+//! 连接服务器
+message TouchServerReq {
+	int32 server_id = 1;
+}
+message TouchServerRsp {
+	flare.CommonRsp resp      = 1;
+	int64           player_id = 2;
+}
+
+// fn get_server_list() ; 获取服务器列表
+// fn touch_server( serverid ) ; 连接服务器
+// fn untouch_server( ) ; 断开与当前服务器的连接
+
+
+
+
+/* ========================= 匹配游戏 ======================= */
+
+// fn get_room_list() ; 获取游戏房间列表
+// fn enter_room( roomid ) ; 进入游戏空间
+// fn exit_room( ) ; 从游戏空间退出
+// fn quick_match( ) ; 快速匹配
+// fn cancel_quick_match( ) ; 取消快速匹配
+// fn ready_for_match( ) ; 准备开始游戏
+// fn inviter_user_join_room( userid, targetuserid, roomid ) ; 邀请用户加入游戏空间
+
+
+message SyncRoomListReq	{
+	int64 user_id = 1;
+	int32 pattern = 2;  // 房间模式
+}
+message SRoomInfo {
+	int32  id              = 1;
+	string name            = 2;
+	int32  type            = 3;
+	int32  state           = 4;
+	int32  host_user_id    = 5;  // 房主ID
+	int32  user_number     = 6;  // 当前人数
+	int32  looker_number   = 7;  // 观众人数
+	int32  max_user_number = 8;  // 最多人数
+}
+message SyncRoomListRsp {
+	flare.CommonRsp resp            = 1;
+	repeated        SRoomInfo rooms = 2;
+}
+
+// 快速匹配
+message QuickMatchReq{
+	int64 user_id = 1;
+}
+
+//取消匹配
+message CancelQuickMatchReq{
+	int64 user_id = 1;
+}
+
+// 加入游戏空间
+message JoinRoomReq {
+	int64 user_id = 1;
+	int32 room_id = 2;
+}
+
+// 邀请加入游戏空间
+message InviteJoinRoomReq {
+	int64 user_id        = 1;
+	int64 room_id        = 2;
+	int64 target_user_id = 3;  // 邀请的玩家ID
+}
+message InviteJoinRoomRsp {
+	flare.CommonRsp resp = 1;
+}
+
+
+// 通知客户端等待人数
+message WaitMatchRsp{
+	int32 wait_number = 1;  // 等待人数
+}
+
+/* ========================= 用户上线时，推送的消息 ======================= */
+message SRecentNews {
+	int32      type          = 1;
+	map<string, string> news = 1;  // 信息数据列表
+}
+
+// 上线后，服务器推送的离线战报，广告，公告，活动，粉丝数变化等信息
+message RecentNewsPush {
+	repeated SRecentNews news = 1;
+}
+
+// 告诉玩家重复登陆，被提下线
+message DupLoginPush {
+	flare.CommonRsp resp = 1;
+}

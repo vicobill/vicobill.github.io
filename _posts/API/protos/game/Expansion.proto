@@ -1,0 +1,112 @@
+import "BaseType.proto";
+import "Building.proto";
+import "Player.proto";
+import "item.proto";
+import "Stage.proto";
+
+package msg;
+//================================== 结构体 =============================================
+// 与serialize.proto t_pb_territory_town 一致
+message TownInfo
+{
+	 uint32				town_id				= 1;
+	 uint32 			owner_type 			= 2; //0: NPC, 1:玩家, 2: Boss
+	 uint32 			owner_id 			= 3; //拥护者id
+	 uint32 			refresh_time			= 4; //刷新时间，可能是入侵时间，或者自己占领时间，或者最后资源采集时间
+	 uint32 			town_level 			= 5; //级别
+	repeated GameConsume		prize				= 6;
+	 string				owner_name			= 7; //拥有者名字
+	 uint32 			prestige			= 8; //可能得到声望
+}
+
+//================================== 地图数据 =============================================
+//-------------------------------- 整个地图数据 ------------------------------------------
+message MSG_Expansion_Overview_CS
+{
+}
+
+message MSG_Expansion_Overview_SC
+{
+		uint32		cur_areaid	=	1; //当前解锁区域id
+	repeated TownInfo		mapData	= 2;	//完成的关卡
+	repeated GameConsume	cur_res = 3;	//当前累积资源
+}
+
+//---------------------------------- 小镇数据 --------------------------------------------
+message MSG_Expansion_TownData_CS
+{
+	 uint32 	town_id	 = 1;
+	 bool   	is_attack   = 2; //false: 侦查 true: 攻打
+}
+
+message MSG_Expansion_TownData_SC
+{
+	 uint32			 ret_code			= 1; 
+	 uint32			 stage_id			= 2;		
+	repeated BuildingData 	 builddata			= 3; //建筑数据
+     uint32          sub_hp             = 4; //侦查失败伤血
+ 
+}
+
+//---------------------------------- 刷新小镇 --------------------------------------------
+message MSG_Expansion_UpdateTownData_SC
+{
+	 uint32 		update 				= 1; // 更新类型  1 添加 2 删除 3 更新
+	 TownInfo 		town_info			= 2; //小镇数据
+}
+
+//===================================== 战斗 =============================================
+
+//通知服务器战斗结果（临时方案）
+message MSG_Expansion_Fight_Result_CS
+{
+	 uint32 town_id = 1;
+	 uint32 result 	 = 2; 	// 0: 成功 1：失败
+	 uint32 cur_hp   = 3;   //玩家当前血
+}
+
+
+message MSG_Expansion_Fight_Result_SC
+{
+	 uint32 		result	  	= 1; //0:成功 1:失败，关卡不存在 2.失败，超时
+	repeated PlayeAttribute player_attr 	= 2; //玩家当前血
+	 StageResult 	resultInfo  	= 3; //关卡相关
+	repeated GameConsume 	consume	 	= 4; //资源奖励
+	repeated ItemBaseInfo 	drop_items 		= 6; //获得关卡掉落道具,加入仓库
+}
+
+//================================== 收集资源 ===========================================
+//-------------------------------- 可采集资源数据 ------------------------------------------
+message MSG_Expansion_Resource_Store_CS
+{
+}
+
+message MSG_Expansion_Resource_Store_SC
+{
+	repeated GameConsume	cur_res = 1;	//当前累积资源
+}
+//收集资源
+message MSG_Expansion_Collect_CS
+{
+}
+
+//返回资源数量
+message MSG_Expansion_Collect_SC
+{
+	 uint32 		result	  	= 1;
+	repeated GameConsume 	consume	 	= 2; //资源奖励
+}
+
+//================================== 解锁 ===============================================
+//区域解锁
+message MSG_Expansion_Unlock_Area_CS
+{
+	 uint32 area_id = 1; //区域编号
+}
+
+message MSG_Expansion_Unlock_Area_SC
+{
+	 uint32 result = 1;  //0：成功  1：失败
+	 uint32 area_id = 2;
+	 uint32 consume = 3; //消耗金钱
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package flare.bnet;
+
+import "common.proto";
+
+
+/* ========================= 反馈 ======================= */
+
+// fn send_feedback( userid ,feedback ) ; 发送反馈
+// fn get_feedback_state( feedback ) ; 获取反馈的处理状态
+
+
+message SFeedbackInfo {
+    int64          user_id      = 1;
+    string         title        = 2;  // 标题
+    string         subject      = 3;  // 主题
+    string         content      = 4;  // 内容
+    flare.DateTime datetime     = 5;
+    int32          urgent_level = 6;  // 加急等级，[1,10]等级越高越加急
+}
+
+// 发送反馈
+message SendFeedbackReq {
+    SFeedbackInfo feedback = 1;
+}
+message SendFeedbackRsp {
+    int64 feedback_id = 1;
+}
+
+// 获取反馈的状态
+message QueryFeedbackStateReq {
+    int64 user_id = 1;
+    int64 feedback_id = 2;
+}
+message QueryFeedbackStateRsp {
+    flare.CommonRsp resp         = 1;
+    string          handler_name = 2;  // 处理人名称
+    string          handler_id   = 3;  // 处理人工号
+    int32           state        = 4;  // 当前状态
+    string          reason       = 5;  // 原因
+}
+
+
+
+
+

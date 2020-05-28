@@ -1,0 +1,65 @@
+/**
+ * 活动，线上活动和线下活动
+ */
+
+syntax = "proto3";
+
+package flare.sys;
+
+import "common.proto";
+
+ // fn list_activities() ;  列出所有活动
+ // fn list_outdated_activities();  列出已过期的活动
+ // fn list_goingon_activities();  列出当前正在进行的活动
+ // fn list_future_activities( futuredays );  列出未来多少天的活动
+ // fn list_my_signup_activities() ; 列出我报名参加的活动
+ // fn list_player_signup_activities(); 列出指定玩家参加的活动
+ 
+ // fn start_activity( activityinfo ) ; 发起活动
+ // fn end_activity( activity ) ; 结束活动
+ // fn get_activity_signups() ; 获取活动的报名人数
+ // fn is_player_signup_activity( player,activity ) ; 玩家是否报名参加了某个活动
+ // fn get_activity_end_time( acticity ) ; 获取活动结束时间
+ // fn get_activity_start_time( activity ) ; 获取活动开始时间
+ // fn is_player_win_activity( player,activity ) ; 玩家是否在活动中赢了
+
+ message SActivityInfo {
+   int32  start_time     = 1;  // 开始时间
+   int32  end_time       = 2;  // 结束时间
+   int32  max_players    = 3;  // 最多参与人数
+   int32  mode           = 4;  // 活动的模式：线上，线下，一起，
+   string host_place     = 5;  // 活动地点
+   int32  signup_players = 6;  // 已报名人数
+   int32  state          = 7;  // 活动状态
+   string content        = 8;
+ }
+
+ message SSignupActivityInfo {
+   flare.DateTime datetime = 1;
+   SActivityInfo  activity = 2;
+ }
+
+ // 向客户端推动现在的活动列表
+message ActivitiesPush {
+  repeated SActivityInfo activities = 1;
+}
+
+// 查询报名的活动
+message QuerySignupActivitiesReq  {
+  int64 user_id = 1;
+}
+message QuerySignupActivitiesRsp {
+  repeated SSignupActivityInfo activities = 1;
+}
+
+// 查询活动的获胜者名单
+message QueryActivityWinnersReq {
+}
+message QueryActivityWinnersRsp {
+  message UserInfo {
+    int64  user_id   = 1;
+    string user_name = 2;
+  }
+  repeated UserInfo winners = 1;
+}
+

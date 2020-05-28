@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package flare.bnet;
+ 
+import "common.proto";
+
+message SShareInfo {
+    int32 pipe = 1; // 分享的渠道，如微信，微博，qq等
+    string title = 2;
+    string content = 3;
+    string url = 4;
+    flare.TimeStamp time = 5; // 分享的时间
+    flare.TimeStamp expired_time = 6; // 时效
+}
+
+message SShareStats {
+    int32 clicks = 1;
+}
+
+/* ========================= 分享 ======================= */
+
+// fn share( userid, shareinfo ); 游戏内分享
+// fn share_by_sms( userid, shareinfo ) ; 通过短信分享。用户通过平台中心发送短信
+// fn share_by_email( userid, shareinfo ) ; 通过邮件分享。用户通过平台中心发送短信
+// fn share_by_forum( userid, shareinfo ) ; 通过论坛分享
+
+// fn get_user_shares( userid ) ; 获取用户分享次数
+// fn get_user_total_share_clicks( userid ) ; 获取用户总的分享点击数
+// fn get_my_shares( ) ; 获取我的分享数
+
+// fn gen_share_token( shareinfo ) ; 根据分享信息，生成分享链接token
+// fn get_share_token_clicks( sharetoken ) ; 获取分享的点击数
+// fn is_share_token_expired ( sharetoken ) ; 分享是否已经失效
+
+
+message ShareReq {
+    SShareInfo share_info = 1;
+}
+
+
+message StatsShareReq {
+
+}

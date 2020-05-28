@@ -1,0 +1,318 @@
+syntax = "proto3";
+
+package physical;
+
+enum ObjectType{
+  ObjectTypeNone = 0;
+  ObjectTypeUser = 1;
+  ObjectTypeBoom = 2;
+  ObjectTypeNpc = 3;
+  ObjectTypeItem = 4;
+}
+
+enum Box2dCategory{
+  Box2dCategoryNone    = 0;
+  Box2dCategoryTerrian = 0x0001;
+  Box2dCategoryUserA   = 0x0002;
+  Box2dCategoryUserB   = 0x0004;
+  Box2dCategoryBoomA   = 0x0008;
+  Box2dCategoryBoomB   = 0x0010;
+  Box2dCategoryStoneA  = 0x0020;
+  Box2dCategoryStoneB  = 0x0040;
+  Box2dCategorySuperJump  = 0x0080;
+  Box2dCategoryItemA = 0x0100;
+  Box2dCategoryItemB = 0x0200;
+  Box2dCategoryItemSys = 0x0400;
+}
+
+enum Box2dTrigger{
+  BoomTriggerNone    = 0;
+  ContractOnce = 1;
+  Timeout = 2;
+}
+
+enum GameOperation{
+  GameOperationNone    = 0;
+  OP_UserMoveLeft       = 10;
+	OP_UserMoveRight      = 11;
+	OP_UserStopMove       = 13;
+	OP_UserJump           = 14;
+	OP_UserPush           = 15;
+	OP_UserTeleport       = 16;
+	OP_UserRandomTeleport = 17;
+  OP_UserSuperJump      = 18;
+  OP_UserMontainBuff    = 19;
+  OP_UserBoomMode       = 20; //自己变炸弹
+  OP_UserChangeSpeed    = 21;
+  OP_UserUpdateSkillData = 22;
+  OP_SetMovable         = 23;
+
+	OP_SysWind            = 30; //设置风
+	OP_SysDigHole         = 31; //打洞
+	OP_SysFindPos         = 32; //随机寻找可站人的点
+
+  OP_SysNewUser         = 40;
+  OP_SysNewBoom         = 41;
+  OP_SysNewNpc          = 44;
+  OP_SysNewItem         = 48;
+  
+	OP_SysDelUser         = 42;
+	OP_SysDelBoom         = 43;
+  OP_SysDelNpc          = 45;
+  OP_SysDelItem         = 49;
+  
+  OP_SysActiveTeam      = 46; //设置活跃队伍
+  OP_SysChangeHP        = 47;
+
+  OP_SysAddBuf          = 51; //增加BUF
+  OP_SysDelBuf          = 52; //删除BUF
+
+  OP_SysSetScore        = 60; //设置比分
+  OP_SysUserFire        = 61; //开火
+  OP_SysUserChat        = 62; //命令
+}
+
+enum GameEvent{
+  GameEventNone    = 0;
+	//事件
+	BoomCollisionUser    = 50;  //炮弹撞人
+	BoomCollisionTerrain = 51;  //炮弹撞地
+	FindRandomPos        = 52;  //找到随机点
+  SuperJumpCollision   = 53;  //超级跳碰撞
+  ItemCollisionUser    = 54;  //物品撞人
+  ItemCollisionBoom    = 55;  //物品撞地
+  ItemCollisionUserEnd = 56;  //物品撞人
+  ItemCollisionBoomEnd = 57;  //物品撞地
+  UserCollisionUser    = 58;  //角色和角色碰撞
+
+  
+  AiFire             = 60; //AI开火
+  AiJump             = 61;
+  AiMoveLeft         = 62;
+  AiMoveRight        = 63;
+  AiEmoji            = 64;
+  AiStop             = 65;
+  AiPrepareSkill	 = 66;
+}
+
+enum UserState{
+  UserStateNone = 0;
+	//角色状态
+	Move = 0x0001;
+	Jump = 0x0002;
+	Push = 0x0004;
+	Wake = 0x0008;
+  SuperJump = 0x0010;
+}
+
+enum BoomType{
+  BoomType_None = 0;
+  BoomType_Rocket                     = 1; //火箭弹
+	BoomType_Grenade                    = 2; //手雷
+	BoomType_Landmine                   = 3; //地雷
+	BoomType_Push                       = 4; //近身攻击
+	BoomType_XXXX                       = 5;
+	BoomType_Teleport                   = 6; //瞬移
+	BoomType_RandomMove                 = 7; //随机瞬移
+	BoomType_Airplane                   = 8; //纸飞机
+	BoomType_Mark                       = 9; //标记
+  BoomType_SuperJump                  = 10;//超级跳
+  BoomType_Rocket2                    = 11;//火箭弹(撞地不算爆炸)
+  BoomType_Twins                      = 12; //分身术
+  BoomType_Rocket3                    = 13; //火箭弹(冲天而降)
+  BoomType_Rocket4                    = 14; //火箭弹(伤人,穿人,碰地)
+  BoomType_Assassinate                = 15; //刺杀
+  BoomType_Airplane2                  = 16;
+}
+//===================================
+message TVec2{
+  int32 X = 1;
+  int32 Y = 2;
+}
+
+message TLocation{
+  TVec2 Pos = 1;
+  float Route = 2;
+}
+
+message TRect{
+  int32 Width = 1;
+  int32 Height = 2;
+}
+
+message TUserData{
+  uint64 UID = 1;
+  string UName = 2;
+  TLocation Pos = 3;
+  TLocation Speed = 4;
+  TRect CollisionBox = 5;
+  uint32 team = 6;
+
+  uint32 State = 10;
+  uint64 HeroId = 11;
+  uint64 Mass = 12;
+  uint64 Jump = 13;
+  uint64 BaseSpeed = 14;
+
+  bool NeedRobot = 15;
+  int32 CurHp = 16;
+  int32 MaxHp = 17;
+}
+
+message TNpcData{
+  uint64 UID = 1;
+  TLocation Pos = 2;
+  uint64 MasterUID = 3;
+  TUserData masterData = 4;
+}
+
+message TBoomData{
+  uint64 UID = 1;
+  TLocation Pos = 2;
+  TLocation Speed = 3;
+  TRect CollisionBox = 4;
+  uint64 MasterUID = 5;
+  uint32 Type = 6;
+  uint32 LifeCount = 7;
+
+  uint64 SkillId      = 10;
+  sint32	Mass          = 11; //质量
+	sint32 GravityEffect = 12; //受重力影响
+	sint32 WindEffect    = 13; //受风力影响
+	sint32 FlexEffect    = 14; //弹力系数
+	sint32 SpeedEffect   = 15; //速度系数
+	sint32 Mask          = 16; //碰撞的Mask
+	sint32 Trigger       = 17; //触发方式
+  uint32 Friction      = 19; //摩擦系数
+  int32 AngularSpeed  = 20; //角速度
+  uint32 Team = 21;
+} 
+
+message TItemData{
+  uint64 UID = 1;
+  TLocation Pos = 2;
+  uint64 MasterUID = 3;
+  uint64 Kind = 4;    //1 马蜂窝
+  TRect CollisionBox = 5;
+  uint64 Radius = 6;
+  uint64 Shape = 7;
+  bool IsStatic = 10;  //是否静态对象
+  bool IsSensor = 11;  //是否传感器
+
+  bool FriendUserBlock    = 12;
+	bool FriendUserContract = 13;
+	bool FriendBoomBlock    = 14;
+	bool FriendBoomContract = 15;
+
+	bool EnemyUserBlock    = 16;
+	bool EnemyUserContract = 17;
+	bool EnemyBoomBlock    = 18;
+  bool EnemyBoomContract = 19;
+  
+  uint64 MoveWithMaster = 20;
+  int32 SpeedX = 21;
+  int32 SpeedY = 22;
+}
+
+message TUpdateData{
+  uint64 UID    = 1;   //唯一ID
+	uint32 Type     = 2;
+	TLocation Pos     = 3; //位置
+	TLocation Speed   = 4;//速度
+	uint32 State  = 5;//状态
+}
+
+message THoleData {
+  TVec2 Pos = 1;
+  int32 Radius = 2;
+}
+
+message TOperation {
+  uint32 OperationCode = 1;
+  uint64 UID = 2;
+  TLocation param1 = 3;
+  TLocation param2 = 4;
+  uint64 param3 = 5;
+  uint64 param4 = 6;
+  TBoomData boom = 7;
+  TUserData user = 8;
+  TNpcData npc = 9;
+  TItemData item = 10;
+  string strParam1 = 11;
+}
+
+message TEvent {
+  uint32 EventCode = 1;
+  uint64 UID = 2;
+  TLocation param1 = 3;
+  TLocation param2 = 4;
+  uint64 param3 = 5;
+  uint64 param4 = 6;
+}
+//===================================
+message LoginReq {
+  uint64 service_id = 1;
+  uint64 service_type = 2;
+}
+message LoginReply {
+}
+
+message InitPhysicalReq {
+  string MapName = 1;
+  uint64 Flag = 2;
+  uint64 roomId = 3;
+  string GameRule = 4;
+  bool NeedRobot = 5;
+  repeated TUserData AllUsers = 6;
+  uint64 RoomKind = 8;  
+}
+message InitPhysicalReply {
+  uint64 PhysicalID = 1;
+}
+
+message StepPhysicalReq {
+  uint64 PhysicalID = 1;
+  float StepTime = 2;
+  repeated TOperation operations = 3;
+}
+message StepPhysicalReply {
+  uint64 RetCode = 1;
+  repeated TEvent events = 2;
+  repeated TUpdateData updates = 3;
+}
+
+message OperatePhysicalReq {
+  uint64 PhysicalID = 1;
+  repeated TOperation operations = 3;
+}
+message OperatePhysicalReply {
+  uint64 RetCode = 1;
+  repeated TEvent events = 2;
+}
+
+message ClosePhysicalReq {
+  uint64 PhysicalID = 1;
+}
+message ClosePhysicalReply {
+}
+
+//===================================
+service PhysicalGame {
+  rpc Login (LoginReq) returns (LoginReply) {}
+  rpc Init (InitPhysicalReq) returns (InitPhysicalReply) {}
+  rpc Step (StepPhysicalReq) returns (StepPhysicalReply) {}
+  rpc Operate (OperatePhysicalReq) returns (OperatePhysicalReply) {}
+  rpc Close (ClosePhysicalReq) returns (ClosePhysicalReply) {}
+}
+
+//===================================
+
+message PhysicalSaveMsg {
+  InitPhysicalReq init = 1;
+  StepPhysicalReq step = 2;
+  OperatePhysicalReq operate = 3;
+}
+message PhysicalSaveFile {
+  repeated PhysicalSaveMsg msg = 1;
+  repeated uint64 rand_sequnce = 2;
+}

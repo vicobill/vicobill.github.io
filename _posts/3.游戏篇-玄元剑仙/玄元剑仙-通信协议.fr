@@ -1,0 +1,586 @@
+requestNotice '获取公告' {
+    channelId       string  ""
+    subChannelId    string
+}
+
+
+// ================== 登录 HTTP =====================
+
+EAccountType '登录账号类型' {
+    ByAccountPassword = 1,
+    ByMobileVerify = 2
+}
+
+login '登录' {
+    account_type    EAccountType         `1 账号登录 2 手机登录 `
+    account_name    string
+    password        string 
+    appid           string 
+
+}
+
+login_mobile_send_sms '登录时发送验证码至手机'{
+    mobile          string  "手机号" 
+    appid           string  
+}
+
+sign_in_verify_code '手机验证码登录' {
+    mobile          string 
+    verify_code     string 
+    appid           string
+}
+
+sign_in_verify_passwd '验证密码登录' {
+    account_type    EAccountType     
+    mobile          string 
+    passwd          string 
+    appid           string
+}
+
+login_find_account '找回账号' {
+    mobile          string
+}
+
+login_find_password '找回密码' {
+    mobile          string 
+    account_name    string
+}
+
+login_register '注册' {
+    account_name    string
+    passwd          string
+    device_id       string
+}
+
+sign_in_set_passwd '修改密码' {
+    token           string 
+    uin             string
+    passwd          string
+}
+
+// =========== 游戏服务器通信协议 ==============
+// 格式： 域 {
+//     协议  
+//  }
+
+role / {
+    change_gender,      '改变性别'
+    aoyou_view,
+    guanzhi_info,
+    shop-chg 
+    attr 
+    func 
+    login-add 
+
+}
+
+role-level / {
+    up                  ''
+    info    
+    xiulian 
+    get 
+    roushen-up          '淬体，肉身升级'
+}
+
+doufa / {
+    info 
+    range-info 
+    join 
+    fight 
+    duihuan 
+    
+}
+
+shenti / {
+    info-res 
+    choose-res 
+    award-res 
+    level-up-res 
+
+}
+
+biwu '比武' / {
+    biwu-zhanbao-res 
+    view-do-res 
+    view-info-res 
+    shang-tai-res 
+    buy-num-res 
+    info
+    biwu-fight-res 
+    fight-log-res
+    biwu-list-res 
+
+
+}
+
+baoku / {
+    info,
+    do_res
+}
+
+xisui / {
+    info 
+    do-res 
+
+}
+
+yige / {
+    info,
+    wear_up_res,
+    dui_huan_res,
+    set_hair_res,
+    mianjv_huihuan_res,
+    faxiang_huihuan_res,
+    faxiang_do_res,
+    huahua_huihuan_res,
+    huahua_do_res,
+}
+
+mingpian / {
+    info,
+    do_res,
+    do_msg_res,
+}
+
+wudao / {
+    info,
+    chg,
+    book_levelup,
+    yuedu 
+    book-levelup 
+    set 
+    buy 
+}
+
+xinsui / {
+    info
+}
+
+xianniang / {
+    info
+    buy-res 
+    duihuan-res 
+}
+
+choujiang / {
+    info 
+    do-res 
+    duihuan-res 
+
+}
+
+active-leiji / {
+    info 
+    get 
+
+}
+
+chengjiu / {
+    info 
+    award 
+}
+
+sys-msg / {
+    info 
+    award 
+    msg 
+    del
+    read 
+}
+
+shili / {
+    duihuan 
+    member-info 
+    xinggong-duowei 
+    nixing-zhiwei 
+    xinggong-zhiwei 
+    xinggong-bamian
+    xinggong-apply
+    xinggong-set-info 
+    xinggong-shenhe 
+    rizhi-info 
+    jion 
+    exit 
+    xinggong-clear 
+    xinggong-duowei 
+    atk 
+    qiecuo 
+    top 
+    xinggong-apply-info 
+    rizhi-add 
+}
+
+shuzhi-chg / {
+    shuzi-info-res 
+    menpai-gongfa-res 
+    other-gongfa-res 
+    danyao-res 
+    feisheng-res 
+    bagua-res 
+    xianniang-res 
+    chgaward-res 
+}
+
+
+lilian '历练' / {
+    info
+    enter,    
+    mijing-do       '秘境'
+    qiyu-info 
+    qiyu-do 
+    move-end 
+    move 
+
+}
+
+moyu '魔域' / {
+    info 
+    enter 
+    boss 
+    shop-info 
+    shop-do 
+}
+
+menpai '门派' / {
+    info 
+    xiulian 
+    xiulian-buy 
+    join 
+    exit 
+    renwu-info 
+    renwu-do 
+    gongfa-info 
+    gongfa-xuexi 
+    pk 
+    fenglu          '俸祿'
+    duihuan 
+    qingan          '請安'
+    zengli          '贈禮'
+    zhiwei          '職位'
+    renwu-get 
+    xiulian 
+    qiecuo 
+    zhengxie        '正邪'
+    xiulian-buy 
+}
+
+shenjie ' 神界' / {
+    enter 
+    map-info 
+    move 
+    move-end 
+    event-do 
+    jiebian-info 
+    biebian-begine
+    yelie-do-info 
+    yelie-do 
+    yelie-set 
+    yelie-award 
+    jiebian-battle 
+    yelie-zhuzhan 
+    map-out 
+    saodang             '扫荡'
+}
+
+feisheng '飞升' / {
+    enter,
+    info,
+    stop
+    apply
+    apply-info 
+    apply-list 
+    aoyou-do 
+    num 
+
+}
+guaji / {
+    info 
+    buy 
+    set-sell
+    do
+    cancel 
+    award 
+    chg 
+    login 
+
+}
+
+youli '游历' / {
+    enter,
+    fresh,
+    huolang_info,
+    huolang_buy,
+    hunpo_jiban_do,
+    shop_info,
+    shop_buy,
+    guaji               '挂机',
+    select_event,       '选择'
+    guaji_stop,         '停止挂机'
+    guaji_award,        '挂机奖励'
+    buy_book,           
+    duihuan_book,
+
+}
+
+huodong '活动' / {
+    huodong-task-info       '活动任务信息'
+    huodong-task-award      '活动任务奖励'
+    huodong-duihuan         '活动兑换'
+    huodong-choujiang-do    '活动抽奖'    
+    huodong-choujiang-info  '活动抽奖信息',
+    huodong-libao-info      '活动礼包'
+    huodong-fb-enter        '进入副本'
+    huodong-map-out         '退出副本地图'
+
+}
+
+huoyue '活跃' / {
+    huoyue-task,
+    huoyue-duihuan 
+    huoyue-notify
+    
+}
+
+zhudao / {
+    info-res,
+    buy-res,
+}
+
+qiuxian / {
+    duihuan-info-res 
+    jvxian-info-res 
+    jvxian-zengli-res 
+    jvxian-buy-res 
+    jvxian-choose-res 
+    jvxian-fight-res 
+    xiantan-buy-res 
+    duihuan-info-res 
+    duihuan-buy-res 
+
+}
+
+zongmen '宗门' / {
+    pk-jilu             '切磋记录'
+    aoyou-xianshou 
+    task-info           '任务信息'
+    task-do             '进行任务'
+    build               '建造'
+    dati                '答题'
+    chuangong           '传功'
+    xinmo               '心魔'
+    dati-all            
+    xinmo-all 
+    create              '创建'
+    disband             '解散宗门'
+    xunhua              '训话'
+    shangci             '赏赐'
+    shangci-yijian      '赏赐意见'
+    shangdao-start 
+    shangdao-get 
+    jiaohu-atk
+    jiaohu-jiaohao
+    dizi-chg
+    fenglu              '俸禄'
+    shoutu-state        '收徒状态'
+    zhaomu              '招募'
+    shoutu              '收徒'
+    dizi-gift-award 
+    fenbu               '分布'
+    duilian-chg         '对联'
+    jiaohu-info 
+    search
+    jiaohu-jilu         '禁地'
+    jindi-do-info 
+    jindi-do 
+    jindi-info 
+    jindi-fresh 
+    jindi-buy
+    jindi-do-info 
+    jindi-do 
+    jindi-award 
+    base-info 
+    top                 '排名'
+    paiqian             '派遣'
+    dizi-chg            '弟子变动'
+    dizi-level-chg      '弟子等级改变'
+    qiansan             '遣散'
+    shisi-info              '市肆'
+    dubo                '赌博'
+    buy                 
+    wudao-start               '悟道'
+    wudao-end 
+    wudao 
+    chg-name                '改名'
+    task-fini               '任务完成'
+    build-xianshou          ' 仙兽'
+    del-xianshou 
+    info-xianshou 
+    ride-xianshou 
+    chg-xianshou 
+    aoyou-xianshou 
+    weishi-xianshou 
+    task-get 
+    niti 
+    cangjingge-buy          '藏经阁'
+    build-xianmeng
+    xianmeng-info 
+    xianmeng-top-info
+    xianmeng-page 
+    pk 
+    chg-pos 
+    top-award 
+    jiaohu-info 
+    search,
+    tuijian-fresh 
+    shangdao-info 
+    shangdao-start 
+    shangdao-get 
+    pk-jilu 
+    xianmeng-base-info 
+
+
+}
+
+daoshi / {
+    get 
+    chg 
+    info 
+    duihuan-info 
+    duihuan-do 
+    exp 
+    level 
+    lefel-fail 
+    level-succ 
+    fight 
+    moqi-add 
+    
+
+}
+
+fish / {
+    info 
+    pkg-info 
+    enter       '进入垂钓'
+    do          '垂钓'
+    duihuan     '兑换'
+    shougan     '收杆'
+    dati        '答题'
+
+}
+
+hunjie / {
+    hunpo-levelup 
+    unlock 
+    info 
+    levelup 
+    hunpo-nengli-up     '魂魄能力上升'
+    hunpo-fight 
+    hunpo-jiban-do 
+}
+
+jiuchongtian '九重天' / {
+    enter-res 
+    do-res 
+    fight-res 
+    shopinfo-res 
+    shopbuy-res 
+    info 
+
+}
+
+shop / {
+    xijie 
+    info 
+    buy 
+    xijie-info 
+    all-info 
+    all
+
+}
+
+daolv / {
+    zengli          '贈禮'
+    go-home 
+    info 
+    event-info 
+    event-accept 
+    shuangxiu 
+    shuangxiu-log 
+    shuangxiu-fenshou 
+    shuangxiu-chg 
+    shuangxiu-log-notify 
+    daolv-add-notify 
+    xuexi-skill 
+    yiwang-skill 
+    skill-get 
+
+}
+
+
+fayao / {
+    info 
+    do 
+    guaji 
+    guaji-get 
+}
+
+xianlie / {
+    pkg-info-res 
+    duihuan-res 
+    buy-res 
+    guaji-do-res 
+    guaji-award-res 
+    info-res 
+}
+
+yijie '异界' / {
+    duihuan-res 
+    duihuan-info-res 
+    choose-res 
+    chg 
+    npc-award-res 
+    info-res 
+    chg-info-res 
+    do-res 
+    out-res 
+}
+
+wuxing '五行' / {
+    info 
+    guaxiang-level-up-res       '卦象'
+    guaxiang-set-res 
+    fazhen-level-up-res 
+
+}
+
+heishi / {
+    info 
+    enter 
+    get 
+}
+
+yinyuan '姻缘' / {
+    info 
+    apply-info-res 
+    apply-chg-res 
+    refuse-res 
+    agree-fail 
+    agree-res 
+    chat-info-res 
+    tuijian-res 
+    invite-info-res 
+    info-chg-res 
+    search-res 
+    invite-res 
+    award-res 
+    invite-cancel-res 
+    shuangxiu 
+    lihun 
+    chat-info-res 
+    tell-res 
+
+    del-res 
+    hecheng-res 
+    dengji-res 
+    dengji-cancel-res 
+}

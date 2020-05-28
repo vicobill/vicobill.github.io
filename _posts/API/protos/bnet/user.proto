@@ -1,0 +1,114 @@
+/* user = account
+账号注册
+账号修改
+
+支付
+
+*/
+
+syntax = "proto3";
+
+import "common.proto";
+import "bnet/app.proto";
+
+package flare.bnet;
+
+// fn is_valid_user_id ( id )   ; id是否合法
+// fn is_valid_user ( userid )  ; 在数据库中是否存在
+// fn is_user_ban( userid )     ; 是否被禁止登录
+// fn is_user_vip( userid )     ; 是否是VIP
+// fn get_user_vip_level( userid ) ; 获取用户VIP等级
+// fn get_user_level( userid )  ; 获取用户账号等级
+// fn is_user_gm( userid )      ; 是否是GM
+// fn is_user_idle( userid )    ; 用户是否空闲
+// fn is_user_gaming( userid )  ; 是否正在游戏中
+// fn is_user_online( userid )  ; 是否在线
+// fn set_user_nick_name( userid, nick_name ) ; 设置昵称
+// fn get_user_register_time( userid ) ; 获取用户注册时间
+// fn get_user_register_appid( userid ) ; 注册时使用的appid
+
+// fn get_user_inviter( userid ) ; 获取用户的邀请人
+// fn get_user_at_game_id( userid ) ; 获取用户当前游玩的游戏ID
+// fn get_user_at_game_room_id( userid ) ; 获取用户当前游玩的游戏房间号
+// fn follow_user_to_game( userid, gameid, roomid ) // 跟随玩家到游戏中
+
+// fn is_user_guest( userid ) ; 是否是游客
+// fn convert_guest_to_member( userid ) ; 游客转换为成员
+// fn ban_user( userid, reason, time ) ; 禁止账号登录
+// fn unban_user( userid) ; 解禁账户
+// fn freeze_user( userid, reason ) ; 冻结账户，冻结后的账户无法进行任何金融往来
+// fn unfreeze_user( userid, reason ) ; 解冻账户
+// fn get_user_profile( userid, targetuserid ) ; 获取用户信息
+// fn get_user_priv( userid ) ; 获取用户私人信息
+
+// 用户账户的信息
+message SUserProfile {
+  int64 user_id = 1;        // 用户ID
+  string nick_name = 2;     // 昵称
+  flare.EGender gender = 3; // 性别
+  string icon_url = 4;      // 头像URL
+  int32 flag = 5;           // 账号标识，如：游客、VIP等
+  int32 state = 6;          // 当前账户的状态，如在线、空闲等
+  SUserExtraInfo extra_info = 7;
+}
+
+message SUserExtraInfo { int64 inviter_id = 1; }
+
+// 用户登录记录
+message SUserLoginRec {
+  int32 last_ip = 1;             // 最后登录的IP
+  flare.TimeStamp last_time = 2; // 最后登录的时间
+  int32 failed_count = 3;        // 最近连续失败登录的次数
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+/*========================= 账号管理 =======================*/
+
+//! 注册账号
+message UserRegisterReq {
+  SClientInfo client_info = 1;
+  string account = 2;
+  bytes password = 3;
+}
+//! 注册账号之后的返回信息
+message UserRegisterRsp {
+  flare.CommonRsp resp = 1;
+  int64 user_id = 2;
+  SUserProfile user_profile = 3;
+  SUserLoginRec last_login = 4;
+}
+
+// fn get_user_last_login( userid ) ; 获取账户最后一次登录信息
+// fn set_user_default_addr( userid, addr ) ; 设置账户默认通讯地址
+// fn has_user_add_addr( userid ) ; 账户是否添加过通讯地址
+// fn remove_user_addr( userid, addr ) ; 移除通讯地址，但必须保留默认通讯地址
+// fn set_user_phone( userid, phone ) ; 设置账户手机号
+// fn has_user_set_phone( userid ) ; 是否设置了手机号
+// fn add_user_emergency_phone( userid, phone ) ; 账户设置紧急联系号码
+// fn has_user_set_emergency_phone( userid ) ; 账户是否设置了紧急联系号码
+// fn set_user_id_card( userid, idcard ); 设置账户ID卡号
+// fn set_user_email( userid, email ) ; 设置账户email
+// fn add_user_email( userid, email ) ; 添加其他email
+// fn remove_user_email( userid, email ) ; 移除email
+// fn clear_user_emails( userid ) ; 移除所有已设置的email
+
+// 用户的个人信息
+message SUserPrivate {
+  string name = 1;             // 姓名
+  string phone = 2;            // 手机号
+  string emergency_phone = 3;  // 紧急联系人手机号
+  string emergency_name = 4;   // 紧急联系人名字
+  string id_card = 5;          // 身份证号
+  flare.DateTime birthday = 6; // 出生日期
+  flare.EGender gender = 7;    // 性别
+  string email = 8;            // 电子邮件
+  string default_adr = 9;
+  repeated string addrs = 10; // 通讯地址列表
+}
+//! 修改信息
+message UserAlterReq {
+  int64 user_id = 1;
+  map<string, string> alter_info = 2;
+}
+

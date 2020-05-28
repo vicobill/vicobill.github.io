@@ -1,0 +1,183 @@
+/*
+ 直播
+*/
+
+
+syntax = "proto3";
+
+package flare.bnet;
+
+import "common.proto";
+
+
+
+// 直播信息
+message SLiveInfo {
+    int64  anchor_user_id = 1;
+    string title          = 2;
+    string subject        = 3;
+    int32  mode           = 4;  // 直播模式，如公开，私有，受保护等
+    int32  state          = 5;  // 状态
+    string brief          = 6;
+}
+// 直播录屏信息
+message SLiveRecHeader {
+    int64  author_user_id = 1;  // 作者
+    string title          = 2;  // 标题
+    string subject        = 3;  // 主题
+    string url            = 4;  // 链接
+}
+
+
+
+/////////////////////////////////////////////////////
+
+/* ========================= 管理者 ======================= */
+
+// fn ban_user_live( userid, reason, globalnotice ) ; 封杀用户，不可直播
+// fn unban_user_live( userid ) ; 解封用户
+// fn is_user_live_banned( userid ) ; 是否已经被封杀
+
+message BanUserLiveReq {
+    int64 user_id = 1;
+    int64 target_user_id = 2;
+}
+message UnbanUserLiveReq {
+    int64 user_id = 1;
+    int64 target_user_id = 2;
+}
+
+/* ========================= 主播 ======================= */
+
+// fn start_live() ; 开始直播
+// fn end_live( ) ; 结束直播
+// fn order_live( ) ; 预约直播
+// fn unorder_live( ) ; 取消预约
+
+// fn upload_live_rec( rec )    ; 上传直播录屏
+// fn remove_live_rec( rec )    ; 移除直播录屏
+// fn get_live_rec_plays( rec ) ; 获取直播视频的播放数
+
+// fn get_user_live_level( userid ) ; 获取用户直播的等级
+// fn get_live_rec_author( rec ) ; 获取视频作者
+
+
+
+// 开始直播
+message StartLiveReq {
+    int64     user_id   = 1;
+    SLiveInfo live_info = 2;
+}
+
+// 结束直播
+message EndLiveReq {
+    int64 user_id = 1;
+    int64 live_id = 2;
+}
+
+
+
+// 预约直播。预约直播后，会在时间到达之前5分钟通知主播，开始主播
+message OrderLiveReq {
+    int64 user_id = 1;
+    SLiveInfo live_info = 2;
+
+    // 通知方式
+    message NofityMode {
+        int32 notify_mode = 1;  // 通知途径，如短信，电话，微信，平台等
+        string notify_contact = 2; // 通知的联系方式，如手机等
+    }
+
+    repeated NofityMode nofity_modes = 3;
+    
+}
+// 取消预约
+message UnorderLiveReq {
+    int64 user_id = 1;
+    int64 live_id = 2;
+}
+
+// 上传直播视频
+message UploadLiveRecReq {
+    SLiveRecHeader rec_info = 1;
+}
+
+// 踢出玩家
+message KickOutUserReq {
+    int64 user_id = 1;
+    int64 target_user_id = 2;
+    int32 no_enter_time_mins = 3; // 规定多少秒后不可进入直播间
+}
+
+// 查询直播视频信息
+message QueryLiveRecInfoReq {
+    int64 user_id = 1;
+    int64 live_rec_id = 2;
+}
+
+
+message SLiveRecInfo {
+    SLiveRecHeader header = 1;
+    string author_name = 2; // 作者名
+    flare.DateTime datetime =3; // 视频上传时间
+    int32 play_count = 4; // 播放量
+    int32 like_count = 5; // 点赞数
+}
+
+//
+message QueryLiveRecInfoRsp {
+    flare.CommonRsp resp = 1;
+    SLiveRecInfo rec_info = 2;
+}
+
+/* ========================= 观众 ======================= */
+
+// fn share_live_room_url( ) ; 分享直播链接
+// fn enter_live_room( ) ;   进入直播房间
+// fn exit_live_room() ;  退出直播房间
+// fn get_live_audience_number() ;  获取直播的观众数
+// fn schedule_live( live,notifymode ) ; 当直播开始之前5分钟通知我，短信通知或其他通知方式
+
+// fn send_barrage( rec, barrage) ; 发送弹幕
+// fn gift_user( userid, targetuserid, gift ) ; 给主播刷礼物
+// fn get_user_live_popular( userid ) ; 获取主播的人气值（关注度）
+
+
+// 进入直播间
+message EnterLiveRoomReq {
+    int64 user_id = 1;
+    int64 live_room_id = 2;
+}
+
+// 退出直播间
+message ExitLiveRoomReq {
+    int64 user_id = 1;
+    int64 live_room_id = 2;
+}
+
+// 给主播刷礼物
+message GiftLiveUserReq {
+    int64 user_id        = 1;
+    int64 target_user_id = 2;
+    int64 gift_id        = 3;
+    int32 gift_count     = 4;
+}
+
+// 发送弹幕
+message SendBarrageReq {
+    int64  user_id     = 1;
+    int64  target_live = 2;  // live 或rec
+    string content     = 3;
+}
+
+// 关注预约的直播
+message FocusOrderedLiveReq {
+    int64 user_id = 1;
+    int64 order_live_id = 2;
+}
+
+// 发送直播即将开始的提醒
+message OrderedLiveStartPush {  
+    int64 order_live_id = 1;
+    string order_live_url = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package xsvr.errro;
+
+enum EUserError {
+    EAE_Success = 0;
+    EAE_DuplicateName = 1;      // 名称冲突
+    EAE_AlreadyLogin = 2;       // 账号已经登录了同款游戏
+    EAE_InvalidAccount = 3;     // 无效的账号
+    EAE_PasswordError = 4;      // 密码错误
+    EAE_LoginMaxErrors = 5;     // 错误次数太多
+    EAE_NoPrivilege = 6;        // 无权限
+}

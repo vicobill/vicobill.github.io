@@ -1,0 +1,187 @@
+/**
+ * 发帖
+ * 关注
+ * 抽奖
+ * 排行榜
+ */
+syntax = "proto3";
+
+import "common.proto";
+import "bnet/user.proto";
+
+package flare.bnet;
+
+// 社交互动数量(InterActive)
+message SSocialIaNum {
+  int32 my_ia_num = 1;  // 我互动的
+  int32 ia_me_num = 2;  // 互动我的
+}
+// 社交互动数量数据
+message SSocialIaNumData {
+  SSocialIaNum follow              = 1;  // 关注数
+  SSocialIaNum article             = 2;  // 发帖/回帖数
+  SSocialIaNum like                = 3;  // 点赞/被点赞数
+  int32        friend_num          = 4;  // 好友数
+  repeated     SSocialIaNum extras = 5;  // 其他社交互动数量
+}
+
+message SSocialIaBase {
+  int64 from_user_id = 1;
+  int64 to_user_id   = 2;
+}
+
+message SSocialFriend {
+  int64          user_id       = 1;  // 用户ID
+  string         user_name     = 2;  // 用户名
+  flare.DateTime mkfriend_time = 3;  // 建立好友关系的时间
+  int32          favors        = 4;  // 好感度
+}
+message SSocialData {
+  SSocialIaNumData ia_num_data           = 1;
+  repeated         SSocialFriend friends = 2;
+}
+
+/* ========================= 好友关系 ======================= */
+
+// fn make_friend( userid, targetid ) ; 申请建立好友关系
+// fn list_friends( userid ) ; 列出好友
+// fn remove_friend( userid ,targetid ) ; 移除好友
+// fn is_friend( userid, targetid ) ; 是否互为好友
+
+message MakeFriendReq {
+  int64 user_id = 1;
+  int64 target_user_id = 2;
+}
+
+message SyncFriendListReq {
+  int64 user_id = 1;
+}
+message SyncFriendListRsp {
+  flare.CommonRsp resp = 1;
+  repeated SSocialFriend friends = 2;
+}
+
+message RemoveFriendReq {
+  int64 user_id = 1;
+  int64 target_user_id = 2;
+}
+
+
+
+/* ========================= 查询用户信息 ======================= */
+
+// fn get_user_ia_number( userid, iatype ) ; 获取某用户的交互数据信息
+// fn get_user_all_ia_number( userid ) ; 获取用户所有社交信息数
+
+//! 查询用户信息
+message QueryUserProfileReq {
+  int64 user_id       = 1;
+  int64 query_user_id = 2;
+}
+message QueryUserProfileRsp {
+  flare.CommonRsp  resp         = 1;
+  SUserProfile     user_profile = 2;  // 用户基本信息
+  SSocialIaNumData ia_num_data  = 3;  // 用户交互信息数据
+}
+/* ========================= 关注 ======================= */
+
+// fn watch_user( userid, targetuserid ) ; 关注用户
+// fn unwatch_user( userid, targetuserid ) ; 取消关注
+// fn get_funs_change_stats( userid,periodtype ) ; 获取粉丝变化数，可按年/月/周计算
+// fn get_my_watch_list( userid ) ; 获取我关注的人列表
+// fn get_watch_me_list( userid ) ; 获取关注我的人列表
+
+//! 关注用户动态。如发帖、游戏动向等
+message WatchUserReq {
+  int64 user_id       = 1;
+  int64 target_user_id   = 2;
+}
+
+// 取消关注
+message UnwatchUserReq {
+  int64 user_id         = 1;
+  int64 target_user_id = 2;
+}
+
+//请求/返回关注列表
+message SyncWatchListReq {
+	 uint64 page_index   = 1;
+	 uint64 page_size    = 2;
+	 uint64 require_type = 3;  //0是粉丝，1是我关注的，2是好友，3是最近，4附近的人
+	 uint32 sort_type    = 4;  // 排序类型，默认0是按在线状态，1是按关注时间，2是按段位
+	 uint32 show_type    = 5;  //显示位置 0是原来的，1是聊天好友
+}
+message SyncWatchListRsp {
+  repeated int64 users = 1; 
+}
+
+// 实时推送关注和取消关注
+message UnwatchPush {
+  string user_name = 1;;
+  flare.TimeStamp time = 2;
+}
+message WatchPush {
+  string user_name = 1;
+  flare.TimeStamp time= 2;
+}
+
+
+// 设置他人的nickname
+message RemarkUserReq {
+  int64 target_id     = 1;
+  string new_nick_name    = 2;
+}
+
+/* ========================= 游戏圈发帖 ======================= */
+
+message SArticleInfo {
+  string title = 1;   // 标题
+  string subject = 2; // 主题
+  int32 type = 3; // 帖子类型，如音频，视频等
+  string content = 4; // 内容 
+  flare.DateTime datetime = 5; // 发帖时间
+}
+message SCommentInfo {
+  int64 user_id = 1;
+  int64 ref_article_id = 2;
+  string content = 3;
+  flare.DateTime datetime = 4;
+}
+
+// fn post_article ( userid, article ) ; 发帖
+// fn comment_article ( article, comment ) ; 回帖
+// fn get_article_comments( article ) ; 获取帖子的回帖数
+// fn get_article_likes( article ) ; 获取帖子的点赞数
+// fn get_article_unlikes( article ) ; 获取帖子的不满数
+// fn get_comment_likes( comment ) ; 获取帖子的点赞数
+// fn tipoff_article( article, reason ) ;  举报帖子
+// fn get_user_post_articles( userid ) ; 获取用户发帖数
+
+// fn get_user_forum_level( userid ) ; 获取论坛等级，如果等级太低，不可以发长视频、外链等
+// fn get_user_forum_coins( userid ) ; 获取用户论坛金币数
+// fn get_user_forum_nick_name( userid ) ; 获取用户论坛的昵称
+// fn set_user_forum_nick_name( userid, nickname ) ; 设置用户论坛的昵称
+// fn get_user_forum_ia_num( userid ) ; 获取用户论坛交互数信息
+
+// 发帖
+message PostArticleReq {
+  int64 user_id = 1;
+  SArticleInfo article = 2;
+}
+// 回帖
+message CommentArticleReq {
+  int64 user_id = 1;
+  SCommentInfo comment = 2;
+}
+
+// 统计帖子信息
+message GetArticleStatsReq {
+  int64 article_id = 1;
+}
+
+// 添加帖子统计信息
+message GetArticleStatsRsp {
+  flare.CommonRsp resp = 1;
+  map<string,string> stats =  2;
+}
+

@@ -1,0 +1,364 @@
+package msg;
+import "BaseType.proto";
+import "Mail.proto";
+//服务器内部用
+
+//添加道具到场景包裹，还有钱 Session->Scene
+//=============邮件相关=================
+message MSG_AddItemToBag_SS
+{
+	 uint32 	userid	 	= 1;
+	 uint32 	mailid	 	= 2;
+	 uint32 	type   		= 3;
+	 uint32 	gold		= 4;
+	 uint32 	food		= 5; 
+	 uint32 	silver		= 6;
+	repeated ItemStack 	items      	= 7; //道具附件
+}
+
+//场景返回附件领取结果Scene->Session
+message MSG_RetGetAttach_SS
+{
+	 uint32 	userid	 	= 1;
+	 uint32 	mailid	 	= 2;
+	 uint32 	result 		= 3;  //0成功领取 1.未成功领取
+}
+
+//发送系统邮件 Scene->Session
+message MSG_SceneSendSysMail_SS
+{
+	 MailInfo 	mail		= 1; //邮件信息
+}
+
+//=============邮件相关END=================
+
+
+//====================家园通知玩家begin=======================
+//任务相关 家园相关任务触发后通知人物
+message MSG_HomeNotifyUserTaskFinish_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32 elem_type		= 2; //家园任务元素类型 1.新建 2.升级 3.家园采集
+	 uint32 building_tid	= 3; //对应建筑type_id
+	 uint32 building_level	= 4; //升级任务建筑最新等级
+}
+
+//任务相关 家园任务相关完成后计数
+message MSG_HomeAddTaskCounter_SS
+{
+	 uint32 charid			= 1;
+	 uint32 counterid		= 2; //玩家身上任务计数器id
+	 uint32 num				= 3; //数量
+	 uint32 elem_type		= 4; //任务元素类型
+	 uint32	task_type		= 5; //任务类型 1主线任务 2每日任务(对应每日计数器) 
+}
+
+//家园升级后通知人物升级
+message MSG_HomeNotifyUserLevelUp_SS
+{
+	 uint32 charid		= 1; //玩家角色id
+}
+
+//请求家园扣钱
+message MSG_HomeDeductMoney_SS
+{
+	 uint32 charid			= 1; //请求的人
+	 uint32 destserver		= 2; //目标DestServerEntity
+	 uint32 result			= 3; //扣钱结果0成功
+	 uint32 reason			= 4; //扣钱原因
+	repeated GameConsume consume		= 5; //扣除资源
+	repeated uint32 params			= 6; //扣钱回调可能保存的参数
+}
+
+//服务器属性同步
+message UpdateAttribute
+{
+	 uint32 type		= 1;
+	 uint32 value		= 2;
+	 string msg		= 3;
+}
+//家园和人物之间彼此同步消息
+message MSG_AsynHomeUserAttribute_SS
+{
+	 uint32 charid			= 1; //请求的人
+	 uint32 destserver		= 2; //目标DestServerEntity
+	repeated UpdateAttribute info		= 3; //entity属性更新
+}
+//====================家园通知玩家end=========================
+
+
+
+//===================玩家通知家园begin==========================
+//玩家通知家园更新数据
+message MSG_UserNotifyHomeUpdate_SS
+{
+	 uint32 charid		= 1; //玩家角色id
+}
+
+//通知家园玩家上线
+message MSG_UserOnlineNotifyHome_SS
+{
+	 uint32 charid		= 1; //玩家角色id
+	 uint32	gate_id		= 2; //玩家所在的网关id
+}
+
+//玩家通知家园任务完成领取奖励,param,奖励数目
+message MSG_UserNotifyGetTaskAward_SS
+{
+	 uint32 charid	= 1; //角色id
+	 uint32 food	= 2; //粮食
+	 uint32 silver  = 3; //银子
+	 uint32 gold	= 4; //金子
+}
+
+//===================玩家通知家园end==========================
+
+//==================家族相关Begin=========================
+
+//更换玩家家园位置 Session->Scene
+message MSG_ChangeHomePos_SS
+{
+	 uint32		userid		= 1; //玩家id
+	 uint32		posx		= 3; //x
+	 uint32		posy		= 4; //y
+	 uint32 	moveout		= 5; //从家族祠堂中移开
+}
+
+//家园位置信息修改
+//Sc->Se改relationuser的家园位置。se->sc改charbase的家园位置
+message MSG_RefreshHomePos_SS
+{
+	 uint32		userid		= 1; //玩家id
+	 uint32		posx		= 3; //x
+	 uint32		posy		= 4; //y
+}
+
+//用户家族字段发生改变同步场景用户相关信息 session->scene
+message UserFamilyFieldChange
+{
+	 uint32 type	= 1; //类型 1.家族id 2.玩家职位  3.药箱数量 4.工具数量 FamilyFieldUpdate_SS
+	 uint32 num		= 2; //值
+	 string msg	= 3; //家族的名字
+}
+//session家族和场景之间的信息交换
+message MSG_NotifyFamilyUpdate_SS
+{
+	 uint32		familyid	= 1; //家族id
+	repeated UserFamilyFieldChange  info    = 2; //家族字段
+}
+
+// ---------------------------------------------------------------------------------
+// 家族被击破，到session上扣钱，并给予用户奖励
+// MSG_ReqFamilyTempleAttacked_CS - MSG_ReqFamilyTempleLoot_SS - MSG_AckFamilyTempleLoot_SS - MSG_RetFamilyTempleAttacked_SC
+message MSG_ReqFamilyTempleLoot_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32 familyid		= 2; //家族id
+}
+message MSG_AckFamilyTempleLoot_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32 familyid		= 2; //家族id
+	repeated GameConsume consume		= 3; //抢夺资源
+}
+
+// 祠堂修理，先每次tick都去扣一次钱
+message MSG_ReqFamilyTempleRepair_SS
+{
+	 uint32 familyid		= 1;
+	 uint32 step			= 2; //修理次数
+}
+message MSG_AckFamilyTempleRepair_SS
+{
+	 uint32 familyid		= 1;
+	 uint32 step			= 2; //修理次数
+	 uint32 result			= 3; //0可以继续修理，1中断修理
+}
+
+// 家族捐献，场景过来消息 Home Scene 2 Session
+// MSG_ReqFamilyTempleContribute_CS - MSG_ReqFamilyTempleContribute_SS - MSG_RetFamilyTempleContribute_SC
+message MSG_ReqFamilyTempleContribute_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	repeated GameConsume consume	= 2; //捐献资源
+}
+// 祠堂升级
+message MSG_ReqFamilyTempleLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyTempleLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+
+// 家族扣钱相关
+// 营地升级立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyCampLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyCampLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// 营地在场景中建立 Session 2 Scene
+message MSG_ReqFamilyCampLaunch_SS
+{
+	 uint32 posx		= 1;
+	 uint32 posy		= 2;
+	 uint32 familyid	= 3; //服务器转发填充
+}
+message MSG_AckFamilyCampLaunch_SS
+{
+	 uint32 campid		= 1;
+	 uint32 posx    	= 2;
+	 uint32 posy    	= 3;
+	 uint32 result		= 4; //0-成功 1-失败
+}
+// 营地修理 Player Scene 2 Session
+// MSG_ReqFamilyCampRepair_CS - MSG_ReqFamilyCampRepair_SS - MSG_AckFamilyCampRepair_SS - MSG_RetFamilyCampRepair_SC
+message MSG_ReqFamilyCampRepair_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyCampRepair_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// 营地拆除 Player Scene 2 Session MSG_ReqFamilyCampPullDown_CS
+message MSG_ReqFamilyCampPullDown_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32 familyid		= 2; //要拆除的祠堂
+	repeated GameConsume consume		= 3; //拆除获取材料
+}
+// ---------------
+// 马夫升级立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyGroomLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyGroomLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// ---------------
+// 药箱升级立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyDoctorLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyDoctorLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// 药箱补充立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyDrugSupply_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyDrugSupply_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// ---------------
+// 工具升级立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyToolLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyToolLevel_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+// 工具修理立即完成扣钱 Session 2 Home Scene
+message MSG_ReqFamilyToolRepair_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	repeated GameConsume consume	= 3; //消耗多少仓库材料
+}
+message MSG_AckFamilyToolRepair_SS
+{
+	 uint32 charid			= 1; //玩家角色id
+	 uint32	complete		= 2; //0-升级 1-升级完成 2-立即完成
+	 uint32	result			= 3; //0-成功 1-失败
+}
+
+//马车进入祠堂后放入资源
+message MSG_ReqGroomEnterTemple_SS
+{
+	 uint32 charid		= 1; //玩家角色id
+	 uint32 food		= 2; //粮食
+	 uint32 silver		= 3; //银子
+}
+
+
+//变化公会仓库中的物资,暂时用来测试添加仓库的GM指令
+message MSG_ReqChangeFamilyStore_SS
+{
+	 uint32 id 		= 1; //家族id
+	 uint32 change 		= 2; //变化类型 1·增加 ; 2·减少
+	repeated FamilyStoreGood info 	= 3; //变化的数据
+	 uint32 eway 		= 4; //变化途径
+	 uint32 charid 		= 5; //变化关联charid
+}
+
+
+
+//==================家族相关End=========================
+
+//==================玩家相关Begin=======================
+message MSG_SyncPlayerFightPower_SS
+{
+	 uint32 charid 		= 1; //玩家角色id
+	 uint32 value 		= 2; //战力数值
+}
+
+message MSG_SyncRoleLevel_SS
+{
+	 uint32 charid          = 1; //玩家角色id
+	 uint32 rolelevel       = 2; //角色等级
+}
+
+//Scene->Session 同步家族签到同步族贡，session里加公会物资
+message MSG_SyncFamilySign_SS
+{
+	 uint32 charid 		= 1; //签到人的charid
+	 uint32 contribute 	= 2; //同步族贡
+}
+//Scene->Session 发送世界公告
+message MSG_SyncWorldNotice_SS
+{
+	 string content         = 1; //公告内容,有聊天消息发送 
+}
+//==================玩家相关End=========================

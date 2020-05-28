@@ -1,0 +1,29 @@
+# Protobuf 开发笔记
+
+## proto网络数据只关心数据布局，不关心名称
+protobuf 整体发送数据通过`Serializer`进行序列化，只关心数据布局，不关心数据名称。即：protobuf的`.proto`文件，只要数据布局相同，名称(Message的名称和字段名称)是可以任意改动的。
+
+`syntax="proto3";`是必须的
+
+## 字段名称忽略大小写且忽略分隔符
+<font color=red> proto的字段名称，是忽略大小写的！且忽略分隔符！ </font>
+
+```protobuf
+
+enum EEnumTest {
+    EET_None = 0;   // 会生成为cs的EetNone
+    eet_none = 1;   // 错误：与EET_None相同
+    eetnone=2;      // 会生成cs的Eetnnoe
+    eetNone=3;      // 错误：与EET_None相同 
+}
+
+message MTest {
+    int32 name = 1;     // 会生成cs的Name;
+    int32 Name = 2;     // 错误: 与Name相同
+    int32 name_ = 3;    // 错误：与Name相同
+    int32 n_ame = 4;    // 错误：与Name相同
+}
+
+```
+
+

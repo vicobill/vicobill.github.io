@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+package msg;
+
+import "gogo/gogo.proto";
+import "msg_def_inner.proto";
+
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.gostring_all) = true;
+
+option (gogoproto.populate_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unsafe_marshaler_all) = false;
+option (gogoproto.unsafe_unmarshaler_all) = false;
+
+
+service InfoService {
+    rpc LoginInfoService(RPC_LoginReq) returns (RPC_ReturnCode);
+}

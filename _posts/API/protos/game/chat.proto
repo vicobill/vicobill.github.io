@@ -1,0 +1,118 @@
+/* 聊天
+   - 获取指定频道信息
+   - 发送指定频道信息
+   - 发送语音消息
+   - 发起视频对话
+   - 发起语音对话
+   - 屏蔽指定频道
+   - 发起视频聊天组
+   - 发起语音聊天组
+   = 屏蔽某人信息
+ */
+package msg;
+
+
+enum CHANNEL_TYPE_ENUM
+{
+	CTE_WORLD_CHANNEL = 0;
+	CTE_COUNTRY_CHANNEL = 1;
+	CTE_FAMILY_CHANNEL = 2;
+        CTE_CAMP_CHANNEL =3;
+}
+
+
+
+
+//请求世界聊天
+message MSG_ReqWorldChatCmd_CS
+{
+	 uint32 id = 1; //发起人的ID 
+	 uint32 channel = 2; //频道  
+	 uint32 chattype = 3; //聊天类型 0文字，1语音
+	 string content = 4; //聊天内容 
+	 string voiceid = 5; //语音id，如果为文字聊天，voiceid为0.
+         float voicetime = 6; //语音时间，如果为文字聊天，voicetime为"0.0".
+}
+//返回世界聊天成功
+message MSG_RetWorldChatCmd_SC
+{
+	 uint32 id = 1; //发起聊天的玩家ID 
+	 string name = 2; //发起聊天的玩家姓名
+	 uint32 channel = 3; //频道
+	 uint32 chattype = 4; //聊天类型 0文字，1语音    
+	 string content = 5; //聊天内容
+	 string voiceid = 6; //语音id，如果为文字聊天，voiceid为0.
+         uint32 time = 7;   //服务器接收到到聊天消息的时间
+         float voicetime = 8; //语音时间，如果为文字聊天，voicetime为"0".
+}
+//向发起世界聊天的人发送聊天是否成功消息
+message MSG_RetWorldChatResultCmd_SC
+{
+     uint32 result = 1; //返回结果,0 成功 1世界禁言 2银子不足 3.聊天语速太快 4.进入GM指令成功
+}
+
+
+
+//请求私聊
+message MSG_ReqPrivateChatCmd_CS
+{
+	 uint32 fromid = 1; //消息发起者
+	 uint32 toid   = 2; //要发送给消息的玩家id
+	 uint32 chattype = 3; //聊天类型 0文字，1语音
+	 string content = 4; //聊天内容
+	 string voiceid = 5; //语音id，如果为文字聊天，voiceid为0.
+	 float voicetime = 6; //语音时间，如果为文字聊天，voicetime为"0.0".
+}
+//私聊成功，发送消息(不发给自己)
+message MSG_RetPrivateChatCmd_SC
+{
+	 uint32 id 	 = 1; //发起私聊的玩家id
+	 string name = 2; //发起私聊的玩家姓名
+	 uint32 chattype = 3; //聊天类型 0文字，1语音
+	 string content = 4; //聊天内容
+	 string voiceid = 5; //语音id，如果为文字聊天，voiceid为0.
+	 float voicetime = 6; //语音时间，如果为文字聊天，voicetime为"0.0".
+	 uint32 time = 7;     //服务器接收到的聊天时间
+    
+}
+//向发起私聊的人发送是否成功消息
+message MSG_RetPrivateChatResultCmd_SC
+{
+     uint32 result = 1; //返回结果 0成功 1私聊禁言 2.聊天语速太快 3.玩家不在线
+}
+
+
+
+//gm指令返回
+message MSG_RetGmCmd_SC
+{
+	 uint32 result = 1; // 0成功 1失败
+}
+
+//区域频道信息
+message AreaChannelInfo
+{
+	 uint32       type        		 = 1;  // 类型 0:世界 1:国家 2:家族 枚举定义在CHANNEL_TYPE_ENUM中
+     uint32       area_id            = 2;  // 区域ID
+     string       channel_uid         = 3;  //频道UID
+}
+
+//请求区域频道信息
+message MSG_ReqAreaChannelInfo_CS
+{
+  
+}
+
+//回应区域频道信息
+message MSG_RetAreaChannelInfo_SC
+{
+    repeated AreaChannelInfo channelInfo = 1; //区域频道信息
+}
+
+
+//通知区域频道信息更新
+message MSG_NtfAreaChannelInfoUpdate_SC
+{
+	 AreaChannelInfo channelInfo = 1; //区域频道信息
+}
+

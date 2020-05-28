@@ -1,0 +1,151 @@
+/* 英雄，英雄与Role不同，
+ */
+
+import "item.proto"; 
+package msg;
+
+
+//英雄基本信息
+
+message HeroData
+{
+	 uint64          heroid  = 1;   //英雄唯一ID
+	 uint32          charid  = 2;    //英雄所属玩家
+	 uint32          tid     = 3;    //英雄表ID
+	 uint32          level   = 4;    //等级
+	 uint32          team    = 5;    //编队
+	 uint32          station = 6;    //驻守位置 0 跟随玩家 1 家园 2 资源点
+	 uint64          resourceid = 7;  //资源点编号
+	 uint32          battlepos = 8;     //阵型位置
+	 uint32	         upgrade		= 9;	//星星数
+	repeated ItemBaseInfo	 items		= 10;       //普通道具信息
+	
+	 TProperty	str			= 11;	//力量
+	 TProperty	inte		= 12;	//智力
+	 TProperty	dex			= 13;	//敏捷
+	 TProperty	spi			= 14;	//精神
+	 TProperty	con			= 15;	//体质
+	 TProperty  pattmin     = 16;   // 最少物理攻击
+	 TProperty  pattmax     = 17;   // 最大物理攻击
+	 TProperty  mattmin     = 18;   // 最少魔法攻击
+	 TProperty  mattmax     = 19;   // 最大魔法攻击
+	 TProperty	hp			= 20;	//血
+	 TProperty  pdefence    = 21;   // 物理防御
+	 TProperty  mdefence    = 22;   // 魔法防御
+	 TProperty  speed       = 23;   // 速度
+	 TProperty  bang        = 24;   // 暴击
+	 TProperty  oppose      = 25;   // 抗击力
+	 TProperty  hit         = 26;   // 命中
+	 TProperty  dodge       = 27;   // 闪避        
+	 uint64     exp         = 28;     //经验
+	 uint32     currhp      = 29;    //当前血量
+	
+	repeated SkillData	skills		= 30;	// 技能
+}
+
+message SkillData
+{
+	 uint32		skill_id	= 1;	// 技能ID
+	 uint32		skill_level = 2;	// 技能等级
+}
+
+message MSG_ReqCreateHero_CS  //请求创建英雄
+{
+	 uint32 tid = 1; //请求需要创建的英雄ID
+}
+
+message MSG_RetCreateHero_SC  //返回创建英雄是否成功
+{
+	 uint32 ret = 1; //0 成功  1失败
+}
+
+message MSG_ReqHeroData_CS    //请求英雄数据
+{
+
+}
+
+message MSG_RetHeroData_SC    //返回玩家的英雄数据
+{	
+	 uint32    mode = 1;  //0 修改  1 添加  2返回所有英雄数据
+	repeated HeroData   heros = 2; //英雄数据
+}
+
+
+message BattlePos
+{
+	 uint64  heroid = 1;  //英雄ID
+	 uint32  pos = 2; //位置
+
+}
+message MSG_ReqHeroBattlePos_CS    //请求英雄排兵布阵
+{
+	 uint32 team = 1;//编辑的战斗队形编号
+	repeated BattlePos poslist = 2; //位置列表
+}
+
+message MSG_RetHeroBattlePos_SC  //返回派兵布阵是否成功
+{
+	 uint32 ret = 1; //0 成功  1失败
+}
+
+message MSG_ReqHeroStation_CS    //请求英雄驻守
+{
+	 uint32 team = 1;//编辑的战斗队形编号
+	 uint32 station = 2; //驻守位置 0 随身带  1 驻守家园  2驻守资源点
+	 uint64 resourceid = 3; //驻守的资源点位置
+}
+
+message MSG_RetHeroStation_SC  //返回驻守是否成功
+{
+	 uint32 ret = 1; //0 成功  1失败
+}
+
+message EntryAttributeUpdate
+{
+	 uint32 type    = 1; // 属性类型
+	 uint32 value   = 2; // 属性值
+}
+
+message HeroAttributeUpdate
+{
+	 uint32 heroid    = 1; //英雄的唯一id
+	repeated  EntryAttributeUpdate attribute = 2; //属性集合
+}
+
+//返回客户端英雄改变的
+message MSG_SendHeroAttribute_SC
+{
+	repeated HeroAttributeUpdate heroattribute = 1;
+}
+
+message MSG_ReqHeroUpgrade_CS    //请求英雄升星
+{
+	 uint64  heroid = 1;  //需要升星的英雄ID
+	 uint64  resourceid = 2;  //当做材料的英雄ID
+}
+
+message MSG_RetHeroUpgrade_SC  //返回英雄升星是否成功
+{
+	 uint32 ret = 1; //0 成功  1失败
+}
+
+message MSG_DelHero_SC  //返回英雄升星是否成功
+{
+	repeated uint64 heros = 1; //英雄列表
+}
+
+
+//请求某个英雄的装备信息
+message MSG_ReqHeroEquip_CS
+{
+	 uint64  heroid = 1; //英雄ID	
+}
+
+//发送单个英雄的装备信息
+message MSG_SendHeroEquipInfo_SC
+{
+	 uint64  heroid = 1;  //英雄ID
+	repeated ItemBaseInfo  items      = 2;       //道具信息
+}
+
+

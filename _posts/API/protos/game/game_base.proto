@@ -1,0 +1,30 @@
+syntax = "proto3";
+package flare.game;
+
+//人物随身花费
+message SComsume
+{
+	int32 type = 1;  //类型 1粮食 2银两 3金子 4元宝
+	int32 num = 2;	// 数量
+}
+
+//物品堆
+message SItemAmount
+{
+    int32 type_id  = 1; //道具type_id
+    int32 num = 2;  //数量
+}
+
+//地图坐标
+message Position
+{
+	 uint32 x = 1;
+	 uint32 y = 2;
+}
+
+//公会仓库物资
+message FamilyStoreGood
+{
+	 uint32 type            = 1; //物资类型 1金币2钻石 其他为道具typeid
+	 uint32 count           = 2; //物资数量
+}

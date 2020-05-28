@@ -1,0 +1,71 @@
+package msg;
+
+//通用错误码
+message MSG_Ret_Common_Error_SC
+{
+	 uint32 errorcode = 1;//通用错误码
+}
+
+//通用错误提示
+message MSG_Ret_Common_Tips_SC
+{
+	 string strcontent = 1;//信息内容
+}
+
+//测试客户端服务器网络
+message MSG_Req_Test_Network_CS
+{
+	 uint32 num = 1;
+	 string name = 2;
+	repeated uint32 num2 = 3;
+}
+
+//网关向用户发送游戏时间
+message MSG_Ret_GameTime_SC
+{
+	 uint32		gametime = 1;
+	 uint32		servertime = 2;
+}
+
+//网关向用户请求时间
+message MSG_Req_UserGameTime_SC
+{
+}
+
+//用户向网关发送当前游戏时间
+message MSG_Ret_UserGameTime_CS
+{
+	 uint32 usertempid = 1;  //用户临时ID
+	 uint32 gametime = 2;	//用户游戏时间
+}
+
+//通知玩家被踢下线
+message MSG_Ret_NotifyUserKickout_SC
+{
+}
+
+//登陆失败后返回的信息
+message MSG_Ret_ServerLoginFailed_SC
+{
+	 uint32 returncode = 1;	// 返回码
+}
+
+
+message MSG_RetUntreatedCmdErrorCmd_SC
+{
+	 uint32 untreated_cmd_id = 1; //为处理的消息id
+}
+
+
+//人物地图数据
+message CharacterMapData
+{
+	 uint32         level = 1;      //等级
+	 uint32         x = 2;          //坐标X
+	 uint32         y = 3;          //坐标Y
+	 uint32         dir = 4;        //方向
+	 uint32         movespeed = 5;  //移动速度
+	 uint32         hp = 6;         //当前血量
+	 uint32         maxhp = 7;      //最大血量
+	repeated uint32         state = 8;      //状态
+}

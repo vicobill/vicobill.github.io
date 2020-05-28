@@ -1,0 +1,1453 @@
+syntax = "proto2";
+	
+package msg;
+	
+import "battle.proto";
+import "login.proto";
+
+
+message MSG_RoomInfoAndState_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomInfoAndState cmd_data = 2;
+}
+
+
+message MSG_RoomLoadProgress_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomLoadProgress cmd_data = 2;
+}
+
+
+message MSG_BroadcastRoomLoadProgress_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadcastRoomLoadProgress cmd_data = 2;
+}
+
+
+message MSG_IntoRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_IntoRoom cmd_data = 2;
+}
+
+
+message MSG_RoomState_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomState cmd_data = 2;
+}
+
+
+message MSG_ItemInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_ItemInfo cmd_data = 2;
+}
+
+
+message MSG_RoomInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomInfo cmd_data = 2;
+}
+
+
+message MSG_UserBuffer_Cell{
+	 uint64 user_id = 1;
+	 MSG_UserBuffer cmd_data = 2;
+}
+
+
+message MSG_IAmViewer_Cell{
+	 uint64 user_id = 1;
+	 MSG_IAmViewer cmd_data = 2;
+}
+
+
+message MSG_RoomUserInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomUserInfo cmd_data = 2;
+}
+
+
+message MSG_RoomObjectInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_RoomObjectInfo cmd_data = 2;
+}
+
+
+message MSG_UpdateUserBuff_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateUserBuff cmd_data = 2;
+}
+
+
+message MSG_SyncUserMove_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncUserMove cmd_data = 2;
+}
+
+
+message MSG_BroadUserMove_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadUserMove cmd_data = 2;
+}
+
+
+message MSG_SyncSetUserPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncSetUserPos cmd_data = 2;
+}
+
+
+message MSG_SyncOperateWeapon_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncOperateWeapon cmd_data = 2;
+}
+
+
+message MSG_BroadOperateWeapon_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadOperateWeapon cmd_data = 2;
+}
+
+
+message MSG_SyncBoomPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncBoomPos cmd_data = 2;
+}
+
+
+message MSG_AckHolePos_Cell{
+	 uint64 user_id = 1;
+	 MSG_AckHolePos cmd_data = 2;
+}
+
+
+message MSG_BroadRemoveBoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadRemoveBoom cmd_data = 2;
+}
+
+
+message MSG_SyncJump_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncJump cmd_data = 2;
+}
+
+
+message MSG_BroadJump_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadJump cmd_data = 2;
+}
+
+
+message MSG_SyncJumpEnd_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncJumpEnd cmd_data = 2;
+}
+
+
+message MSG_BroadJumpEnd_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadJumpEnd cmd_data = 2;
+}
+
+
+message MSG_BroadCastHp_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadCastHp cmd_data = 2;
+}
+
+
+message MSG_BroadDeath_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadDeath cmd_data = 2;
+}
+
+
+message MSG_DeathScore_Cell{
+	 uint64 user_id = 1;
+	 MSG_DeathScore cmd_data = 2;
+}
+
+
+message MSG_DeathPoint_Cell{
+	 uint64 user_id = 1;
+	 MSG_DeathPoint cmd_data = 2;
+}
+
+
+message MSG_BroadResult_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadResult cmd_data = 2;
+}
+
+
+message MSG_BroadForceOnObject_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadForceOnObject cmd_data = 2;
+}
+
+
+message MSG_BroadForceOnObjects_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadForceOnObjects cmd_data = 2;
+}
+
+
+message MSG_SyncFlyingObjectPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncFlyingObjectPos cmd_data = 2;
+}
+
+
+message MSG_BroadFlyingObjectPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadFlyingObjectPos cmd_data = 2;
+}
+
+
+message MSG_HoleHistoryData_Cell{
+	 uint64 user_id = 1;
+	 MSG_HoleHistoryData cmd_data = 2;
+}
+
+
+message MSG_FinishMyStep_Cell{
+	 uint64 user_id = 1;
+	 MSG_FinishMyStep cmd_data = 2;
+}
+
+
+message MSG_RequireObjectPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireObjectPos cmd_data = 2;
+}
+
+
+message MSG_ReturnObjectPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReturnObjectPos cmd_data = 2;
+}
+
+
+message MSG_ShowDeathBoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_ShowDeathBoom cmd_data = 2;
+}
+
+
+message MSG_UpdateAttribute_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateAttribute cmd_data = 2;
+}
+
+
+message MSG_RequireRoomLocation_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireRoomLocation cmd_data = 2;
+}
+
+
+message MSG_ReturnRoomLocation_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReturnRoomLocation cmd_data = 2;
+}
+
+
+message MSG_RelivePlayer_Cell{
+	 uint64 user_id = 1;
+	 MSG_RelivePlayer cmd_data = 2;
+}
+
+
+message MSG_UpdateWeaponData_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateWeaponData cmd_data = 2;
+}
+
+
+message MSG_SyncEmoj_Cell{
+	 uint64 user_id = 1;
+	 MSG_SyncEmoj cmd_data = 2;
+}
+
+
+message MSG_BroadcastEmoj_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadcastEmoj cmd_data = 2;
+}
+
+
+message MSG_SendChatList_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendChatList cmd_data = 2;
+}
+
+
+message MSG_RequireChatList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireChatList cmd_data = 2;
+}
+
+
+message MSG_ReplyChatList_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReplyChatList cmd_data = 2;
+}
+
+
+message MSG_SetChatList_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetChatList cmd_data = 2;
+}
+
+
+message MSG_ResetChatList_Cell{
+	 uint64 user_id = 1;
+	 MSG_ResetChatList cmd_data = 2;
+}
+
+
+message MSG_SendRoomChat_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendRoomChat cmd_data = 2;
+}
+
+
+message MSG_BroadcastRoomChat_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadcastRoomChat cmd_data = 2;
+}
+
+
+message MSG_BroadcastUpdateObjectState_Cell{
+	 uint64 user_id = 1;
+	 MSG_BroadcastUpdateObjectState cmd_data = 2;
+}
+
+
+message MSG_FrameDate_Cell{
+	 uint64 user_id = 1;
+	 MSG_FrameDate cmd_data = 2;
+}
+
+
+message MSG_UserOperation_Cell{
+	 uint64 user_id = 1;
+	 MSG_UserOperation cmd_data = 2;
+}
+
+
+message MSG_BoomHitUser_Cell{
+	 uint64 user_id = 1;
+	 MSG_BoomHitUser cmd_data = 2;
+}
+
+
+message MSG_ExitRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_ExitRoom cmd_data = 2;
+}
+
+
+message MSG_ExitRoomDirectly_Cell{
+	 uint64 user_id = 1;
+	 MSG_ExitRoomDirectly cmd_data = 2;
+}
+
+
+message MSG_AddItem_Cell{
+	 uint64 user_id = 1;
+	 MSG_AddItem cmd_data = 2;
+}
+
+
+message MSG_PauseResumeGame_Cell{
+	 uint64 user_id = 1;
+	 MSG_PauseResumeGame cmd_data = 2;
+}
+
+
+message MSG_ShowDamage_Cell{
+	 uint64 user_id = 1;
+	 MSG_ShowDamage cmd_data = 2;
+}
+
+
+message MSG_SummonEnemyUser_Cell{
+	 uint64 user_id = 1;
+	 MSG_SummonEnemyUser cmd_data = 2;
+}
+
+
+message MSG_ClientSetUserPos_Cell{
+	 uint64 user_id = 1;
+	 MSG_ClientSetUserPos cmd_data = 2;
+}
+
+
+message MSG_TestShowLine_Cell{
+	 uint64 user_id = 1;
+	 MSG_TestShowLine cmd_data = 2;
+}
+
+
+message MSG_ClientNeedServerRouter_Cell{
+	 uint64 user_id = 1;
+	 MSG_ClientNeedServerRouter cmd_data = 2;
+}
+
+
+message MSG_ServerRouterToClient_Cell{
+	 uint64 user_id = 1;
+	 MSG_ServerRouterToClient cmd_data = 2;
+}
+
+
+message MSG_RequireRecordGame_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireRecordGame cmd_data = 2;
+}
+
+
+message MSG_HeartBeat_Cell{
+	 uint64 user_id = 1;
+	 MSG_HeartBeat cmd_data = 2;
+}
+
+
+message MSG_Ping_Cell{
+	 uint64 user_id = 1;
+	 MSG_Ping cmd_data = 2;
+}
+
+
+message MSG_Pong_Cell{
+	 uint64 user_id = 1;
+	 MSG_Pong cmd_data = 2;
+}
+
+
+message MSG_LoginReq_Cell{
+	 uint64 user_id = 1;
+	 MSG_LoginReq cmd_data = 2;
+}
+
+
+message MSG_LoginRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_LoginRsp cmd_data = 2;
+}
+
+
+message MSG_RequireMatchRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireMatchRoom cmd_data = 2;
+}
+
+
+message MSG_CancelMatchRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_CancelMatchRoom cmd_data = 2;
+}
+
+
+message MSG_AskJoinRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_AskJoinRoom cmd_data = 2;
+}
+
+
+message MSG_BeforeJoinRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_BeforeJoinRoom cmd_data = 2;
+}
+
+
+message MSG_RspBeforeJoinRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspBeforeJoinRoom cmd_data = 2;
+}
+
+
+message MSG_JoinRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_JoinRoom cmd_data = 2;
+}
+
+
+message MSG_ChangeName_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeName cmd_data = 2;
+}
+
+
+message MSG_MatchInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_MatchInfo cmd_data = 2;
+}
+
+
+message MSG_ActiveWeapon_Cell{
+	 uint64 user_id = 1;
+	 MSG_ActiveWeapon cmd_data = 2;
+}
+
+
+message MSG_ActiveWeaponRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_ActiveWeaponRsp cmd_data = 2;
+}
+
+
+message MSG_UnlockWeapon_Cell{
+	 uint64 user_id = 1;
+	 MSG_UnlockWeapon cmd_data = 2;
+}
+
+
+message MSG_UnlockWeaponRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_UnlockWeaponRsp cmd_data = 2;
+}
+
+
+message MSG_UpdatePlayerAttribute_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdatePlayerAttribute cmd_data = 2;
+}
+
+
+message MSG_AddBoxData_Cell{
+	 uint64 user_id = 1;
+	 MSG_AddBoxData cmd_data = 2;
+}
+
+
+message MSG_UpdateBoxData_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateBoxData cmd_data = 2;
+}
+
+
+message MSG_UnlockBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_UnlockBox cmd_data = 2;
+}
+
+
+message MSG_OpenBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_OpenBox cmd_data = 2;
+}
+
+
+message MSG_OpenBoxRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_OpenBoxRsp cmd_data = 2;
+}
+
+
+message MSG_GMCommand_Cell{
+	 uint64 user_id = 1;
+	 MSG_GMCommand cmd_data = 2;
+}
+
+
+message MSG_OnRegister_Cell{
+	 uint64 user_id = 1;
+	 MSG_OnRegister cmd_data = 2;
+}
+
+
+message MSG_ChangeNameResult_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeNameResult cmd_data = 2;
+}
+
+
+message MSG_ChangeFace_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeFace cmd_data = 2;
+}
+
+
+message MSG_ChangeGender_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeGender cmd_data = 2;
+}
+
+
+message MSG_NotifyRecentNews_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyRecentNews cmd_data = 2;
+}
+
+
+message MSG_ReqSystemSetting_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqSystemSetting cmd_data = 2;
+}
+
+
+message MSG_ModifySystemSetting_Cell{
+	 uint64 user_id = 1;
+	 MSG_ModifySystemSetting cmd_data = 2;
+}
+
+
+message MSG_RspSystemSetting_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspSystemSetting cmd_data = 2;
+}
+
+
+message MSG_DuplicateLogin_Cell{
+	 uint64 user_id = 1;
+	 MSG_DuplicateLogin cmd_data = 2;
+}
+
+
+message MSG_RequireStorList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireStorList cmd_data = 2;
+}
+
+
+message MSG_SendStorList_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendStorList cmd_data = 2;
+}
+
+
+message MSG_ReqOtherSocialNum_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqOtherSocialNum cmd_data = 2;
+}
+
+
+message MSG_RspSocialNum_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspSocialNum cmd_data = 2;
+}
+
+
+message MSG_RequireWatchHim_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireWatchHim cmd_data = 2;
+}
+
+
+message MSG_CancelWatchHim_Cell{
+	 uint64 user_id = 1;
+	 MSG_CancelWatchHim cmd_data = 2;
+}
+
+
+message MSG_SombodyWatchMe_Cell{
+	 uint64 user_id = 1;
+	 MSG_SombodyWatchMe cmd_data = 2;
+}
+
+
+message MSG_SombodyCancelWatchMe_Cell{
+	 uint64 user_id = 1;
+	 MSG_SombodyCancelWatchMe cmd_data = 2;
+}
+
+
+message MSG_RequireWatchList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireWatchList cmd_data = 2;
+}
+
+
+message MSG_RspWatchList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspWatchList cmd_data = 2;
+}
+
+
+message MSG_NotifyAddRecentContact_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyAddRecentContact cmd_data = 2;
+}
+
+
+message MSG_NotifyRemoveRecentContact_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyRemoveRecentContact cmd_data = 2;
+}
+
+
+message MSG_ReqSocial_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqSocial cmd_data = 2;
+}
+
+
+message MSG_SearchByName_Cell{
+	 uint64 user_id = 1;
+	 MSG_SearchByName cmd_data = 2;
+}
+
+
+message MSG_SearchByNameRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_SearchByNameRsp cmd_data = 2;
+}
+
+
+message MSG_RecentNews_Cell{
+	 uint64 user_id = 1;
+	 MSG_RecentNews cmd_data = 2;
+}
+
+
+message MSG_SendFollowInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendFollowInfo cmd_data = 2;
+}
+
+
+message MSG_ReqEnterIntoSkillGuide_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqEnterIntoSkillGuide cmd_data = 2;
+}
+
+
+message MSG_SkipSkillGuide_Cell{
+	 uint64 user_id = 1;
+	 MSG_SkipSkillGuide cmd_data = 2;
+}
+
+
+message MSG_HaveATry_Cell{
+	 uint64 user_id = 1;
+	 MSG_HaveATry cmd_data = 2;
+}
+
+
+message MSG_ReqUserFollowList_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqUserFollowList cmd_data = 2;
+}
+
+
+message MSG_RspUserFollowList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspUserFollowList cmd_data = 2;
+}
+
+
+message MSG_SetClearOtherNickName_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetClearOtherNickName cmd_data = 2;
+}
+
+
+message MSG_PrepareTeam_Cell{
+	 uint64 user_id = 1;
+	 MSG_PrepareTeam cmd_data = 2;
+}
+
+
+message MSG_RspPrepareTeam_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspPrepareTeam cmd_data = 2;
+}
+
+
+message MSG_PrepareTeamData_Cell{
+	 uint64 user_id = 1;
+	 MSG_PrepareTeamData cmd_data = 2;
+}
+
+
+message MSG_AskJoinTeam_Cell{
+	 uint64 user_id = 1;
+	 MSG_AskJoinTeam cmd_data = 2;
+}
+
+
+message MSG_AnswerJoinTeam_Cell{
+	 uint64 user_id = 1;
+	 MSG_AnswerJoinTeam cmd_data = 2;
+}
+
+
+message MSG_AskJoinTeamReq_Cell{
+	 uint64 user_id = 1;
+	 MSG_AskJoinTeamReq cmd_data = 2;
+}
+
+
+message MSG_AskJoinTeamRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_AskJoinTeamRsp cmd_data = 2;
+}
+
+
+message MSG_LeavelTeamReq_Cell{
+	 uint64 user_id = 1;
+	 MSG_LeavelTeamReq cmd_data = 2;
+}
+
+
+message MSG_LeavelTeamRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_LeavelTeamRsp cmd_data = 2;
+}
+
+
+message MSG_RequireTeamMatchRoom_Cell{
+	 uint64 user_id = 1;
+	 MSG_RequireTeamMatchRoom cmd_data = 2;
+}
+
+
+message MSG_UpdateUserState_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateUserState cmd_data = 2;
+}
+
+
+message MSG_RejectOneUser_Cell{
+	 uint64 user_id = 1;
+	 MSG_RejectOneUser cmd_data = 2;
+}
+
+
+message MSG_ChangeCurrentReadyState_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeCurrentReadyState cmd_data = 2;
+}
+
+
+message MSG_EnterGameDirectly_Cell{
+	 uint64 user_id = 1;
+	 MSG_EnterGameDirectly cmd_data = 2;
+}
+
+
+message MSG_OneVsOneRsp_Cell{
+	 uint64 user_id = 1;
+	 MSG_OneVsOneRsp cmd_data = 2;
+}
+
+
+message MSG_SendDoubleConfirmUser_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendDoubleConfirmUser cmd_data = 2;
+}
+
+
+message MSG_DoubleConfirm_Cell{
+	 uint64 user_id = 1;
+	 MSG_DoubleConfirm cmd_data = 2;
+}
+
+
+message MSG_AfterDoubleConfirm_Cell{
+	 uint64 user_id = 1;
+	 MSG_AfterDoubleConfirm cmd_data = 2;
+}
+
+
+message MSG_DoubleConfirmNum_Cell{
+	 uint64 user_id = 1;
+	 MSG_DoubleConfirmNum cmd_data = 2;
+}
+
+
+message MSG_NotDoubleConfirm_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotDoubleConfirm cmd_data = 2;
+}
+
+
+message MSG_AskJoinTeamFailed_Cell{
+	 uint64 user_id = 1;
+	 MSG_AskJoinTeamFailed cmd_data = 2;
+}
+
+
+message MSG_ChangeHumanVsRobotMatchType_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeHumanVsRobotMatchType cmd_data = 2;
+}
+
+
+message MSG_ChangeTeamPosition_Cell{
+	 uint64 user_id = 1;
+	 MSG_ChangeTeamPosition cmd_data = 2;
+}
+
+
+message MSG_AddOneRobot_Cell{
+	 uint64 user_id = 1;
+	 MSG_AddOneRobot cmd_data = 2;
+}
+
+
+message MSG_SendHeroData_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendHeroData cmd_data = 2;
+}
+
+
+message MSG_BeginWaitingGame_Cell{
+	 uint64 user_id = 1;
+	 MSG_BeginWaitingGame cmd_data = 2;
+}
+
+
+message MSG_ReadyWaiting_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReadyWaiting cmd_data = 2;
+}
+
+
+message MSG_NotifyReadyWaiting_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyReadyWaiting cmd_data = 2;
+}
+
+
+message MSG_SelectHero_Cell{
+	 uint64 user_id = 1;
+	 MSG_SelectHero cmd_data = 2;
+}
+
+
+message MSG_SelectHeroSkin_Cell{
+	 uint64 user_id = 1;
+	 MSG_SelectHeroSkin cmd_data = 2;
+}
+
+
+message MSG_SetHeroCurrentSkin_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetHeroCurrentSkin cmd_data = 2;
+}
+
+
+message MSG_NotifySelectHero_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifySelectHero cmd_data = 2;
+}
+
+
+message MSG_FinishWaitingGame_Cell{
+	 uint64 user_id = 1;
+	 MSG_FinishWaitingGame cmd_data = 2;
+}
+
+
+message MSG_SendGradeData_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendGradeData cmd_data = 2;
+}
+
+
+message MSG_BuyHero_Cell{
+	 uint64 user_id = 1;
+	 MSG_BuyHero cmd_data = 2;
+}
+
+
+message MSG_SendHeroActive_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendHeroActive cmd_data = 2;
+}
+
+
+message MSG_BuyHeroSkin_Cell{
+	 uint64 user_id = 1;
+	 MSG_BuyHeroSkin cmd_data = 2;
+}
+
+
+message MSG_SendItems_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendItems cmd_data = 2;
+}
+
+
+message MSG_SendOneItem_Cell{
+	 uint64 user_id = 1;
+	 MSG_SendOneItem cmd_data = 2;
+}
+
+
+message MSG_ReqHeroFree_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqHeroFree cmd_data = 2;
+}
+
+
+message MSG_ReponseHeroFree_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReponseHeroFree cmd_data = 2;
+}
+
+
+message MSG_SelectHeroFailed_Cell{
+	 uint64 user_id = 1;
+	 MSG_SelectHeroFailed cmd_data = 2;
+}
+
+
+message MSG_LogUserLog_Cell{
+	 uint64 user_id = 1;
+	 MSG_LogUserLog cmd_data = 2;
+}
+
+
+message MSG_ViewJoinGame_Cell{
+	 uint64 user_id = 1;
+	 MSG_ViewJoinGame cmd_data = 2;
+}
+
+
+message MSG_ViewJoinGameRet_Cell{
+	 uint64 user_id = 1;
+	 MSG_ViewJoinGameRet cmd_data = 2;
+}
+
+
+message MSG_ReqHeroSkinInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqHeroSkinInfo cmd_data = 2;
+}
+
+
+message MSG_RspHeroSkinInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspHeroSkinInfo cmd_data = 2;
+}
+
+
+message MSG_NotifyAddExp_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyAddExp cmd_data = 2;
+}
+
+
+message MSG_NotifyLevelUp_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyLevelUp cmd_data = 2;
+}
+
+
+message MSG_ReqUserFramData_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqUserFramData cmd_data = 2;
+}
+
+
+message MSG_RspUserBattleData_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspUserBattleData cmd_data = 2;
+}
+
+
+message MSG_MainPage_Cell{
+	 uint64 user_id = 1;
+	 MSG_MainPage cmd_data = 2;
+}
+
+
+message MSG_ReqRoomBattleData_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqRoomBattleData cmd_data = 2;
+}
+
+
+message MSG_ReceiveChatMessage_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReceiveChatMessage cmd_data = 2;
+}
+
+
+message MSG_PushChatMessage_Cell{
+	 uint64 user_id = 1;
+	 MSG_PushChatMessage cmd_data = 2;
+}
+
+
+message MSG_ReqOpenMailBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqOpenMailBox cmd_data = 2;
+}
+
+
+message MSG_NotifyOpenMailBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyOpenMailBox cmd_data = 2;
+}
+
+
+message MSG_PushMailNum_Cell{
+	 uint64 user_id = 1;
+	 MSG_PushMailNum cmd_data = 2;
+}
+
+
+message MSG_ReqMailList_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqMailList cmd_data = 2;
+}
+
+
+message MSG_RspMailList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspMailList cmd_data = 2;
+}
+
+
+message MSG_PickUpTheMail_Cell{
+	 uint64 user_id = 1;
+	 MSG_PickUpTheMail cmd_data = 2;
+}
+
+
+message MSG_DeleteTheMail_Cell{
+	 uint64 user_id = 1;
+	 MSG_DeleteTheMail cmd_data = 2;
+}
+
+
+message MSG_RspPickUpTheMail_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspPickUpTheMail cmd_data = 2;
+}
+
+
+message MSG_AfterObtainMail_Cell{
+	 uint64 user_id = 1;
+	 MSG_AfterObtainMail cmd_data = 2;
+}
+
+
+message MSG_ReadTheMail_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReadTheMail cmd_data = 2;
+}
+
+
+message MSG_ReqToken_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqToken cmd_data = 2;
+}
+
+
+message MSG_RspToken_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspToken cmd_data = 2;
+}
+
+
+message MSG_SetupPhotoSuccess_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetupPhotoSuccess cmd_data = 2;
+}
+
+
+message MSG_ReqPhotoList_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqPhotoList cmd_data = 2;
+}
+
+
+message MSG_RspPhotoList_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspPhotoList cmd_data = 2;
+}
+
+
+message MSG_SetUserFace_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetUserFace cmd_data = 2;
+}
+
+
+message MSG_DeletePhoto_Cell{
+	 uint64 user_id = 1;
+	 MSG_DeletePhoto cmd_data = 2;
+}
+
+
+message MSG_UserFeedback_Cell{
+	 uint64 user_id = 1;
+	 MSG_UserFeedback cmd_data = 2;
+}
+
+
+message MSG_RspFeedback_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspFeedback cmd_data = 2;
+}
+
+
+message MSG_NotifyAchievement_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyAchievement cmd_data = 2;
+}
+
+
+message MSG_ReqUserAchievement_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqUserAchievement cmd_data = 2;
+}
+
+
+message MSG_RspUserAchievement_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspUserAchievement cmd_data = 2;
+}
+
+
+message MSG_ObtainAward_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainAward cmd_data = 2;
+}
+
+
+message MSG_ObtainedAwardSuccess_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainedAwardSuccess cmd_data = 2;
+}
+
+
+message MSG_ReqNotifyAchievementFilled_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqNotifyAchievementFilled cmd_data = 2;
+}
+
+
+message MSG_NotifyAchievementFilled_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyAchievementFilled cmd_data = 2;
+}
+
+
+message MSG_UpdateSealData_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateSealData cmd_data = 2;
+}
+
+
+message MSG_UpdateSealPage_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateSealPage cmd_data = 2;
+}
+
+
+message MSG_UpdateSealPack_Cell{
+	 uint64 user_id = 1;
+	 MSG_UpdateSealPack cmd_data = 2;
+}
+
+
+message MSG_SealLevelup_Cell{
+	 uint64 user_id = 1;
+	 MSG_SealLevelup cmd_data = 2;
+}
+
+
+message MSG_SealActive_Cell{
+	 uint64 user_id = 1;
+	 MSG_SealActive cmd_data = 2;
+}
+
+
+message MSG_SealPageActive_Cell{
+	 uint64 user_id = 1;
+	 MSG_SealPageActive cmd_data = 2;
+}
+
+
+message MSG_SealPageActiveTmp_Cell{
+	 uint64 user_id = 1;
+	 MSG_SealPageActiveTmp cmd_data = 2;
+}
+
+
+message MSG_SetSealPageName_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetSealPageName cmd_data = 2;
+}
+
+
+message MSG_SealOverflowToGold_Cell{
+	 uint64 user_id = 1;
+	 MSG_SealOverflowToGold cmd_data = 2;
+}
+
+
+message MSG_LevelUpSealSuccess_Cell{
+	 uint64 user_id = 1;
+	 MSG_LevelUpSealSuccess cmd_data = 2;
+}
+
+
+message MSG_ReqBoxInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqBoxInfo cmd_data = 2;
+}
+
+
+message MSG_NotifyBoxInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyBoxInfo cmd_data = 2;
+}
+
+
+message MSG_ObtainOneBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainOneBox cmd_data = 2;
+}
+
+
+message MSG_AddFreeBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_AddFreeBox cmd_data = 2;
+}
+
+
+message MSG_ReqNotifyBoxFilled_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqNotifyBoxFilled cmd_data = 2;
+}
+
+
+message MSG_NotifyBoxFilled_Cell{
+	 uint64 user_id = 1;
+	 MSG_NotifyBoxFilled cmd_data = 2;
+}
+
+
+message MSG_LevelUpGetBox_Cell{
+	 uint64 user_id = 1;
+	 MSG_LevelUpGetBox cmd_data = 2;
+}
+
+
+message MSG_ReqSevenDayLoginAwards_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqSevenDayLoginAwards cmd_data = 2;
+}
+
+
+message MSG_RspSevenDayLoginAwards_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspSevenDayLoginAwards cmd_data = 2;
+}
+
+
+message MSG_ObtainSevenDaysAward_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainSevenDaysAward cmd_data = 2;
+}
+
+
+message MSG_ObtainItems_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainItems cmd_data = 2;
+}
+
+
+message MSG_ReqShortLinkAward_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqShortLinkAward cmd_data = 2;
+}
+
+
+message MSG_RspShortLinkAward_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspShortLinkAward cmd_data = 2;
+}
+
+
+message MSG_UploadMainPageVoice_Cell{
+	 uint64 user_id = 1;
+	 MSG_UploadMainPageVoice cmd_data = 2;
+}
+
+
+message MSG_SetupGeographicalLocation_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetupGeographicalLocation cmd_data = 2;
+}
+
+
+message MSG_SetupHomePageMessage_Cell{
+	 uint64 user_id = 1;
+	 MSG_SetupHomePageMessage cmd_data = 2;
+}
+
+
+message MSG_ReqPeopleNearby_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqPeopleNearby cmd_data = 2;
+}
+
+
+message MSG_RspPeopleNearby_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspPeopleNearby cmd_data = 2;
+}
+
+
+message MSG_DailyCheck_Cell{
+	 uint64 user_id = 1;
+	 MSG_DailyCheck cmd_data = 2;
+}
+
+
+message MSG_DailyLoginInfo_Cell{
+	 uint64 user_id = 1;
+	 MSG_DailyLoginInfo cmd_data = 2;
+}
+
+
+message MSG_ObtainDailyLogin_Cell{
+	 uint64 user_id = 1;
+	 MSG_ObtainDailyLogin cmd_data = 2;
+}
+
+
+message MSG_ReqDailyLogin_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqDailyLogin cmd_data = 2;
+}
+
+
+message MSG_ReqTodayChecked_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReqTodayChecked cmd_data = 2;
+}
+
+
+message MSG_RspTodayChecked_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspTodayChecked cmd_data = 2;
+}
+
+
+message MSG_GivePraise_Cell{
+	 uint64 user_id = 1;
+	 MSG_GivePraise cmd_data = 2;
+}
+
+
+message MSG_RspBePraise_Cell{
+	 uint64 user_id = 1;
+	 MSG_RspBePraise cmd_data = 2;
+}
+
+
+message MSG_ReportPassiveUser_Cell{
+	 uint64 user_id = 1;
+	 MSG_ReportPassiveUser cmd_data = 2;
+}
+

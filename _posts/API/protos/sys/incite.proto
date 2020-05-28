@@ -1,0 +1,109 @@
+/**
+ * 激励系统
+ * 包括：称号，徽章，签到奖励，成长奖励，抽奖等
+ */
+
+syntax = "proto3";
+
+package flare.sys;
+
+import "common.proto";
+
+
+
+message SItemStack {
+    int64 item_id    = 1;
+    int32 item_count = 2;
+}
+
+message SInciteAwardInfo {
+    int32 award_type = 1;  // 奖励类型，如称号，签到，抽奖，活动等
+    int32 award_id   = 2;  // 奖励的id
+
+    repeated SItemStack items = 3;  // 奖励物品
+}
+
+////////////////////////////////////////////////////////////
+
+// fn get_award( id, award ) ; 领取奖励
+// fn can_get_award( id, award ) ; 是否可获取此等奖励
+
+// 领取奖励
+message GetAwardReq {
+    int64 player_id = 1;
+    int64 award_id  = 2;
+}
+
+/* ========================= 签到 ======================= */
+
+// fn check_in( ) ; 签到
+
+
+// 签到
+message CheckInReq {
+    int64 player_id = 1;
+    int32 app_id    = 2;
+    int32 check_type = 3;   // 签到类型
+}
+
+message CheckInRsp {
+    int32 ccheck_count = 1;  // 连续签到次数
+
+    repeated SInciteAwardInfo awards = 2;
+}
+
+/* ========================= 抽奖 ======================= */
+
+// fn lot() ; 抽奖
+
+message LotReq {
+    int64 player_id = 1;
+    int32 lot_type = 2; // 抽奖类型
+}
+
+message LotRsp {
+    flare.CommonRsp  resp       = 1;
+    SInciteAwardInfo award_info = 2;
+}
+
+
+
+/* ========================= 徽章 ======================= */
+
+// fn has_badge( player, badge ) ; 玩家是否拥有此徽章
+// fn switch_title_badge( player, badge ) ; 切换主徽章
+// fn list_badges( player ) ; 列出所有徽章
+// fn is_accomplish_badge( player, badge ) ;  是否达到称号条件
+
+
+// 查询所有徽章
+message QueryAllBadgesReq {
+    int64 player_id = 1;
+}
+message QueryAllBadgesRsp {
+    int32    badge_count  = 1;
+    repeated int64 badges = 2;
+}
+message SwitchBadgeReq {    
+    int64 player_id = 1;
+    int64 badge_id  = 2;
+}
+// 通知玩家获得新的徽章
+message NewBadgePush {
+    int64 badge_id = 1;
+    int32 badge_type = 2; // 徽章类型
+
+    repeated SInciteAwardInfo awards = 3;
+}
+
+/* ========================= 成长奖励 ======================= */
+
+// 服务器推送等级奖励
+message LevelUpPush {
+    int32 new_level = 1;
+    int32 level_type = 2;    // 等级类型。如常规等级，星级，VIP等级等等
+    int32 new_level_exp = 3; // 新等级的经验值需要
+
+    repeated SInciteAwardInfo awards = 4;
+}
+

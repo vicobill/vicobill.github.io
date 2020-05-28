@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package mmo;
+
+/*
+  - 获取某个排行榜信息
+  - 获取所有排行榜列表、
+  - 领取排行榜奖励
+  - 获取排行榜介绍
+  
+ */
+
+message GetRank {
+  required fixed32 rankid = 1;
+   uint32  length = 2;
+}
+
+    

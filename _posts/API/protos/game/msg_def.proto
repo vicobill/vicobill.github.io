@@ -1,0 +1,713 @@
+syntax = "proto2";
+
+package msg;
+
+// 基础数据，多个地方使用
+message T_BaseUserData 
+{
+	 uint64 user_id = 1;
+	 string user_name = 2;
+	 uint32 level = 3; 				// 等级
+	 uint32 face = 4;				// 头像
+	 uint32 gender = 5;				// 性别
+	 string photo = 6;				// 照片
+	 float  x = 7;					// 地理坐标x
+	 float  y = 8;					// 地理坐标y
+}
+
+message T_UserProfile
+{
+	 string account = 1;
+	 uint64 user_id = 2;
+	 string user_name = 3;
+	 string accid = 42;	
+	
+	 uint64 max_active_weapon_count = 4;
+	repeated T_WeaponData all_weapons = 5;	//所有武器
+	
+	 uint64 money_gold = 6;		//金币
+	 uint64 money_diamond = 7;	//钻石
+	
+	repeated T_BoxData boxes = 8;
+
+	 uint64 common_skin_piece  = 9;   			// 通用皮肤碎片
+	 uint64 my_follow_num = 10; 				// 我关注的数量
+	 uint64 follow_me_num = 11; 				// 关注我的数量
+	 uint64 exp = 12;   						// 经验
+	 T_BaseUserData base_data = 13;				// 人物基础数据
+	 T_RecentNews recent_news = 14;				// 人物最新动态
+	 uint64 online_time = 16;					// 上线时间
+	 uint64 offline_time = 17;					// 下线时间
+	 T_GradeData history_grade = 18;			// 历史最高段位
+	 uint32 skill_guide = 20;					// 新手引导
+	repeated T_PhotoData photos = 22;					// 相册集体
+	 uint32 game_count = 23;					// 正式比赛数目
+	 uint64 day_online_time = 24;				// 每日登陆时间
+	 uint32 online_days = 25;					// 在线天数
+	 uint64 history_money_gold = 26;			// 历史金币数量
+	 uint64 history_money_diamond = 27;			// 历史钻石数量
+	 T_SystemSetting system_set = 28;			// 系统设置
+	 T_HomePageData home_page_data = 31;		// 主页信息
+	 T_WeeklyMoneyLimit weekly_money = 33;		// 每周金币信息
+	 uint32 platform = 34; 						// ios = 0,  Android = 1,
+	 uint32 win_in_a_row = 35;				    // 所有模式比赛中最高连胜
+	 uint64 create_time = 36;					// 创建时间
+	 uint64 create_ip = 37;						// 创建角色IP
+	 uint64 last_ip = 38;						// 上一次登陆IP
+	 uint64 stat_time = 39;						// 在线时间统计（创建角色以来的累积在线时间）
+	 T_SocialProfileData soc_profile_data = 41; // 社交上处理的人物主数据
+}
+
+message T_HomePageData {
+	 string home_page_message = 1;				// 主页留言
+	 string geo_location = 2;					// 地理位置
+	 string main_page_voice = 3;				// 主页语音
+}
+
+message T_UserHeroData
+{
+	 uint64 user_id = 1;
+	repeated T_HeroData heros = 2;
+}
+
+message T_Vector3
+{
+	 float x = 1;
+	 float y = 2;
+	 float z = 3;
+}
+
+message T_Pos{
+	 T_Vector3 world_pos = 3;
+	 T_Vector3 map_pos = 4;
+	 int32 dir = 5;
+}
+
+message T_CellData
+{
+	 string addr = 1;
+	 uint32 type = 2;
+	 uint32 id = 3;
+	 string spec_code = 4;
+}
+
+message T_HoleData
+{
+	 uint64 current_tick = 1;	//当前tick
+	 T_Pos pos = 2;
+	 float radius = 3;
+	 string mask_name = 4;
+}
+
+message T_WeaponData
+{
+	 uint64 weapon_id = 1;		//武器ID
+	 bool activity = 3;			//是否激活
+	 bool unlock = 10;		//是否解锁
+
+	//变量区
+	 uint64 carry_count = 2;	//当前数量
+	 uint64 supply_point = 4;	//已有补充点数
+	 uint64 cold_step = 6;		//几回合后可以使用
+
+	//常量区
+	 uint64 max_count = 5;		//最大携带数量
+	 uint64 supply_need = 7;	//补充需要点数
+	 uint64 cold_down = 9;		//冷却回合数
+}
+
+// 英雄皮肤
+message T_SkinData{
+    repeated uint64 skin_id = 1;
+}
+
+//英雄数据
+message T_HeroData
+{
+	 uint64 hero_id = 1;
+	 bool active = 2;
+	 T_SkinData skin_ids = 3;
+	 uint64 cur_skin_id = 4;
+}
+
+
+message T_ItemData
+{
+	 uint64 object_id = 1;		// 道具ID
+	 uint64 object_num = 2;		// 道具数量
+}
+
+message T_UserItemData
+{
+	 uint64 user_id = 1;     //角色ID
+	repeated T_ItemData item = 2;   //道具信息
+}
+
+message T_SocialNumData
+{
+	 uint64 my_follow_num = 1;		// 我关注的人
+	 uint64 follow_me_num = 2;		// 关注我的人
+	 uint64 friend_num = 3;			// 好友
+	 uint64 recent_contact_num = 4; // 最近联系的人
+}
+
+message T_StorListData
+{
+	 uint64 user_id = 1;
+	 string user_name = 2;
+	 T_GradeData grade = 3;
+	 bool have_follow_him = 4;
+	 T_BaseUserData base_data = 5;
+	 string nick_name = 6;
+	 T_SortListExtraData sort_extra_data = 7;
+}
+
+message T_WatchUserData{
+	 uint64 user_id = 1;
+	 string user_name = 2;
+	 T_GradeData grade = 3;
+	 bool online = 4;
+	 T_SocialNumData social_num = 5;
+	 bool friend = 6;
+	 T_BaseUserData base_data = 7;
+	 T_RecentNews recent_news = 8;
+	 T_GradeData history_grade = 9;
+	 bool new_follow_me = 10;			// 是否新关注我的
+	 uint32 state = 11;					// 玩家的状态
+	 string nick_name = 12;				// 别名
+}
+
+message T_WaitingUserData{
+	 uint64 user_id = 1;	//角色ID
+	 string user_name = 2;	//角色名
+	 uint64 hero_id = 3;	//英雄ID
+	 bool ready = 4;		//准备好
+	 uint64 team = 5;		//1,2队
+	 uint64 loc = 6;		//位置编号
+	 uint64 skin_id = 7;	//玩家的皮肤
+	 T_BaseUserData base_data = 8; // 基础数据
+	 bool robot = 9;		//是否机器人
+}
+
+// 用户状态
+message T_UserState {
+	 bool offline = 1;
+	 bool online = 2;
+	 bool team = 3;      
+	 bool matching = 4;    
+     bool select_hero = 5;   
+	 bool gaming = 6;      
+	 bool team_not_prepare = 7; // Team的子状态
+}
+
+message T_JoinTeamUserData{
+	 uint64 user_id = 1;
+	 string user_name = 2;
+	 T_GradeData grade = 3;
+	 uint64 state = 4;
+	 bool ready = 5; //true 准备好, false 还没准备好
+	 T_BaseUserData base_data = 6;
+	 string nick_name = 7;
+	 uint32 pos = 8;
+	 bool robot = 9;
+}
+
+message T_GradeData{
+	 uint64 medal = 2;	//勋章
+	 uint64 grade = 3;	//段位
+	 uint64 star = 4;	//星
+	 uint64 brave = 5;	//勇气积分
+	 uint64 continue_win = 6;	//连胜
+}
+
+message T_ChatData{
+	 uint64 id = 1;
+	 string msg = 2;
+}
+
+message T_RecentNews{
+	 uint32 event = 1;		  // 最近动态事件 RecentNewsType
+	 uint64 happen_time = 2;  // 时间发生时间
+	 uint32 extra_param = 3;  // 其他参数
+}
+
+message T_UserFollow {
+	 uint64 user_id = 1; // 被关注玩家信息
+	 bool follow = 2;  // true是user_id被关注，false是user_id没有被关注
+}
+
+// 英雄使用信息
+message T_HeroUserData {
+	 uint32 hero_id = 1;		// 英雄ID
+	 uint32 hero_use_num = 2; 	// 英雄使用次数
+	 uint32 hero_win_num = 3;   // 赢的次数
+}
+message T_HeroUseDatas {
+	repeated T_HeroUserData data = 1;
+}
+
+// 比赛具体每场数据
+message T_GameData {
+	 uint32 hero_id = 1;		// 英雄头像
+	 bool result = 2;			// 比赛结果
+	 uint32 kill_num = 3;		// 击杀数目
+	 uint32 death_num = 4;		// 死亡数目
+	 uint32 assist_num = 5;		// 助攻数目
+	 float score = 6;			// 评分
+	 uint32 damage = 7;		    // 伤害
+	 uint32 cure = 8;			// 治疗
+	 int64 time = 9;			// 时间
+	 uint64 unique_id = 10;		// 房间唯一ID
+	 uint32 skin_id = 11;		// 皮肤ID
+	 bool win_mvp = 12;			// 赢方MVP
+	 uint32 battle_data_type = 13; //比赛数据类型
+}
+
+// 所有比赛数据
+message T_GameDatas {
+	repeated T_GameData game_data = 16;	// 每局比赛信息
+}
+
+// 人物界面详细数据
+message T_UserBattleData {
+	 uint32 win_mvp_num = 1;			// 赢MVP数目
+	 uint32 lost_mvp_num = 2;			// 输MVP数目
+	 uint32 one_game_damage = 3;		// 一局最大伤害
+	 uint32 one_game_kill_count = 4; 	// 一局最高击杀数目
+	 uint32 one_round_kill_two = 5;		// 一回合击杀2人数目
+	 uint32 one_round_kill_three = 6;	// 一回合击杀3人数目
+	 uint32 one_game_cure = 7;			// 一局最大治疗量
+	 uint32 win_in_a_row = 8;			// 最高连胜记录
+	 float  kda	= 9;					// (击杀*2+助攻)/(死亡+1)
+	 uint32 race_num = 10;				// 比赛数量
+	 uint64 race_all_damage = 11;		// 总的伤害
+	 uint64 race_all_cure = 12;			// 总的治疗
+	 uint64 race_all_death = 13;		// 总的死亡次数
+	repeated T_HeroUserData hero_user_data = 14;// 英雄使用信息
+	 uint32 race_win_num = 15;			// 胜利总场次
+	repeated T_GameData game_data = 16;			// 每局比赛信息
+	 T_GradeData grade = 17;			// 勇者积分
+	 T_UserHeroData heros = 18;			// 英雄相关情况
+	 float  all_score = 19;				// 每局结算界面所有分数相加
+	 uint64 race_all_kill = 20;			// 总的击杀数量
+	 uint32 battle_data_type = 21;		// 战斗数据类型
+	 uint32 cur_win_in_a_row = 22;		// 当前最高连胜记录
+}
+
+// 人物界面详细数据的类型
+message T_UserBattleDatas {
+	repeated T_UserBattleData data = 1;			// 人物界面详细数据
+	 uint64 box_sequence = 2;
+}
+
+// 聊天的人物信息
+message T_ChatUserData {
+	 uint32 face = 1;		// 头像
+	 uint64 user_id = 2;	// ID
+	 string user_name = 3;	// 名字
+	 T_GradeData grade = 4;	// 当前段位
+	 T_BaseUserData base_data = 5; //基础数据
+}
+
+// 聊天消息结构(1对1聊天)
+message T_ChatMessageData {
+	 string text = 1;		// 聊天文本
+	 uint64 form_id = 2;	// 发送ID
+	 uint64 to_id = 3;		// 接收ID
+	 uint64 chat_time = 4;	// 聊天时间
+}
+
+// 好友聊天消息结构(1对1聊天)
+message T_FriendChatData {
+	 uint64 message_id = 1; // 聊天唯一ID
+	 uint64 chat_time = 2;	// 聊天时间
+}
+
+message T_FriendChatDatas {
+	repeated T_FriendChatData data = 1;
+}
+
+// 单个邮件
+message T_UserMaiItemData
+{
+	 uint64 mail_id				= 1;		//邮件ID
+	 uint32 mail_type			= 2;		//邮件类型
+	 string title				= 3;		//邮件标题
+	 string text    		    = 4;		//文字
+	 bool read 		 			= 5;		//是否读过邮件
+	 uint64 time				= 6;		//邮件产生时间
+	 T_BaseUserData base_data	= 7;		//发送人基本信息
+	repeated T_ItemData item 			= 8;		//邮件道具
+}
+
+// T_BaseUserData 的扩充，可以作为一种通用的类型使用
+message T_ExpandBaseUserData 
+{
+	 T_BaseUserData base_data = 1;			//基础数据
+	 bool robot = 2;						//是否机器人
+	 bool double_confirm_state = 3;			//二次确认状态
+	 uint64 team_match_time = 4;			//队伍匹配成功时间
+	 uint32 light_time = 5;					//机器人点亮时间，时间是秒，2表示team_match_time后2s点亮
+	 T_SystemSetting setting = 6;			//系统设置
+	 uint32 teamab = 7;						//玩家team信息
+	 uint32 position = 8;					//玩家位置信息
+	 T_GradeData grade = 9;					//段位
+	 uint32 user_gate_id = 10;				//玩家所在网关
+	repeated T_HeroData heros = 11;					//英雄信息
+	 float distance = 12;					//距离
+}
+
+// 玩家所有邮件数据
+message T_UserMaiItemDatas
+{
+	repeated T_UserMaiItemData datas = 1;
+}
+
+// 社交玩家的其他需存储的数据
+message T_ExtralSocialUserData
+{
+     bool new_follow_other = 1;             // 新的关注他人
+	 uint64 contact_time = 2;				// 联系时间
+ 	 uint64 last_follow_me_num = 3;			// 新增社交界面关注数量
+	 string nick_name = 4;
+	 bool follow_him = 5;					// 是否关注他
+}
+
+// 社交玩家的基础数据
+message T_SocialUserData {
+	 T_BaseUserData base_data = 1;			//基础人物数据
+     T_GradeData grade = 2;				
+     T_GradeData history_grade = 3;
+     T_RecentNews recent_news = 4;			// 人物最新动态
+	 T_ExtralSocialUserData extral_data = 5;
+	 T_SortListExtraData sort_extra_data = 6;
+	repeated T_HeroData heros = 7;					//英雄信息
+}
+
+// 名字与ID对应关系
+message T_SimpleUserData {
+	 string name = 1;
+	 uint64 id = 2;
+}
+
+// 社交特殊数据
+message T_UserNickNameData {
+	repeated T_SimpleUserData data = 1;
+}
+
+// 相册基础信息
+message T_PhotoData {
+	 string photo_name = 1;
+	 bool private = 2;		// false是公开，true是私有
+}
+
+// 排行榜其他数据信息
+message T_SortListExtraData {
+	 uint64 kill_num = 1;
+	 uint64 daily_kill_num = 2;
+	 uint64 weekly_kill_num = 3;
+	 uint64 mvp_num = 4;
+	 uint64 daily_mvp_num = 5;
+	 uint64 weekly_mvp_num = 6;
+	 uint64 daily_begin_time = 7;
+	 uint64 weekly_begin_time = 8;
+	 int64 daily_fans_num = 9;
+	 int64 weekly_fans_num = 10;
+	 uint64 fans_num = 11;
+	 bool game_title = 12; //怦怦之神称号
+}
+
+// 玩家反馈信息
+message T_FeedbackData {
+	 string text = 1;
+	 bool problem1st = 2;
+	 bool problem2nd = 3;
+	 bool problem3rd = 4;
+	 bool problem4th = 5;
+	 bool problem5th = 6;
+}
+
+// 玩家反馈的所有信息
+message T_FeedbackDatas {
+	repeated uint64 datas = 1;  // 玩家反馈的所有数据json存储
+}
+
+// 成就信息
+message T_AchievementData {
+	 uint32 event_id = 1;
+	 uint64 time = 2;	// 达到时间
+	 bool obtained = 3;
+	 uint64 extra_data = 4;	// 几个条件中玩家完成的数据
+}
+
+// 所有的成就系统
+message T_AllAchievementData {
+	repeated T_AchievementData data = 1;
+}
+
+// 结算的实现显示的结构
+message T_AchievementShow {
+	 uint32 event_enum = 1;
+	 uint64 old_value = 2;
+	 uint64 new_value = 3;
+}
+
+// 昨日怦怦英雄50排序
+message T_YesterdaySortGrade {
+	 int64 sort_list_time = 1;
+	repeated uint64 user_id = 2;
+}
+
+// 系统设置的数据
+message T_SystemSetting {
+	 bool not_show_battle_data = 1;
+	 bool no_friend_or_recent_invent = 2;
+	 bool no_recent_invent = 3;
+}
+
+// 玩家Session状态
+message T_SessionUserState {
+	 bool offline = 1;						// 离线
+	 bool online = 2;						// 在线
+	 bool teaming = 3;						// 组队
+	 bool matching = 4;						// 匹配
+	 bool select_hero = 5;					// 选择英雄
+	 bool gaming = 6;						// 游戏中
+	 bool team_not_prepare = 7; 			// 组队中但是未准备好
+	 bool no_friend_or_recent_invent = 8;	// 不接收邀请
+	 bool no_recent_invent = 9;				// 不接收最近邀请
+	 uint64 gaming_room_id = 11;	// 游戏中-房间编号
+	 bool view_game = 12;
+}
+
+// 宝箱领取信息
+message T_UserBoxTaskCycle {
+	 uint32 task_cycle = 1;					// 第几阶段
+	 uint32 condition_win_num = 2;			// 胜利几次
+	 uint32 current_win_num = 3;			// 当前胜利场次（免费是时间到）
+	 uint32 box_id = 4;						// 可以领取的宝箱
+	 bool obtained = 5;						// 是否领取
+}
+
+// 玩家宝箱
+message T_UserBox {
+	 uint32 box_type = 1;					// 1是免费宝箱，2是任务宝箱
+	 uint32 can_obtain_box_num = 2;			// 当前可以完成任务
+	 uint64 obtain_box_time = 3;			// 领取宝箱的时间
+	 uint64 time_interval = 4;				// 时间间隔
+	repeated T_UserBoxTaskCycle data = 5;			// 宝箱领取信息
+	 uint32 extra_task_box = 6;				// 完成多余的宝箱
+}
+
+// 玩家多个宝箱数据
+message T_UserBoxs {
+	repeated T_UserBox box = 1;
+}
+
+//T_SealData 符文数据
+message T_SealData {
+	 uint64 seal_id = 1;
+	 uint64 seal_level = 2;
+	 uint64 seal_num = 3;
+}
+
+//T_SealPage 符文页
+message T_SealPage {
+	 uint64 page_id = 1;	//从1开始
+	 uint64 slot_a = 2;
+	 uint64 slot_b = 3;
+	 uint64 slot_c = 4;	
+	 string page_name = 5;
+}
+
+message T_HeroActiveSeal{
+	 uint64 hero_id = 1;
+	 uint64 active_page = 2;
+}
+//T_SealPack 符文包裹
+message T_SealPack {
+	repeated T_SealData seals = 1;
+	repeated T_SealPage pages = 2;
+	 uint64 active_page = 3;
+	repeated T_HeroActiveSeal hero = 4;
+}
+
+// 成就数据
+message T_TargetEventValue {
+	 uint32 event_enum = 1;
+	 uint64 old_value = 2;
+	 uint64 new_value = 3;
+}
+
+// 某天累积登陆奖励
+message T_SevenDayLoginAward {
+	 uint32 day	= 1;		// 第几天
+	repeated T_ItemData item = 2;	// 道具信息
+	 bool obtained = 3;		// 是否领取
+	 bool finished = 4;		// 是否达到
+	 string icon = 5;		// 图标
+	 string show_name = 6;	// 显示名字
+}
+
+// 七天累积登陆奖励
+message T_SevenDayLoginAwards {
+	repeated T_SevenDayLoginAward data = 1;
+	 uint64 seven_days_add_time = 2;			// 七天登陆加入容器的时间
+}
+
+// 短链接
+message T_ShortLink {
+	 uint64 last_obtain_time = 1;
+	repeated T_ItemData data = 2;
+	 uint32 obtained_num = 3;
+	 uint32 max_obtain_num = 4;
+	 uint32 history_obatained_count = 5; // 历史获得次数
+}
+
+// 每月登陆天数
+message T_LoginDay {
+	 uint32 day = 1;		// 第几天
+	 bool checked = 2;		// 是否点击确认
+	 bool obtained = 3;		// 是否领取
+	repeated T_ItemData item = 4;	// 道具信息
+	 string icon = 5;		// 图片显示
+	 string show_name = 6;	// 显示名称
+	 uint32 day_type = 7;	// 0是每日的天数，1是累积的天数
+	 uint64 unique_id = 8;  // 唯一ID
+}
+
+message T_LoginDays {
+	 uint32 year = 1;
+	 uint32 month = 2;		// 几月
+	repeated T_LoginDay days = 3;	// 每月登陆天数信息
+	 uint32 day = 4;		// 一个月第几天
+	 uint32 login_days = 5; // 已经签到天数
+	 bool today_checked = 6;// 今天是否签到
+}
+
+message T_WeeklyMoneyLimit {
+	 uint32 weekly_money_gold = 1;		// 当前jibi
+	 uint64 time = 4;
+}
+
+// 社交上处理的玩家profile数据
+message T_SocialProfileData {
+	 uint32 be_praised_num = 1;	 // 被赞次数
+	 int32 reputation = 2;		 // 信誉值
+	 uint32 be_reported_num = 3; // 被举报次数
+	 int32 reputation_score = 4;// 信誉积分
+}
+
+message T_OneHeroMessageData{
+	 uint64 hero_id = 1;
+	repeated uint64 msg_id = 2;
+}
+
+//英雄的选择提示
+message T_HeroMessageData{
+	repeated T_OneHeroMessageData heros = 1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+enum UserState{
+	Offline = 1;	//不在线
+	Online = 2;	//在线
+	Teaming = 3;	//组队中
+	Matching = 4;	//匹配中
+	SelectHero = 5;	//选择英雄
+	Gaming = 6;	//游戏中
+	TeamNotPrepare = 7; // 组队中但是未准备好
+	NoFriendOrRecentInvent = 8; // 不接收邀请
+	NoRecentInvent = 9; // 不接收最近邀请
+}
+
+//战斗操作码
+enum BattleOperateCode{
+	OCUserMoveLeft = 1;
+	OCUserMoveRight = 2;
+	OCUserStopMove = 3;
+	OCUserJump = 4;
+	OCUserSkillAction = 5;
+	OCUserTureLeft = 6;
+	OCUserTureRight = 7;
+}
+
+//改成返回标志码
+enum ChangeNameResultCode {
+	RCSuccess = 0;					// 成功
+	RCNameRepeat = 1;				// 名称重复
+	RCEmptyName = 2;				// 空名字
+	RCSameName = 3;					// 自己的名字
+	RCSpecialCharacter = 4; 		// 特殊字符
+	RCNameLess = 5;					// 名字最少2个字符
+	RCNameMore = 6;					// 超过名字最大6个汉字
+	RCNameFilter = 7;				// 屏蔽字
+}
+
+// 查找人名返回码
+enum SearchByNameResultCode {
+	SNFailed = 0; 					// 失败
+	SNSuccessed	= 1;				// 成功
+	SNSelfName = 2;					// 查找的自己
+}
+
+// 最近动态相关信息
+enum RecentNewsType {
+	RNEnterGameTime = 1;						// 新号第一次进入时间
+	RNOnlineTime = 2;							// 上线时间
+	RNObtainMVP	= 3;							// 单局获得MVP
+	RNBeatsThreePlayersWhithoutDeath = 4;		// 不死亡连续击败3个玩家
+	RNBeatsFourPlayersWhithoutDeath = 5;		// 不死亡连续击败4个玩家
+	RNBeatsFivePlayersWhithoutDeath = 6;		// 不死亡连续击败5个玩家
+	RNBeatsSixPlayersWhithoutDeath = 7;			// 不死亡连续击败6个玩家
+	RNBeatsTwoPlayersOneRound = 8;				// 一回合双杀
+	RNBeatsThreePlayersOneRound = 9;			// 一回合三杀
+	RNBeatsFourPlayersOneRound = 10;			// 一回合四杀
+	RNBeatsPlayerWin3rd	= 11;					// 三连胜
+	RNBeatsPlayerWin5th = 12;					// 五连胜
+	RNBeatsPlayerWin10th = 13;					// 十连胜
+	RNBeatsSevenPlayersWhithoutDeath = 14;		// 不死亡连续击败6个玩家
+	RNBeatsPlayerWin15th = 15;					// 十五连胜	
+	RNBeatsPlayerWin20th = 16;					// 二十连胜	
+	RNBeatsPlayerWin30th = 17;					// 三十连胜	
+	RNBeatsPlayerWin50th = 18;					// 五十连胜	
+}
+
+// 组队和切磋反馈
+enum OneVsOneResultCode {
+	OVOSuccess 			 = 0;		// 成功
+	OVOSelfOffline 		 = 1; 		// 自己不在线，不能邀请别人
+	OVOSelfTeaming 		 = 2; 		// 自己正在组队，不能邀请别人
+	OVOSelfMatching 	 = 3; 		// 自己正在匹配，不能邀请别人
+	OVOSelfPrepareGame 	 = 4;	 	// 自己正准备游戏，不能邀请别人
+	OVOSelfGaming 		 = 5;		// 自己游戏中，不能邀请别人
+	OVOOffline 			 = 6; 		// 对方不在线，不能被邀请
+	OVOTeaming 			 = 7; 		// 对方正在组队，不能被邀请
+	OVOMatching 		 = 8; 		// 对方正在匹配，不能被邀请
+	OVOPrepareGame 		 = 9;		// 对方正准备游戏，不能被邀请
+	OVOGaming 			 = 10;		// 对方游戏中，不能被邀请
+	OVOSelfOffline2 	 = 11; 		// 自己不在线，不能回应邀请
+	OVOSelfTeaming2 	 = 12; 		// 自己正在组队，不能回应邀请
+	OVOSelfMatching2 	 = 13; 		// 自己正在匹配，不能回应邀请
+	OVOSelfPrepareGame2  = 14;	 	// 自己正准备游戏，不能回应邀请
+	OVOSelfGaming2 		 = 15;		// 自己游戏中，不能回应邀请
+	OVOOffline2 		 = 16; 		// 回应邀请的时候，邀请人不在线
+	OVOTeaming2 		 = 17; 		// 回应邀请的时候，邀请人正在组队
+	OVOMatching2 		 = 18; 		// 回应邀请的时候，邀请人正在匹配
+	OVOPrepareGame2 	 = 19;		// 回应邀请的时候，邀请人正准备游戏
+	OVOGaming2 			 = 20;		// 回应邀请的时候，邀请人游戏中
+	OVOSelfNotTeam		 = 21;		// 自己不在组队状态，不能邀请
+	OVONotTeam			 = 22;		// 对方不在组队状态，不能被邀请
+	OVONOInvent 		 = 23;		// 禁止好友和最近邀请
+	OVONoRecentInvent    = 24;		// 禁止最近邀请	
+	OVOLadderNotMinHero  = 25;		// 天梯最少英雄不满足
+	OVOLadderNotMinLevel = 26;		// 最小等级不满足
+}
+
+// 登陆返回信息
+enum LoginRetCode {
+	Success = 0;	// 成功
+	Failed = 1;		// 失败
+	NotOpen = 2;    // 暂未开放
+	Seal = 3;		// 封号
+}
