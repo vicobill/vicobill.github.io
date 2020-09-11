@@ -223,3 +223,13 @@ string s = "The quick brown fox jumped over the lazy dog.";
 s.WordCount();
 ```
 
+### Regex：
+
+```c#
+@"mesh_([a-z]+)_([a-z]+)(_(\S+))" 匹配 mesh_body_bazzi_arib 时
+match.Groups有5个，
+第一个为字符串本身
+依次匹配2,3，
+第四个为 _arib,
+第五个为 "arib"
+```

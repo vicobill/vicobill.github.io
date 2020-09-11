@@ -42,3 +42,11 @@ C:\Program Files\Unity Hub\resources> asar extract .\app.asar app
 Assembly（程序集）是C#中的概念，是代码模块的逻辑性（非物理性）分组，它在VS中表现为Project。exe和dll都可是Assembly。
 
 C#中的应用结构如下：AppDomain由N个Assembly组成；每个Assembly由N个Module组成；每个Module由N个Type组成；每个Type由N个Member组成。这些信息都可通过System.Reflection查找到。
+
+## 常见问题：
+
+- SkinnedMeshRenderer动态添加后不显示：
+  
+  SkinnedMeshRenderer的bones不能为空
+
+- 旋转角度上（特别是2D旋转），使用Vector2.SignedAngle，计算带方向的角度。
