@@ -1,6 +1,7 @@
+# Unity3D
 只使用LTS版本，不要图新。
 
-# 协程
+## 协程
 
 Unity3D协程通过IEnumerator实现。
 
@@ -40,7 +41,7 @@ static IEnumerable<string> GetEnumTest() {
 
 
 
-# 常用
+## 常用
 
 1. 发布时，固定分辨率： buildsetting->defaullt is native resolution 去掉勾选。
 2. 播放影片：MovieTexture。能使用的视频格式有：mov,mpg,mpeg,mp4,avi等。
