@@ -35,3 +35,4 @@ Temporary Items
 .apdisk
 build.sh
 .jekyll-cache
+/Gemfile.lock

@@ -27,7 +27,13 @@ nav:
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
-plugins: [jekyll-paginate]
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+
 paginate: 10
 paginate_path: "page/:num/"
 
@@ -42,7 +48,7 @@ social:
     github: vicobill
     gitee: vicobill
     twitter: vicobill
-    qq: 490144445
+    qq: # 490144445
     # gplus: 107108267983477358170
     mail: vicobill@hotmail.com
 

@@ -4,5 +4,11 @@ else
     source 'https://rubygems.org'
 end
 
-gem 'jekyll'
-gem 'jekyll-paginate'
+gem "jekyll"
+
+group :jekyll_plugins do
+  gem 'jekyll-sitemap'
+  gem 'jekyll-feed'
+  gem 'jekyll-seo-tag'
+  gem 'jekyll-paginate'
+end
