@@ -12,10 +12,10 @@ Linux基本目录结构：
 Android 基本目录结构：
 ![android-fs](../../../assets/images/android-fs.png)
 
-## 常见命令
+## 常见命令与注意事项
 
 - 可使用adb connect连接指定设备。
-
+- Android9以上只支持https协议，不支持http
 # 逆向工程工具：
 - 反编译器：将二进制反编译成高级语言，如C++
   - JEB Decompiler
