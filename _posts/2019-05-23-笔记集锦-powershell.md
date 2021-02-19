@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  笔记集锦-Powershell
+title:  笔记集锦-Powershell&Windows
 category: powershell
 date: 2019-05-23 11:57:10 +0800
 ---
@@ -11,3 +11,17 @@ date: 2019-05-23 11:57:10 +0800
 
 - 安装 Chocolately：
   `Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+
+
+## Windows
+### 添加开机启动项
+
+`%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+
+将要启动自启动的程序的快捷方式加入此目录即可
+
+也可添加vbs脚本，如自启动wsl：
+```
+Set ws = WScript.CreateObject("WScript.Shell")
+ws.run "wsl -d ubuntu -u root /etc/init.wsl"
+```
